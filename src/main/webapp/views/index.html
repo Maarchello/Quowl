@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.thymeleaf.org" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Thymeleaf</title>
+    <link rel="stylesheet" href="/resources/css/indexPage.css" />
+</head>
+<body>
+<video autoplay loop muted class="bgvideo" id="bgvideo">
+    <source src="video.mp4" type="video/mp4"></source>
+</video>
+<table style="max-width:800px">
+    <thead>
+    <tr>
+        <th>Name</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="name : ${names}">
+        <td th:text="${name.createdDate}">Name</td>
+    </tr>
+    </tbody>
+</table>
+
+
+<h3 th:text="${profile.firstName}"></h3>
+<h3 th:text="${profile.lastName}"></h3>
+<h3 th:text="${profile.gender}"></h3>
+</body>
+</html>
