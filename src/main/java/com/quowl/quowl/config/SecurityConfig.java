@@ -2,8 +2,7 @@ package com.quowl.quowl.config;
 
 import com.quowl.quowl.service.system.XAuthTokenConfigurer;
 import com.quowl.quowl.service.user.CustomUserDetailsService;
-import com.quowl.quowl.utils.AuthoritiesConstants;
-import com.quowl.quowl.utils.TokenProvider;
+import com.quowl.quowl.service.system.TokenProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;

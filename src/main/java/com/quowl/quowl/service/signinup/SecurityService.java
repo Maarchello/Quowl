@@ -3,7 +3,7 @@ package com.quowl.quowl.service.signinup;
 
 import com.quowl.quowl.service.user.CustomUserDetailsService;
 import com.quowl.quowl.utils.CookieUtils;
-import com.quowl.quowl.utils.TokenProvider;
+import com.quowl.quowl.service.system.TokenProvider;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;

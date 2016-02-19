@@ -1,6 +1,7 @@
-package com.quowl.quowl.utils;
+package com.quowl.quowl.service.system;
 
 
+import com.quowl.quowl.utils.CookieUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.codec.Hex;
 import org.springframework.stereotype.Service;

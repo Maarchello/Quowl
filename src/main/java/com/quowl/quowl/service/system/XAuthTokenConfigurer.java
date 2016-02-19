@@ -1,6 +1,5 @@
 package com.quowl.quowl.service.system;
 
-import com.quowl.quowl.utils.TokenProvider;
 import com.quowl.quowl.utils.XAuthTokenFilter;
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
