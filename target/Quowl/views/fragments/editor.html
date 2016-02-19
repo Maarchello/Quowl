@@ -1,0 +1,12 @@
+<div id="myModal" class="modal">
+    <div class="modal-content col-lg-3 col-centered">
+        <label for="quote_edit">Цитата:</label>
+        <textarea class="form-control margin-bottom" cols="30" rows="6" id="quote_edit" style="text-align: center; font-size:15pt;"></textarea>
+
+        <div id="modal_message"></div>
+        <input type="button" class="btn" onclick="editQuote($(this).parent().parent().attr('id'))" value="Сохранить" />
+        <input type="button" class="btn" onclick="deleteQuote($(this).parent().parent().attr('id'))" value="Удалить" />
+        <input type="button" class="btn pull-right" onclick="closeModal()" value="Закрыть" />
+
+    </div>
+</div>

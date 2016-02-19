@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Quowl</title>
+    <script src="/resources/js/global/jquery-2.2.0.min.js"></script>
+    <script src="/resources/js/feed/feed.js"></script>
+    <link rel="stylesheet" href="/resources/css/global/bootstrap.min.css" />
+    <link rel="stylesheet" href="/resources/css/global/general.css" />
+    <link rel="stylesheet" href="/resources/css/feed/feed.css" />
+</head>
+<body id="body">
+<div th:replace="fragments/header"></div>
+
+<!-- Слева профиль -->
+<section id="left-menu" class="col-lg-2 col-md-2 col-sm-2 col-xs-2 border" onclick="clear()">
+    <div class="username">
+        <img src="/resources/img/nerd_2.jpg" class="userava"/>
+        <a href="" th:href="${user.nickname}" th:text="${user.nickname}"></a>
+    </div>
+
+    <div id="user-info" >
+        <div style="display: inline-block; font-weight: 700; text-align: center;" th:text="'Цитат:'">Цитат</div>
+        <div style="display: inline-block;font-weight: 700;" id="count_quotes" th:text="${user.countQuotes}">5</div> |
+        <div style="display: inline-block; font-weight: 700;" th:text="'Прочитанных книг: '">Прочтенные книги</div>
+        <div style="display: inline-block; font-weight: 700;" th:text="${user.countReadBooks}">count</div>
+    </div>
+    <hr class="hr margin-top" />
+
+    <div id="status">
+        <div class="status">
+            <span class="authorName" id="author" style="margin:0;"  onclick="editStatus('authorName')" th:text="${user.authorName} == null ? 'Введите автора' : ${user.authorName}">Author</span>
+            <input type="text" id="authorName_edit" class="book col-lg-12 center-block" placeholder="Автор"/>
+        </div>
+        <div class="status">
+            <span class="bookName" id="book" onclick="editStatus('bookName')" th:text="${user.bookName} == null ? 'Введите название книги' : ${user.bookName}">Book</span>
+            <input type="text" id="bookName_edit" class="book col-lg-12" placeholder="Название книги"/>
+        </div>
+    </div>
+
+    <div style="padding:5px;">
+        <button class="btn btn-red pull-right" onclick="saveStatus()">Сохранить</button>
+    </div>
+</section>
+
+
+<section class="col-lg-4 col-md-5 col-sm-7 col-xs-8 col-centered">
+    <div class="cart" style="background:none;">
+        <textarea class="form-control margin-bottom" cols="30" rows="6" id="quote" onclick="clearAll();" style="text-align: center; font-size:15pt;" spellcheck="true" placeholder="Цитата"></textarea>
+        <button class="btn" onclick="addQuote()" th:text="'Добавить'">Send</button>
+    </div>
+</section>
+
+
+<section th:each="quote : ${quotes}" id="quotes" class="col-lg-4 col-md-5 col-sm-7 col-xs-8 col-centered">
+    <div th:replace="fragments/post"></div>
+</section>
+
+<div th:replace="fragments/editor"></div>
+
+</body>
+</html>

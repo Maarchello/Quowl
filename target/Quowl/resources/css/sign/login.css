@@ -1,0 +1,26 @@
+body{background: url("/resources/img/background.jpg") no-repeat fixed;
+    position: relative;
+    -moz-background-size: 100% 100%;
+    -webkit-background-size: 100% 100%;
+    -o-background-size: 100% 100%;
+    background-size: 100% 100%;}
+input[type="text"]:focus{outline: none;}
+input[type="password"]:focus{outline: none;}
+input[type="email"]:focus{outline: none;}
+input[type="button"]:focus{outline: none;}
+input[type="text"]{width: 100%;}
+input[type="email"]{width: 100%;}
+input[type="password"]{width: 100%;}
+a{cursor: pointer;}
+
+.btn:focus,.btn:active {
+    outline: none !important;
+}
+
+
+.login {text-align: center; -webkit-align-content: center; border:solid black 0px; margin-top:50px; margin-left:55%; background:whitesmoke; color:black; box-shadow: 0 0 2px; border-radius:3px; }
+
+.input {font-size:15pt; -moz-text-decoration-color: black; border:none; border-bottom: solid #b6b8b9 1px !important; text-align: center; padding-top:7px; background-color: whitesmoke; }
+.input:focus {border-bottom: solid black 1px !important;}
+
+.error_span {display: none; color:red; font-size: 10pt;}

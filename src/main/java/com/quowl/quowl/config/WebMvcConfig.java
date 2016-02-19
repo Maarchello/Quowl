@@ -1,18 +1,17 @@
 package com.quowl.quowl.config;
 
+import com.quowl.quowl.service.user.CustomUserDetailsService;
+import org.apache.commons.lang3.CharEncoding;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
-import org.springframework.web.servlet.view.JstlView;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.thymeleaf.spring4.view.ThymeleafViewResolver;
-import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 import org.thymeleaf.templateresolver.TemplateResolver;
 
@@ -27,11 +26,19 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     }
 
     @Bean
+    public UserDetailsService getUserDetailsService() {
+        return new CustomUserDetailsService();
+    }
+
+
+
+    @Bean
     public TemplateResolver templateResolver() {
         TemplateResolver resolver = new ServletContextTemplateResolver();
         resolver.setPrefix("/views/");
         resolver.setSuffix(".html");
         resolver.setTemplateMode("HTML5");
+        resolver.setCharacterEncoding("UTF-8");
         resolver.setCacheable(false);
 
         return resolver;
@@ -49,7 +56,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     public ViewResolver thymeleafViewResolver() {
         ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
         viewResolver.setTemplateEngine(templateEngine());
-        viewResolver.setCharacterEncoding("UTF-8");
+        viewResolver.setCharacterEncoding(CharEncoding.UTF_8);
 
         return viewResolver;
     }
