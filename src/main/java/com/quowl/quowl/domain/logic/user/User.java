@@ -41,7 +41,7 @@ public class User extends AuditingEntity implements UserDetails {
     @OneToMany(mappedBy = "user")
     private List<Quote> quotes;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     @JoinTable(name = "likes", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "quote_id", referencedColumnName = "id"))
     private List<Quote> likes;
 

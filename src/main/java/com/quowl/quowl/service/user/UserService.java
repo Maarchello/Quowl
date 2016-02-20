@@ -55,6 +55,7 @@ public class UserService {
         User user = userRepository.findOneByNickname(nickname);
 
         CurrentUserBean cub = new CurrentUserBean();
+        if (nickname.equals("anonymousUser")) return cub;
         cub.copyDataFromDomain(user);
 
         return cub;
