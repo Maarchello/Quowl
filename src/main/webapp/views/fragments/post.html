@@ -4,21 +4,23 @@
         <a href="" th:href="${user.nickname}">marat</a>
         <b><span class="pull-right" style="color:grey; opacity: 0.6; font-size: 12pt;" th:text="${quote.date}">123</span></b>
     </div>
+    <div>
+        <div> <!-- add border for mt and mb -->
+            <div style="margin-top: 20px;" class="field col-centered" th:text="${quote.author}">Author</div>
+            <hr class="line margin-bottom" />
 
-    <div style="border:none; font-weight: 900; font-size: 13pt; width:80%;  font-family: Copperplate;" class="col-centered" th:text="${quote.author}">Author</div>
-    <hr class="line margin-bottom" />
+            <div  class="text-center" th:id="'quote_text_' + ${quote.id}" th:text="${quote.text}" style="font-family: Copperplate; padding: 10px; padding-left: 25px; padding-right: 25px;"></div>
 
-    <div th:id="'quote_text_' + ${quote.id}" th:text="${quote.text}" style="font-family: Copperplate; padding: 10px;"></div>
-
-    <hr class="line margin-top" />
-    <div style="border:none; margin-bottom:30px; font-weight: 900; font-size: 13pt; width:80%; font-family: Copperplate;" class="col-centered" th:text="${quote.book}">Book</div>
-
+            <hr class="line margin-top" />
+            <div style="margin-bottom:30px;" class="field col-centered" th:text="${quote.book}">Book</div>
+        </div>
+    </div>
     <div class="border" style="height: 40px;">
 
-        <div class="pull-left" style="cursor:pointer; padding:1px; width: 7%; min-height: inherit; display: inline-block" onclick="like($(this).parent().parent());">
+        <div class="pull-left like" onclick="like($(this).parent().parent());">
             <img id="like_unlike" th:src="${#lists.contains(quote.users, currentUser) ? '/resources/img/like.png' : '/resources/img/unlike.png'}"  width="30" height="30" />
         </div>
-        <div class="pull-left" style="width: auto; font-size:18pt; padding:1px; min-height: 100%; display: inline-block" id="likes" th:text="${#lists.size(quote.users)}" >5</div>
+        <div class="pull-left likes_count" id="likes" th:text="${#lists.size(quote.users)}" >5</div>
 
         <div th:if="${quote.userId} == ${currentUser.id}" th:id="${quote.id}" class="pull-right" style="display: inline-block; cursor:pointer; width: 8%; height: 100%;" onclick="editorOfQuote(this.id);">
             <img src="/resources/img/edit.png" width="30" />

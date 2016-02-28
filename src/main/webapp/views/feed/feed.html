@@ -5,6 +5,8 @@
     <title>Quowl</title>
     <script src="/resources/js/global/jquery-2.2.0.min.js"></script>
     <script src="/resources/js/feed/feed.js"></script>
+    <script src="/resources/js/global/general.js"></script>
+
     <link rel="stylesheet" href="/resources/css/global/bootstrap.min.css" />
     <link rel="stylesheet" href="/resources/css/global/general.css" />
     <link rel="stylesheet" href="/resources/css/feed/feed.css" />
@@ -20,26 +22,32 @@
     </div>
 
     <div id="user-info" >
-        <div style="display: inline-block; font-weight: 700; text-align: center;" th:text="'Цитат:'">Цитат</div>
-        <div style="display: inline-block;font-weight: 700;" id="count_quotes" th:text="${user.countQuotes}">5</div> |
-        <div style="display: inline-block; font-weight: 700;" th:text="'Прочитанных книг: '">Прочтенные книги</div>
-        <div style="display: inline-block; font-weight: 700;" th:text="${user.countReadBooks}">count</div>
+        <div style="display: inline-block; font-weight: 500; text-align: center;" th:text="'Цитат:'">Цитат</div>
+        <div id="count_quotes" style="display: inline-block;font-weight: 700;" th:text="${user.countQuotes}">5</div> |
+        <div style="display: inline-block; font-weight: 500;" th:text="'Прочитанных книг: '">Прочтенные книги</div>
+        <div id="count_books" style="display: inline-block; font-weight: 700;" th:text="${user.countReadBooks}">count</div>
     </div>
     <hr class="hr margin-top" />
 
     <div id="status">
         <div class="status">
-            <span class="authorName" id="author" style="margin:0;"  onclick="editStatus('authorName')" th:text="${user.authorName} == null ? 'Введите автора' : ${user.authorName}">Author</span>
+            <span class="authorName" id="author"  th:style="${user.authorName} == null ? 'color:darkgrey' : 'color:black'"  onclick="editStatus('authorName')" th:text="${user.authorName} == null ? 'Автор' : ${user.authorName}">Author</span>
             <input type="text" id="authorName_edit" class="book col-lg-12 center-block" placeholder="Автор"/>
         </div>
         <div class="status">
-            <span class="bookName" id="book" onclick="editStatus('bookName')" th:text="${user.bookName} == null ? 'Введите название книги' : ${user.bookName}">Book</span>
+            <span class="bookName" id="book" th:style="${user.bookName} == null ? 'color:darkgrey' : 'color:black'" onclick="editStatus('bookName')" th:text="${user.bookName} == null ? 'Название книги' : ${user.bookName}">Book</span>
             <input type="text" id="bookName_edit" class="book col-lg-12" placeholder="Название книги"/>
         </div>
-    </div>
+        <span id="status_message" class="col-centered" style="display: none; position: absolute; text-align:center; width:90%;">Ready</span>
+    </div><br />
 
-    <div style="padding:5px;">
-        <button class="btn btn-red pull-right" onclick="saveStatus()">Сохранить</button>
+    <div style="margin-bottom: 5px; overflow: hidden; padding-right:15px; padding-left: 15px">
+        <div>
+            <button class="btn btn-red pull-left" onclick="bookComplete()">Прочитал(а)</button>
+        </div>
+        <div style="">
+            <button class="btn btn-red pull-right" onclick="saveStatus()">Сохранить</button>
+        </div>
     </div>
 </section>
 

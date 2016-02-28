@@ -9,6 +9,6 @@ public enum ExecutionStatus {
     Wrong_email_address,
     User_data_empty,
 
-    Incorrect_user_data,
+    Invalid_user_data
 
 }

@@ -15,7 +15,10 @@ public class Books extends AuditingEntity {
     @Column
     private String book;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @Column(nullable = false)
+    private boolean readed = false;
+
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User user;
 
@@ -41,5 +44,13 @@ public class Books extends AuditingEntity {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public boolean isReaded() {
+        return readed;
+    }
+
+    public void setReaded(boolean readed) {
+        this.readed = readed;
     }
 }

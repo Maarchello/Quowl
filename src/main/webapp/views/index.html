@@ -5,15 +5,13 @@
     <title>Quowl</title>
     <script src="/resources/js/global/jquery-2.2.0.min.js"></script>
     <script src="/resources/js/sign/sign.js"></script>
+    <link rel="stylesheet" href="/resources/css/global/general.css" />
     <link rel="stylesheet" href="/resources/css/sign/login.css"/>
     <link rel="stylesheet" href="/resources/css/global/bootstrap.min.css"/>
 
 </head>
 <body>
-<!--<video autoplay="autoplay" loop="loop" width="320" height="240" id="bgvid">
-    <source src="/resources/b.mp4" type="video/mp4"/>
-</video>-->
-<div class="col-lg-2 col-md-3 col-sm-4 col-xs-4 login" sec:authorize="hasRole('ROLE_ADMIN')">
+<div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 login" sec:authorize="hasRole('ROLE_ADMIN')">
     <form class="navbar-form" th:action="@{/login}" method="post">
         <div class="form-group">
             <div>

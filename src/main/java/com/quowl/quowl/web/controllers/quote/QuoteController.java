@@ -1,7 +1,9 @@
 package com.quowl.quowl.web.controllers.quote;
 
+import com.quowl.quowl.domain.logic.books.Books;
 import com.quowl.quowl.domain.logic.quote.Quote;
 import com.quowl.quowl.domain.logic.user.User;
+import com.quowl.quowl.repository.books.BooksRepository;
 import com.quowl.quowl.repository.quote.QuoteRepository;
 import com.quowl.quowl.repository.user.UserRepository;
 import com.quowl.quowl.utils.SecurityUtils;
@@ -16,6 +18,7 @@ import javax.inject.Inject;
 public class QuoteController {
     @Inject private QuoteRepository quoteRepository;
     @Inject private UserRepository userRepository;
+    @Inject private BooksRepository booksRepository;
 
     @RequestMapping(value = "/addQuote", method = RequestMethod.POST)
     @ResponseBody
@@ -25,13 +28,15 @@ public class QuoteController {
         if (user.getBookName() == null || user.getAuthorName() == null) {
             return JsonResultBean.failure("Автор или название книги не установленны");
         }
+        Books book = booksRepository.findOneByBookAndAuthor(user.getBookName(), user.getAuthorName());
+
         Quote quo = new Quote();
+        quo.setBookId(book.getId());
         quo.setUser(user);
         quo.setBook(user.getBookName());
         quo.setAuthor(user.getAuthorName());
         quo.setText(quote);
         quo = quoteRepository.save(quo);
-
         QuoteBean quoteBean = new QuoteBean();
         quoteBean.copyDataFromDomain(quo);
 

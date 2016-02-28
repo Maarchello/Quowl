@@ -1,0 +1,24 @@
+<header class="header-mobile">
+        <div>
+            <div style="display: block; border: solid 0px black; overflow: hidden;">
+                <span class="pull-left">Quowl</span>
+                <img src="/resources/img/edit2.png" width="50" onclick="menu()" style="float: right; height:80%;" />
+            </div>
+            <div id="menu" style="display: none;">
+                <div style="border-bottom: solid 1px lightgrey; margin-bottom: 5px; text-align: center; font-size: 18pt;"><a th:href="${user.nickname}">Профиль</a></div>
+                <div style="border-bottom: solid 1px lightgrey; margin-bottom: 5px; text-align: center; font-size: 18pt;"><a th:href="@{/feed}">Лента</a></div>
+                <div style="border-bottom: solid 1px lightgrey; margin-bottom: 5px; text-align: center; font-size: 18pt;">Настройки</div>
+                <div style="border-bottom: solid 1px lightgrey; margin-bottom: 5px; text-align: center; font-size: 18pt;"><a th:href="@{/logout.html}">Выйти</a></div>
+            </div>
+        </div>
+</header>
+<script>
+    function menu() {
+        var menu = $('#menu');
+        if (menu.is(':visible')) {
+            menu.hide(300);
+        } else {
+            menu.show(300);
+        }
+    }
+</script>

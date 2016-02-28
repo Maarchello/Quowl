@@ -1,4 +1,7 @@
+html, body {background: #f5f5f5; margin: 0;}
+
 .cart{ position:relative; min-height:50px; background: white; padding: 0; font-size: 15pt; text-align: center; margin-bottom: 50px; font-family: Copperplate;}
+.quote_background {background-image: url("/resources/img/qb.jpg")}
 
 .userava { width:40px; height: 30px; display: inline-block; border-radius: 45px;}
 .username { width:100%; height:50px; margin-bottom: 20px; text-align: center; border:none; border-bottom:solid 1px lightgrey; display: inline-block; padding:10px;}
@@ -9,13 +12,11 @@
 .book { display: none; text-align: center; background: white;}
 .bookName { cursor: pointer;}
 .authorName { cursor: pointer;}
-.status{ font-weight: 900; padding: 3px; text-align: center; font-size: 11pt;}
+.status{ font-weight: 900; padding: 3px; text-align: center; font-size: 11pt; border-bottom: solid 1px lightgrey; overflow: hidden;}
 .status:hover { text-decoration: underline;}
+.like {cursor:pointer; padding:1px; width: 7%; min-height: inherit; display: inline-block}
+.likes_count {width: auto; font-size:18pt; padding:1px; min-height: 100%; display: inline-block}
+.field {border:none; font-weight: 900; font-size: 13pt; width:80%;  font-family: Copperplate;}
 
+#status {padding-left: 15px; padding-right: 15px;}
 #avatar{border-radius: 50px;}
-
-.btn, .btn:hover,
-.btn:focus,.btn:active:focus,.btn.active:focus,
-.btn.focus,.btn:active.focus,.btn.active.focus {
-    outline: none; background-color: #f35d54; font-weight: 500; color:white; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-}

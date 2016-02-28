@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.quowl.quowl.domain.base.AuditingEntity;
 import com.quowl.quowl.domain.logic.books.Books;
 import com.quowl.quowl.domain.logic.quote.Quote;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -45,7 +47,8 @@ public class User extends AuditingEntity implements UserDetails {
     @JoinTable(name = "likes", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "quote_id", referencedColumnName = "id"))
     private List<Quote> likes;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
     private List<Books> books;
 
     @Column

@@ -6,6 +6,7 @@ import com.quowl.quowl.repository.quote.QuoteRepository;
 import com.quowl.quowl.repository.user.UserRepository;
 import com.quowl.quowl.service.quote.QuoteService;
 import com.quowl.quowl.service.user.UserService;
+import com.quowl.quowl.web.beans.JsonResultBean;
 import com.quowl.quowl.web.beans.user.CurrentUserBean;
 import com.quowl.quowl.web.beans.user.QuoteBean;
 import com.quowl.quowl.web.beans.user.UserBean;
@@ -14,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -38,6 +40,17 @@ public class ProfileController {
         model.addAttribute("user", userBean);
         model.addAttribute("currentUser", currentUser);
         return "account/profile";
+    }
+
+    //TODO: delete if unneccessary
+    @RequestMapping(value = "quotes/{nickname}", method = RequestMethod.GET)
+    @ResponseBody
+    public JsonResultBean getQuotesOfUser(@PathVariable("nickname") String nickname) {
+        /*User user = userRepository.findOneByNickname(nickname);
+        List<Quote> quo = quoteRepository.findAllByUserIdOrderByCreatedDateDesc(user.getId());
+        List<QuoteBean> quotes = quoteService.convertQuotesToQuoteBean(quo);*/
+
+        return JsonResultBean.success();
     }
 
 }

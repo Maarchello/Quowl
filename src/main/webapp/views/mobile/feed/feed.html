@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0" />
+
+    <script src="/resources/js/global/jquery-2.2.0.min.js"></script>
+    <script src="/resources/js/feed/feed.js"></script>
+    <script src="/resources/js/global/general.js"></script>
+
+    <link rel="stylesheet" href="/resources/css/mobile/general.css" />
+    <link rel="stylesheet" href="/resources/css/global/general.css" />
+    <link rel="stylesheet" href="/resources/css/global/bootstrap.min.css" />
+    <link rel="stylesheet" href="/resources/css/mobile/feed.css" />
+    <title>Quowl</title>
+</head>
+<body>
+<div th:replace="mobile/fragments/header"></div>
+
+<section th:each="quote : ${quotes}" id="quotes">
+    <div th:replace="mobile/feed/post"></div>
+</section>
+
+<div th:replace="fragments/editor"></div>
+</body>
+</html>

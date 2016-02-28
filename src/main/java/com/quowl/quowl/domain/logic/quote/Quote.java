@@ -11,6 +11,9 @@ import java.util.Set;
 @Table(name = "quote")
 public class Quote extends AuditingEntity {
 
+    @Column
+    private Long bookId;
+
     @Column(name = "text")
     private String text;
 
@@ -23,6 +26,7 @@ public class Quote extends AuditingEntity {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User user;
+
 
     @ManyToMany(fetch = FetchType.EAGER, mappedBy = "likes")
     public List<User> likes;
@@ -92,5 +96,13 @@ public class Quote extends AuditingEntity {
         result = 31 * result + (author != null ? author.hashCode() : 0);
         result = 31 * result + (book != null ? book.hashCode() : 0);
         return result;
+    }
+
+    public Long getBookId() {
+        return bookId;
+    }
+
+    public void setBookId(Long bookId) {
+        this.bookId = bookId;
     }
 }

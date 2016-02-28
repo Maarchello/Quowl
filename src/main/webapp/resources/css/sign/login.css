@@ -20,7 +20,14 @@ a{cursor: pointer;}
 
 .login {text-align: center; -webkit-align-content: center; border:solid black 0px; margin-top:50px; margin-left:55%; background:whitesmoke; color:black; box-shadow: 0 0 2px; border-radius:3px; }
 
-.input {font-size:15pt; -moz-text-decoration-color: black; border:none; border-bottom: solid #b6b8b9 1px !important; text-align: center; padding-top:7px; background-color: whitesmoke; }
-.input:focus {border-bottom: solid black 1px !important;}
+
 
 .error_span {display: none; color:red; font-size: 10pt;}
+
+@media screen and (max-width: 1280px) {
+    .login {width:30%;}
+}
+
+@media screen and (max-width: 760px) {
+    .login {margin-left:20%;}
+}

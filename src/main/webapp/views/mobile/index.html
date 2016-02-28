@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0" />
+
+    <script src="/resources/js/global/jquery-2.2.0.min.js"></script>
+    <script src="/resources/js/sign/sign.js"></script>
+    <script src="/resources/js/mobile/mobile-sign.js"></script>
+
+    <link rel="stylesheet" href="/resources/css/mobile/login.css" />
+    <link rel="stylesheet" href="/resources/css/global/general.css" />
+    <link rel="stylesheet" href="/resources/css/global/bootstrap.min.css"/>
+
+    <title>Quowl</title>
+</head>
+<body>
+
+<div class="col-centered login" id="signin" style="display: none;">
+    <form th:action="@{/login}" method="post">
+        <div class="form-group">
+            <div>
+                <input type="text" id="name" name="name" class="input"  placeholder="Username" required="required" />
+                <span id="name_error" class="error_span pull-right"></span>
+            </div><br />
+
+            <div>
+                <input type="password" id="password" name="password" class="input" placeholder="Password" required="required" />
+                <span id="password_error" class="error_span pull-right"></span>
+            </div><br/>
+
+            <span id="result_signin_error" class="error_span"></span>
+            <input type="button" onclick="signin()" class="btn btn-primary btn-block" value="Sign in" />
+        </div>
+    </form>
+    <div class="row">
+        <span>Don't have an account?</span><br/>
+        <a onclick="mobileShowSignUp()"> Sign up now! </a><br/><br/>
+    </div>
+</div>
+
+<div class="col-centered login" id="signup" style="display: none">
+    <div>
+        <div>
+            <div class="input_wrapper">
+                <input type="text" class="input" id="j_name" name="username" placeholder="Username" />
+                <span id="j_name_error" class="error_span pull-right"></span>
+            </div><br/>
+
+            <div class="input_wrapper">
+                <input type="email" class="input" id="j_email" name="email" placeholder="Email" />
+                <span id="j_email_error" class="error_span pull-right"></span>
+            </div><br/>
+
+            <div class="input_wrapper">
+                <input type="password" class="input" id="j_password" name="password" placeholder="Password" min="6" />
+                <span id="j_password_error" class="error_span pull-right"></span>
+            </div><br/>
+
+            <span id="result_signup_error" class="error_span"></span>
+            <input type="button" class="btn btn-success btn-block" onclick="signup()" value="SIGN UP" />
+        </div>
+    </div>
+</div>
+
+<section style="bottom:100px; text-align: center; z-index:-1; position: absolute; width:100%;">
+    <h1 style="color:white; text-shadow: 1px 0 1px black; font-size:65dpi; font-family: Copperplate; font-weight:700;">Добро пожаловать в Quowl</h1>
+</section>
+
+<section style="bottom: 20px; position: absolute; width: 100%;">
+    <input type="button" class="btn btn-success" onclick="mobileShowSignUp()" style="float:left; margin-left: 5%; min-width:30%;" value="Sign up" />
+    <input type="button" class="btn btn-primary" onclick="mobileShowSignIn()" style="float:right; margin-right: 5%; min-width:30%;" value="Sign in" />
+</section>
+</body>
+</html>

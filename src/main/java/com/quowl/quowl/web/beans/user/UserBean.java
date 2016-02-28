@@ -14,7 +14,9 @@ public class UserBean implements WebBean<User> {
     private String authorName;
     private Long countReadBooks;
     private Long countQuotes;
+    private Long countFollowers;
     private ProfileBean profileBean;
+    private List<Long> followers;
     //количество подписчиков
 
     public Long getId() {
@@ -113,5 +115,21 @@ public class UserBean implements WebBean<User> {
         int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (nickname != null ? nickname.hashCode() : 0);
         return result;
+    }
+
+    public Long getCountFollowers() {
+        return countFollowers;
+    }
+
+    public void setCountFollowers(Long countFollowers) {
+        this.countFollowers = countFollowers;
+    }
+
+    public List<Long> getFollowers() {
+        return followers;
+    }
+
+    public void setFollowers(List<Long> followers) {
+        this.followers = followers;
     }
 }

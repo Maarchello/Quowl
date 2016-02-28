@@ -14,6 +14,9 @@ $(document).ready(function(){
     }
 });
 
+var stChange = false;
+var bkComplete = true;
+
 function openModal(id) {
     modal.style.display = "block";
     modal.id = id;
@@ -65,12 +68,12 @@ function addQuote() {
             type: "POST",
             data: ({quote: quote}),
             success: function (data) {
-                console.log(data.data);
+                console.log(data);
                 if (!data.error) {
                     $('#quotes').prepend('<div id="'+data.data.id+'" class="cart border">' +
                         '<div class="username">'+
                         '<img src="/resources/img/nerd_2.jpg" class="userava"/>'+
-                        '<a href="'+data.data.userNickname+'">marat</a>'+
+                        '<a href="'+data.data.userNickname+'"> marat</a>'+
                         '<b><span class="pull-right" style="color:grey;opacity: 0.6;font-size:12pt;">'+data.data.date+'</span></b>'+
                         '</div>'+
                         '<div style="border:none; font-weight:900; font-size:13pt;width:80%;font-family: Copperplate;" class="col-centered">'+data.data.author+'</div>'+
@@ -82,13 +85,16 @@ function addQuote() {
                         '<div style="border:none;margin-bottom:30px;font-weight:900;font-size:13pt;width:80%;font-family:Copperplate;" class="col-centered">'+data.data.book+'</div>'+
 
                         '<div class="border" style="height: 40px;">'+
-                        '<div class="pull-left" style="border: solid 1px black;width:10%;min-height:inherit;display:inline-block">Like</div>'+
-
-                        '<div style="display:inline-block;min-height:inherit;width: 80%" class="pull-left">'+
-                        '<input class="form-control" style="min-height: 100%" width="100%" placeholder="Введите комментарий"/>'+
+                        '<div class="pull-left" style="cursor:pointer; padding:1px; width: 7%; min-height: inherit; display: inline-block" onclick="like($(this).parent().parent());">' +
+                        '<img id="like_unlike" src="/resources/img/unlike.png"  width="30" height="30" />' +
                         '</div>'+
-                        '<div id="'+data.data.id+'" style="display: inline-block; cursor:pointer; width: 10%; height:100%;" onclick="editorOfQuote(this.id);">'+
-                        '<img src="/resources/img/edit.png" />'+
+                        '<div class="pull-left" style="width: auto; font-size:18pt; padding:1px; min-height: 100%; display: inline-block" id="likes" ">0</div>'+
+
+                        /*'<div style="display:inline-block;min-height:inherit;width: 80%" class="pull-left">'+
+                        '<input class="form-control" style="min-height: 100%" width="100%" placeholder="Введите комментарий"/>'+
+                        '</div>'+*/
+                        '<div id="'+data.data.id+'" class="pull-right" style="display: inline-block; cursor:pointer; width: 8%; height: 100%;" onclick="editorOfQuote(this.id);">'+
+                        '<img src="/resources/img/edit.png" width="30" />'+
                         '</div>'+
                         '</div>'+
                         '</div>');
@@ -104,7 +110,8 @@ function addQuote() {
 
 function like(element) {
     var quote_id = element.attr('id');
-    $.ajax({
+
+  $.ajax({
         url: "like/"+quote_id,
         type: "POST",
         success: function(data) {
@@ -121,7 +128,7 @@ function like(element) {
                 $('#'+quote_id).find('#likes').text(intLikes);
             }
         }
-    })
+  })
 }
 
 function editorOfQuote(id) {
@@ -160,18 +167,6 @@ function deleteQuote(id) {
     })
 }
 
-function incrementString(str) {
-    var parseStr = parseInt(str);
-    return ++parseStr;
-}
-
-function decrementString(str) {
-    var parseStr = parseInt(str);
-    parseStr -= 1;
-    if (parseStr <= 0) return 0;
-    return parseStr;
-}
-
 function quantityQuotesIncrement() {
     var count_quotes = $('#count_quotes').text();
     var count = parseInt(count_quotes);
@@ -192,14 +187,13 @@ function getAuthor() {
     return $('#author').text();
 }
 
-var stChange = false;
-
 function editStatus(name) {
     clear();
     var status = $('.'+name).text();
     $('.'+name).hide();
     $('#'+name+'_edit').show().val(status);
     stChange = true;
+    bkComplete = true;
 }
 
 function clear() {
@@ -209,9 +203,9 @@ function clear() {
         authorNameEdit.hide();
         $('.authorName').show();
         if (authorName) {
-            $('.authorName').text(authorName);
+            $('.authorName').text(authorName).css('color', 'black');
         } else {
-            $('.authorName').text("Введите автора");
+            $('.authorName').text("Автор").css('color', 'darkgrey');
         }
     }
 
@@ -221,9 +215,9 @@ function clear() {
         bookNameEdit.hide();
         $('.bookName').show();
         if (bookName) {
-            $('.bookName').text(bookName);
+            $('.bookName').text(bookName).css('color', 'black');
         } else {
-            $('.bookName').text('Введите название книги');
+            $('.bookName').text('Название книги').css('color', 'darkgrey');
         }
     }
 }
@@ -234,14 +228,36 @@ function saveStatus() {
     var authorName = $('.authorName').text();
 
     if (stChange) {
-        alert('save');
         $.ajax({
             url: "saveStatus",
             type: "POST",
             data: ({bookName: bookName, authorName: authorName}),
             success: function (data) {
-
+                if (!data.error) {
+                    $('#status_message').text('Сохранено!').show(300);
+                    setTimeout(function () {
+                        $('#status_message').hide(300);
+                    }, 2000);
+                }
             }
         });
+    }
+}
+
+
+function bookComplete() {
+    if (bkComplete) {
+        $.ajax({
+            url: "bookComplete",
+            type: "GET",
+            success: function (data) {
+                if (!data.error) {
+                    var count_books = $('#count_books').text();
+                    var count = incrementString(count_books);
+                    $('#count_books').text(count);
+                    bkComplete = false;
+                }
+            }
+        })
     }
 }

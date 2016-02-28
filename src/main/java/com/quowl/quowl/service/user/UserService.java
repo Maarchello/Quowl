@@ -3,11 +3,13 @@ package com.quowl.quowl.service.user;
 import com.quowl.quowl.domain.logic.user.User;
 import com.quowl.quowl.repository.books.BooksRepository;
 import com.quowl.quowl.repository.quote.QuoteRepository;
+import com.quowl.quowl.repository.user.SubscribeRepository;
 import com.quowl.quowl.repository.user.UserRepository;
 import com.quowl.quowl.service.quote.QuoteService;
 import com.quowl.quowl.service.signinup.SecurityService;
 import com.quowl.quowl.utils.SecurityUtils;
 import com.quowl.quowl.web.beans.user.CurrentUserBean;
+import com.quowl.quowl.web.beans.user.ProfileBean;
 import com.quowl.quowl.web.beans.user.UserBean;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +23,7 @@ public class UserService {
     @Inject private BooksRepository booksRepository;
     @Inject private QuoteRepository quoteRepository;
     @Inject private UserRepository userRepository;
+    @Inject private SubscribeRepository subscribeRepository;
 
     public UserBean convertUserToUserBean(User user) {
         UserBean userBean = new UserBean();
@@ -30,6 +33,9 @@ public class UserService {
         userBean.setBookName(user.getBookName());
         userBean.setCountReadBooks(booksRepository.countAllReadBooks(user.getId()));
         userBean.setCountQuotes(quoteRepository.countAllQuotes(user.getId()));
+        userBean.setProfileBean(new ProfileBean(user.getProfileInfo()));
+        userBean.setCountFollowers(subscribeRepository.countFollowers(user.getId()));
+        userBean.setFollowers(subscribeRepository.findAllFollowersIdByFollowing(user.getId()));
 
         return userBean;
     }

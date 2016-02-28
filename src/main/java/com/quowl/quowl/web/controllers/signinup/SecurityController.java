@@ -30,7 +30,7 @@ public class SecurityController {
             securityService.login(name, password, response);
         } catch (AuthenticationException e) {
             e.printStackTrace();
-            return JsonResultBean.failure(ExecutionStatus.Incorrect_user_data.toString());
+            return JsonResultBean.failure(ExecutionStatus.Invalid_user_data.toString());
         }
         return JsonResultBean.success();
     }

@@ -7,6 +7,7 @@ import com.quowl.quowl.service.user.UserService;
 import com.quowl.quowl.web.beans.user.CurrentUserBean;
 import com.quowl.quowl.web.beans.user.QuoteBean;
 import com.quowl.quowl.web.beans.user.UserBean;
+import org.springframework.mobile.device.Device;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +23,7 @@ public class FeedController {
     @Inject private QuoteRepository quoteRepository;
 
     @RequestMapping(value = "/feed", method = RequestMethod.GET)
-    public String openFeedPage(Model model) {
+    public String openFeedPage(Model model, Device device) {
         UserBean userBean = userService.getUserBean();
         CurrentUserBean currentUser = userService.getCurrentUser();
         List<Quote> quo = quoteRepository.findAllByUserIdOrderByCreatedDateDesc(userBean.getId());
@@ -31,6 +32,10 @@ public class FeedController {
         model.addAttribute("quotes", quotes);
         model.addAttribute("user", userBean);
         model.addAttribute("currentUser", currentUser);
+
+        if (device.isMobile()) {
+            return "mobile/feed/feed";
+        }
         return "feed/feed";
     }
 
