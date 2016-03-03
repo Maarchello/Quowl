@@ -26,8 +26,12 @@ public class FeedController {
     public String openFeedPage(Model model, Device device) {
         UserBean userBean = userService.getUserBean();
         CurrentUserBean currentUser = userService.getCurrentUser();
-        List<Quote> quo = quoteRepository.findAllByUserIdOrderByCreatedDateDesc(userBean.getId());
-        List<QuoteBean> quotes = quoteService.convertQuotesToQuoteBean(quo);
+
+        List<Long> following = userBean.getFollowing();
+        following.add(userBean.getId());
+
+        List<Quote> quo2 = quoteRepository.findAllByFollowing(following);
+        List<QuoteBean> quotes = quoteService.convertQuotesToQuoteBean(quo2);
 
         model.addAttribute("quotes", quotes);
         model.addAttribute("user", userBean);

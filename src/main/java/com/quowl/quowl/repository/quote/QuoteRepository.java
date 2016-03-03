@@ -10,7 +10,12 @@ import java.util.List;
 @Repository
 public interface QuoteRepository extends JpaRepository<Quote, Long> {
 
+
+
     List<Quote> findAllByUserIdOrderByCreatedDateDesc(Long userId);
+
+    @Query("select q from Quote q where user_id in ?1 order by q.createdDate desc ")
+    List<Quote> findAllByFollowing(List<Long> users);
 
     @Query("SELECT count(q) FROM Quote q WHERE q.user.id = ?1")
     Long countAllQuotes(Long userId);

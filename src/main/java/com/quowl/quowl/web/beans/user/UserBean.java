@@ -17,7 +17,7 @@ public class UserBean implements WebBean<User> {
     private Long countFollowers;
     private ProfileBean profileBean;
     private List<Long> followers;
-    //количество подписчиков
+    private List<Long> following;
 
     public Long getId() {
         return id;
@@ -131,5 +131,13 @@ public class UserBean implements WebBean<User> {
 
     public void setFollowers(List<Long> followers) {
         this.followers = followers;
+    }
+
+    public List<Long> getFollowing() {
+        return following;
+    }
+
+    public void setFollowing(List<Long> following) {
+        this.following = following;
     }
 }

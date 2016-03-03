@@ -30,6 +30,14 @@ public class QuoteController {
         }
         Books book = booksRepository.findOneByBookAndAuthor(user.getBookName(), user.getAuthorName());
 
+        if (book == null) {
+            book = new Books();
+            book.setAuthor(user.getAuthorName());
+            book.setBook(user.getBookName());
+            book.setUser(user);
+            book = booksRepository.save(book);
+        }
+
         Quote quo = new Quote();
         quo.setBookId(book.getId());
         quo.setUser(user);

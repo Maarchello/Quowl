@@ -31,19 +31,6 @@ function clearAll() {
     $('#quote').css('border', 'solid 1px #ccc');
 }
 
-function logout() {
-    $.ajax({
-        url: "/logout.html",
-        type: "GET",
-        success: function(data) {
-            location.reload();
-        },
-        error: function(data) {
-            console.log(data);
-        }
-    })
-}
-
 
 function addQuote() {
     var book = getBook();
@@ -72,23 +59,23 @@ function addQuote() {
                 if (!data.error) {
                     $('#quotes').prepend('<div id="'+data.data.id+'" class="cart border">' +
                         '<div class="username">'+
-                        '<img src="/resources/img/nerd_2.jpg" class="userava"/>'+
+                        '<img src="/resources/img/nerd_2.jpg" width="100" class="userava"/>'+
                         '<a href="'+data.data.userNickname+'"> marat</a>'+
                         '<b><span class="pull-right" style="color:grey;opacity: 0.6;font-size:12pt;">'+data.data.date+'</span></b>'+
                         '</div>'+
-                        '<div style="border:none; font-weight:900; font-size:13pt;width:80%;font-family: Copperplate;" class="col-centered">'+data.data.author+'</div>'+
+                        '<div style="margin-top: 20px;" class="field col-centered">'+data.data.author+'</div>'+
                         '<hr class="line margin-bottom" />'+
 
-                        '<div id="quote_text_'+data.data.id+'" style="font-family:Copperplate;padding: 10px;">'+data.data.text+'</div>'+
+                        '<div class="text-center" id="quote_text_'+data.data.id+'" style="font-family:Copperplate; padding: 10px 25px;">'+data.data.text+'</div>'+
 
                         '<hr class="line margin-top" />'+
-                        '<div style="border:none;margin-bottom:30px;font-weight:900;font-size:13pt;width:80%;font-family:Copperplate;" class="col-centered">'+data.data.book+'</div>'+
+                        '<div style="margin-bottom:30px;" class="field col-centered">'+data.data.book+'</div>'+
 
-                        '<div class="border" style="height: 40px;">'+
-                        '<div class="pull-left" style="cursor:pointer; padding:1px; width: 7%; min-height: inherit; display: inline-block" onclick="like($(this).parent().parent());">' +
+                        '<div style="height: 40px;">'+
+                        '<div class="pull-left like" onclick="like($(this).parent().parent());">' +
                         '<img id="like_unlike" src="/resources/img/unlike.png"  width="30" height="30" />' +
                         '</div>'+
-                        '<div class="pull-left" style="width: auto; font-size:18pt; padding:1px; min-height: 100%; display: inline-block" id="likes" ">0</div>'+
+                        '<div class="pull-left likes_count" id="likes" ">0</div>'+
 
                         /*'<div style="display:inline-block;min-height:inherit;width: 80%" class="pull-left">'+
                         '<input class="form-control" style="min-height: 100%" width="100%" placeholder="Введите комментарий"/>'+
@@ -256,6 +243,15 @@ function bookComplete() {
                     var count = incrementString(count_books);
                     $('#count_books').text(count);
                     bkComplete = false;
+                } else if (data.error == 'S100'){
+                    $('#status_message').text('Книга уже добавленна в прочитанные.').css('font-size', '13px').show(300);
+                    setTimeout(function () {
+                        $('#status_message').hide(300);
+                    }, 3000);
+                    bkComplete = false;
+                } else if (data.error = 'S000') {
+                    console.log('Error in Book controller.');
+                    alert('Неизвестная ошибка.')
                 }
             }
         })

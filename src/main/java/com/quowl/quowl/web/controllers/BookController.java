@@ -27,11 +27,17 @@ public class BookController {
         User user = userRepository.findOneByNickname(nickname);
 
         Books book = booksRepository.findOneByBookAndAuthor(user.getBookName(), user.getAuthorName());
-        book.setReaded(true);
+        if (book != null) {
+            if (!book.isReaded()) {
+                book.setReaded(true);
+            } else {
+                return JsonResultBean.failure(ExecutionStatus.S100.toString());
+            }
+        }
         try {
             booksRepository.save(book);
         } catch (Exception e) {
-            return JsonResultBean.failure("Something gone wrong");
+            return JsonResultBean.failure(ExecutionStatus.S000.toString());
         }
 
         return JsonResultBean.success();

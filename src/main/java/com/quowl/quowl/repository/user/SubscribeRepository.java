@@ -12,10 +12,14 @@ public interface SubscribeRepository extends JpaRepository<Subscribe, Long> {
 
     Subscribe findByFollowerAndFollowing(Long follower, Long following);
 
+    //TODO удалить позже
     @Query("select count(s) from Subscribe s where s.following = ?1")
     Long countFollowers(Long following);
 
     @Query("select s.follower from Subscribe s where s.following = ?1")
     List<Long> findAllFollowersIdByFollowing(Long following);
+
+    @Query("select s.following from Subscribe s where s.follower = ?1")
+    List<Long> findAllFollowingsIdByFUser(Long userId);
 
 }
