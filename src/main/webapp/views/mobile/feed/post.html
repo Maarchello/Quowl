@@ -1,4 +1,4 @@
-<div th:id="${quote.id}" class="cart border col-centered">
+<div th:id="${quote.id}" class="cart border_shadow col-centered">
     <div class="username">
         <img src="/resources/img/nerd_2.jpg" width="100" class="userava"/>
         <a href="" th:href="${quote.userNickname}" th:text="${quote.userNickname}">marat</a>
@@ -13,7 +13,7 @@
     <hr class="line margin-top" />
     <div style="border:none; text-align: center; margin-bottom:30px; font-weight: 900; font-size: 13pt; width:80%; font-family: Copperplate;" class="col-centered" th:text="${quote.book}">Book</div>
 
-    <div class="border" style="height: 40px;">
+    <div class="border_shadow" style="height: 40px;">
 
         <div class="pull-left" style="cursor:pointer; padding:1px; width: 7%; min-height: inherit; display: inline-block" onclick="like($(this).parent().parent());">
             <img id="like_unlike" th:src="${#lists.contains(quote.users, currentUser) ? '/resources/img/like.png' : '/resources/img/unlike.png'}"  width="30" height="30" />

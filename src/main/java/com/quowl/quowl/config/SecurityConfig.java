@@ -26,11 +26,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Inject private TokenProvider tokenProvider;
 
-    @Inject
-    private CustomUserDetailsService userDetailsService;
+    @Inject private CustomUserDetailsService userDetailsService;
 
-    @Inject
-    private DefaultEntryPoint defaultEntryPoint;
+    @Inject private DefaultEntryPoint defaultEntryPoint;
 
 
     @Inject
@@ -66,6 +64,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/", "/login", "/logout", "/signup").permitAll()
                 .antMatchers("/feed").authenticated()
+                .antMatchers("/settings").authenticated()
                 .antMatchers("/{nickname}").permitAll()
                 .anyRequest().authenticated();
 

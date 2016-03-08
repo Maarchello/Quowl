@@ -27,17 +27,17 @@ public class TokenProvider {
 
     public String createToken(UserDetails userDetails) {
         long expires = System.currentTimeMillis() + 1000L * tokenValidity;
-        return userDetails.getUsername() + ":" + expires + ":" + computeSignature(userDetails, expires);
+        return userDetails.getUsername() + "." + expires + "." + computeSignature(userDetails, expires);
     }
 
     public long refreshToken(UserDetails userDetails, HttpServletResponse response, String token) {
-        String[] parts = token.split(":");
+        String[] parts = token.split("\\.");
         long expires = Long.parseLong(parts[1]);
         long refresh = System.currentTimeMillis() + tokenRefresh*1000L;
         expires += refresh - expires;
         StringBuilder updatedToken = new StringBuilder();
-        updatedToken.append(userDetails.getUsername()).append(":");
-        updatedToken.append(expires).append(":");
+        updatedToken.append(userDetails.getUsername()).append(".");
+        updatedToken.append(expires).append(".");
         updatedToken.append(computeSignature(userDetails, expires));
         CookieUtils.setAuthCookie(response, updatedToken.toString());
         return expires;
@@ -48,9 +48,9 @@ public class TokenProvider {
         // + IP address
 
         StringBuilder signatureBuilder = new StringBuilder();
-        signatureBuilder.append(userDetails.getUsername()).append(":");
-        signatureBuilder.append(expires).append(":");
-        signatureBuilder.append(userDetails.getPassword()).append(":");
+        signatureBuilder.append(userDetails.getUsername()).append(".");
+        signatureBuilder.append(expires).append(".");
+        signatureBuilder.append(userDetails.getPassword()).append(".");
         signatureBuilder.append(secretKey);
 
         MessageDigest digest;
@@ -66,12 +66,12 @@ public class TokenProvider {
         if (null == authToken) {
             return null;
         }
-        String[] parts = authToken.split(":");
+        String[] parts = authToken.split("\\.");
         return parts[0];
     }
 
     public boolean validateTokenExpire(UserDetails userDetails, HttpServletResponse response, String authToken) {
-        String[] parts = authToken.split(":");
+        String[] parts = authToken.split("\\.");
         long expires = Long.parseLong(parts[1]);
         long currentTime = System.currentTimeMillis();
         if (expires >= currentTime) {
@@ -81,7 +81,7 @@ public class TokenProvider {
     }
 
     public boolean validateTokenSignature(String authToken, UserDetails userDetails) {
-        String[] parts = authToken.split(":");
+        String[] parts = authToken.split("\\.");
         long expires = Long.parseLong(parts[1]);
         String signature = parts[2];
         String signatureToMatch = computeSignature(userDetails, expires);

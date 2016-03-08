@@ -1,12 +1,10 @@
 package com.quowl.quowl.service.user;
 
 import com.quowl.quowl.domain.logic.user.User;
-import com.quowl.quowl.repository.books.BooksRepository;
+import com.quowl.quowl.repository.books.BookRepository;
 import com.quowl.quowl.repository.quote.QuoteRepository;
 import com.quowl.quowl.repository.user.SubscribeRepository;
 import com.quowl.quowl.repository.user.UserRepository;
-import com.quowl.quowl.service.quote.QuoteService;
-import com.quowl.quowl.service.signinup.SecurityService;
 import com.quowl.quowl.utils.SecurityUtils;
 import com.quowl.quowl.web.beans.user.CurrentUserBean;
 import com.quowl.quowl.web.beans.user.ProfileBean;
@@ -14,13 +12,12 @@ import com.quowl.quowl.web.beans.user.UserBean;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 @Service
 public class UserService {
-    @Inject private BooksRepository booksRepository;
+    @Inject private BookRepository booksRepository;
     @Inject private QuoteRepository quoteRepository;
     @Inject private UserRepository userRepository;
     @Inject private SubscribeRepository subscribeRepository;
@@ -37,7 +34,6 @@ public class UserService {
 
         List<Long> followers = subscribeRepository.findAllFollowersIdByFollowing(user.getId());
         List<Long> following = subscribeRepository.findAllFollowingsIdByFUser(user.getId());
-        userBean.setCountFollowers((long) followers.size());
         userBean.setFollowing(following);
         userBean.setFollowers(followers);
 
@@ -55,6 +51,12 @@ public class UserService {
             bean.setBookName(user.getBookName());
             bean.setCountReadBooks(booksRepository.countAllReadBooks(user.getId()));
             bean.setCountQuotes(quoteRepository.countAllQuotes(user.getId()));
+            bean.setProfileBean(new ProfileBean(user.getProfileInfo()));
+
+            List<Long> followers = subscribeRepository.findAllFollowersIdByFollowing(user.getId());
+            List<Long> following = subscribeRepository.findAllFollowingsIdByFUser(user.getId());
+            bean.setFollowing(following);
+            bean.setFollowers(followers);
             beans.add(bean);
         }
         return beans;

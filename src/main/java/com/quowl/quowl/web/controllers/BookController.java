@@ -2,7 +2,7 @@ package com.quowl.quowl.web.controllers;
 
 import com.quowl.quowl.domain.logic.books.Books;
 import com.quowl.quowl.domain.logic.user.User;
-import com.quowl.quowl.repository.books.BooksRepository;
+import com.quowl.quowl.repository.books.BookRepository;
 import com.quowl.quowl.repository.user.UserRepository;
 import com.quowl.quowl.utils.ExecutionStatus;
 import com.quowl.quowl.utils.SecurityUtils;
@@ -17,7 +17,7 @@ import javax.inject.Inject;
 @Controller
 public class BookController {
 
-    @Inject private BooksRepository booksRepository;
+    @Inject private BookRepository booksRepository;
     @Inject private UserRepository userRepository;
 
     @RequestMapping(value = "/bookComplete", method = RequestMethod.GET)

@@ -57,7 +57,7 @@ function addQuote() {
             success: function (data) {
                 console.log(data);
                 if (!data.error) {
-                    $('#quotes').prepend('<div id="'+data.data.id+'" class="cart border">' +
+                    $('#quotes').prepend('<div id="'+data.data.id+'" class="cart border_shadow">' +
                         '<div class="username">'+
                         '<img src="/resources/img/nerd_2.jpg" width="100" class="userava"/>'+
                         '<a href="'+data.data.userNickname+'"> marat</a>'+
@@ -242,6 +242,10 @@ function bookComplete() {
                     var count_books = $('#count_books').text();
                     var count = incrementString(count_books);
                     $('#count_books').text(count);
+                    $('#status_message').text('Молодец, продолжай читать!').css('font-size', '14px').show(300);
+                    setTimeout(function () {
+                        $('#status_message').hide(300);
+                    }, 3000);
                     bkComplete = false;
                 } else if (data.error == 'S100'){
                     $('#status_message').text('Книга уже добавленна в прочитанные.').css('font-size', '13px').show(300);
@@ -256,4 +260,72 @@ function bookComplete() {
             }
         })
     }
+}
+
+var page = 1;
+function moreQuotes() {
+    $.ajax({
+        url: 'moreQuotes/'+page,
+        type: 'GET',
+        success: function(data) {
+            if (!data.error) {
+                var quotes = data.datas[0];
+                var currentUser = data.datas[1];
+                var keys = Object.keys(quotes);
+
+                for (var i = 0; i < keys.length; i++) {
+                    var quote = quotes[i];
+                    $('#quu').append('<section id="quotes" class="col-lg-4 col-md-5 col-sm-7 col-xs-8 col-centered">' +
+                        '<div id="'+quote.id+'" class="cart border_shadow">' +
+                        '<div class="username">'+
+                        '<img src="/resources/img/nerd_2.jpg" width="100" class="userava"/>'+
+                        '<a href="'+quote.userNickname+'"> marat</a>'+
+                        '<b><span class="pull-right" style="color:grey;opacity: 0.6;font-size:12pt;">'+quote.date+'</span></b>'+
+                        '</div>'+
+                        '<div style="margin-top: 20px;" class="field col-centered">'+quote.author+'</div>'+
+                        '<hr class="line margin-bottom" />'+
+
+                        '<div class="text-center" id="quote_text_'+quote.id+'" style="font-family:Copperplate; padding: 10px 25px;">'+quote.text+'</div>'+
+
+                        '<hr class="line margin-top" />'+
+                        '<div style="margin-bottom:30px;" class="field col-centered">'+quote.book+'</div>'+
+
+                        '<div style="height: 40px;">'+
+                        '<div class="pull-left like" onclick="like($(this).parent().parent());">' +
+                        '<img id="like_unlike" src="'+containsUser(quote.users, currentUser)+'" width="30" height="30" />' +
+                        '</div>'+
+                        '<div class="pull-left likes_count" id="likes">'+quote.users.length+'</div>'+
+
+                            /*'<div style="display:inline-block;min-height:inherit;width: 80%" class="pull-left">'+
+                             '<input class="form-control" style="min-height: 100%" width="100%" placeholder="Введите комментарий"/>'+
+                             '</div>'+*/
+                        '<div id="'+quote.id+'" class="pull-right" style="display: inline-block; cursor:pointer; width: 8%; height: 100%;" onclick="editorOfQuote(this.id);">'+
+                        '<img src="/resources/img/edit.png" width="30" />'+
+                        '</div>'+
+                        '</div>'+
+                        '</div>' +
+                        '</section>')
+                }
+                page += 1;
+            } else if (data.error == 'S200') {
+                $('#moreQuotes').remove();
+            }
+        }
+    })
+}
+
+function containsUser(list, value) {
+    var keys = Object.keys(list);
+    var contains = false;
+    for (var i = 0; i < keys.length; i++) {
+        var user = list[i];
+        if (user.id == value.id) {
+            contains = true;
+        }
+    }
+     if (contains) {
+         return "/resources/img/like.png"
+     } else {
+         return "/resources/img/unlike.png";
+     }
 }

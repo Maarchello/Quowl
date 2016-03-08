@@ -13,6 +13,27 @@ import java.util.List;
 @Service
 public class QuoteService {
     @Inject private UserService userService;
+    @Inject private QuoteRepository quoteRepository;
+
+    public void delete(Quote quote) {
+        quoteRepository.delete(quote);
+    }
+
+    public Quote save(Quote quote) {
+        return quoteRepository.save(quote);
+    }
+
+    public Quote findOne(Long id) {
+        return quoteRepository.findOne(id);
+    }
+
+    public List<Quote> findAll() {
+        return quoteRepository.findAll();
+    }
+
+    public Long countAllQuotesByBook(Long bookId) {
+        return quoteRepository.countAllQuotesByBook(bookId);
+    }
 
     public List<QuoteBean> convertQuotesToQuoteBean(List<Quote> quotes) {
         List<QuoteBean> quoteBeen = new ArrayList<>();

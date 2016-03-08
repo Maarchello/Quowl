@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="/resources/css/global/bootstrap.min.css" />
     <link rel="stylesheet" href="/resources/css/global/general.css" />
     <link rel="stylesheet" href="/resources/css/account/profile.css" />
+    <link rel="stylesheet" href="/resources/css/feed/feed.css" />
 </head>
 <body>
 <div th:replace="fragments/header"></div>
@@ -28,15 +29,8 @@
                         <div th:text="'Редактировать профиль'" class="settings" >Настройки</div>
                     </a>
                     <a href="" th:href="'settings'">
-                        <img src="/resources/img/settings.png" id="photo" onmousewheel="alert('hey')" width="50" style="display: inline-block" />
+                        <img src="/resources/img/settings.png" id="photo" width="50" style="display: inline-block" />
                     </a>
-                    <script>
-                        $('#photo').hover(function(){
-
-                        } , function() {
-
-                        })
-                    </script>
                 </div>
                 <div th:if="${user.id} != ${currentUser.id}" class="text-center col-centered">
                     <div th:if="!${#lists.contains(user.followers, currentUser.id)}" th:id="${user.id}" class="col-lg-3 col-md-4 col-sm-4 col-xs-4 col-centered link settings sub_wrap subscribe" style="font-size: 16px;" onclick="subscribe(this.id)">
@@ -52,19 +46,19 @@
             </div>
 
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-8 col-centered margin-top" style="overflow: hidden;">
-                <div class="current profile_menu col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                    <span th:text="${user.countReadBooks}" style="font-weight: 700; "></span>
+                <div class="current profile_menu col-lg-3 col-md-3 col-sm-3 col-xs-3" th:onclick="'javascript:books(\'' + ${user.id} + '\')'">
+                    <span th:text="${user.countReadBooks}" style="font-weight: 700;"></span>
                     <div>Книг</div>
                 </div>
                 <div class="current profile_menu col-lg-3 col-md-3 col-sm-3 col-xs-2" th:onclick="'javascript:quotes(\'' + ${user.nickname} +'\')'">
                     <span th:text="${#lists.size(quotes)}" style="font-weight: 700;"></span>
                     <div>Цитат</div>
                 </div>
-                <div class="current profile_menu col-lg-3 col-md-3 col-sm-3 col-xs-4">
-                    <span id="followers" th:text="${user.countFollowers}" style="font-weight: 700;"></span>
+                <div class="current profile_menu col-lg-3 col-md-3 col-sm-3 col-xs-4" th:onclick="'javascript:followers(\'' + ${user.followers} + '\')'">
+                    <span id="followers" th:text="${#lists.size(user.followers)}" style="font-weight: 700;"></span>
                     <div>Подписчики</div>
                 </div>
-                <div style="border-right: solid 1px lightgrey;" class="current profile_menu col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                <div style="border-right: solid 1px lightgrey;" th:onclick="'javascript:following(\'' + ${user.following} + '\')'" class="current profile_menu col-lg-3 col-md-3 col-sm-3 col-xs-3">
                     <span th:text="${#lists.size(user.following)}" style="font-weight: 700;"></span>
                     <div>Подписан</div>
                 </div>
@@ -73,16 +67,19 @@
     </div>
 </section>
 
-<section class="col-lg-8 col-md-10 col-sm-11 col-xs-12 border col-centered">
-    sdsd
-</section>
 
 
-<div style="display: none;" id="qqq">
+<div class="margin-top">
+    <img src="/resources/gif/loading.gif" style="display: none; margin:auto;" id="loading" class=" col-centered text-center"/>
+</div>
+
+<div style="display: none;" class="col-lg-10 col-md-8 col-sm-8 col-xs-8 col-centered flag" id="quotes_content">
     <section th:each="quote : ${quotes}" id="quotes" class="col-lg-4 col-md-5 col-sm-7 col-xs-8 col-centered ">
         <div th:replace="fragments/post"></div>
     </section>
 </div>
+
+<section style="display: none; overflow: hidden;" class="col-lg-10 col-md-8 col-sm-8 col-xs-8 col-centered flag" id="profile_content"></section>
 
 <div th:replace="fragments/editor"></div>
 

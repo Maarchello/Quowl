@@ -4,12 +4,14 @@ package com.quowl.quowl.web.beans;
 import com.quowl.quowl.utils.ExecutionStatus;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class JsonResultBean implements Serializable {
 
     private boolean result = true;
     private Object data;
     private String error;
+    private List<Object> datas;
 
     public JsonResultBean() {
     }
@@ -28,6 +30,12 @@ public class JsonResultBean implements Serializable {
     public static JsonResultBean success(Object data) {
         JsonResultBean bean = new JsonResultBean();
         bean.data = data;
+        return bean;
+    }
+
+    public static JsonResultBean success(List<Object> datas) {
+        JsonResultBean bean = new JsonResultBean();
+        bean.datas = datas;
         return bean;
     }
 
@@ -68,4 +76,11 @@ public class JsonResultBean implements Serializable {
         this.result = result;
     }
 
+    public List<Object> getDatas() {
+        return datas;
+    }
+
+    public void setDatas(List<Object> datas) {
+        this.datas = datas;
+    }
 }

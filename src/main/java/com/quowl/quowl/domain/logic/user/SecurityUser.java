@@ -21,6 +21,10 @@ public class SecurityUser extends User implements UserDetails {
             this.setPassword(user.getPassword());
             this.setQuotes(user.getQuotes());
             this.setCreatedDate(user.getCreatedDate());
+            this.setAuthorName(user.getAuthorName());
+            this.setBookName(user.getBookName());
+            this.setBooks(user.getBooks());
+            this.setLikes(user.getLikes());
         }
     }
 

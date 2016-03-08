@@ -1,6 +1,7 @@
 package com.quowl.quowl.repository.books;
 
 import com.quowl.quowl.domain.logic.books.Books;
+import com.quowl.quowl.domain.logic.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -8,10 +9,12 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface BooksRepository extends JpaRepository<Books, Long> {
+public interface BookRepository extends JpaRepository<Books, Long> {
 
     @Query("SELECT count(b) FROM Books b WHERE b.user.id = ?1 and b.readed = true")
     Long countAllReadBooks(Long userId);
+
+    List<Books> findAllByUser(User user);
 
     Books findOneByBookAndAuthor(String bookName, String authorName);
 

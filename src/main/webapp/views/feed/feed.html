@@ -15,7 +15,7 @@
 <div th:replace="fragments/header"></div>
 
 <!-- Слева профиль -->
-<section id="left-menu" class="col-lg-2 col-md-3 col-sm-2 col-xs-2 border" onclick="clear()">
+<section id="left-menu" class="col-lg-2 col-md-3 col-sm-2 col-xs-2 border_shadow" onclick="clear()">
     <div class="username">
         <img src="/resources/img/nerd_2.jpg" class="userava"/>
         <a href="" th:href="${user.nickname}" th:text="${user.nickname}"></a>
@@ -59,9 +59,13 @@
     </div>
 </section>
 
-
+<div id="quu">
 <section th:each="quote : ${quotes}" id="quotes" class="col-lg-4 col-md-5 col-sm-7 col-xs-8 col-centered">
     <div th:replace="fragments/post"></div>
+</section>
+</div>
+<section class="col-lg-4 col-centered text-center" style="padding: 35px; font-size: 18px;" onclick="moreQuotes()" id="moreQuotes">
+    <input type="button" class="btn btn-red" value="Показать еще"/>
 </section>
 
 <div th:replace="fragments/editor"></div>

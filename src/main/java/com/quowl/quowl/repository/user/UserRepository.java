@@ -6,10 +6,15 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Repository
 @Transactional
 public interface UserRepository extends JpaRepository<User, Long> {
 
     User findOneByNickname(String nickname);
+
+    @Query("select u from User u where u.id in ?1")
+    List<User> findAllById(List<Long> ids);
 
 }
