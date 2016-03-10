@@ -35,15 +35,15 @@ function clearAll() {
 function addQuote() {
     var book = getBook();
     var author = getAuthor();
-    if (book == 'Введите название книги') {
+    if (book == 'Название книги') {
         book = null;
     }
-    if (author == 'Введите автора') {
+    if (author == 'Автор') {
         author = null;
     }
 
     if (!(book && author)) {
-        alert("Введите имя автора и название книги, которую сейчас читаете.");
+        alert("Введите имя автора и название книги, которую сейчас читаете в левом меню.");
         return;
     }
 
@@ -57,7 +57,8 @@ function addQuote() {
             success: function (data) {
                 console.log(data);
                 if (!data.error) {
-                    $('#quotes').prepend('<div id="'+data.data.id+'" class="cart border_shadow">' +
+                    $('#quu').prepend('<section id="quotes" class="col-lg-4 col-md-5 col-sm-7 col-xs-8 col-centered">' +
+                        '<div id="'+data.data.id+'" class="cart border_shadow">' +
                         '<div class="username">'+
                         '<img src="/resources/img/nerd_2.jpg" width="100" class="userava"/>'+
                         '<a href="'+data.data.userNickname+'"> marat</a>'+
@@ -77,16 +78,49 @@ function addQuote() {
                         '</div>'+
                         '<div class="pull-left likes_count" id="likes" ">0</div>'+
 
-                        /*'<div style="display:inline-block;min-height:inherit;width: 80%" class="pull-left">'+
-                        '<input class="form-control" style="min-height: 100%" width="100%" placeholder="Введите комментарий"/>'+
-                        '</div>'+*/
+                            /*'<div style="display:inline-block;min-height:inherit;width: 80%" class="pull-left">'+
+                             '<input class="form-control" style="min-height: 100%" width="100%" placeholder="Введите комментарий"/>'+
+                             '</div>'+*/
                         '<div id="'+data.data.id+'" class="pull-right" style="display: inline-block; cursor:pointer; width: 8%; height: 100%;" onclick="editorOfQuote(this.id);">'+
                         '<img src="/resources/img/edit.png" width="30" />'+
                         '</div>'+
                         '</div>'+
-                        '</div>');
+                        '</div>' +
+                        '</section>');
+                    /*$('#quotes').prepend('<div id="'+data.data.id+'" class="cart border_shadow">' +
+                        '<div class="username">'+
+                        '<img src="/resources/img/nerd_2.jpg" width="100" class="userava"/>'+
+                        '<a href="'+data.data.userNickname+'"> marat</a>'+
+                        '<b><span class="pull-right" style="color:grey;opacity: 0.6;font-size:12pt;">'+data.data.date+'</span></b>'+
+                        '</div>'+
+                        '<div style="margin-top: 20px;" class="field col-centered">'+data.data.author+'</div>'+
+                        '<hr class="line margin-bottom" />'+
+
+                        '<div class="text-center" id="quote_text_'+data.data.id+'" style="font-family:Copperplate; padding: 10px 25px;">'+data.data.text+'</div>'+
+
+                        '<hr class="line margin-top" />'+
+                        '<div style="margin-bottom:30px;" class="field col-centered">'+data.data.book+'</div>'+
+
+                        '<div style="height: 40px;">'+
+                        '<div class="pull-left like" onclick="like($(this).parent().parent());">' +
+                        '<img id="like_unlike" src="/resources/img/unlike.png"  width="30" height="30" />' +
+                        '</div>'+
+                        '<div class="pull-left likes_count" id="likes" ">0</div>'+
+
+                        /!*'<div style="display:inline-block;min-height:inherit;width: 80%" class="pull-left">'+
+                        '<input class="form-control" style="min-height: 100%" width="100%" placeholder="Введите комментарий"/>'+
+                        '</div>'+*!/
+                        '<div id="'+data.data.id+'" class="pull-right" style="display: inline-block; cursor:pointer; width: 8%; height: 100%;" onclick="editorOfQuote(this.id);">'+
+                        '<img src="/resources/img/edit.png" width="30" />'+
+                        '</div>'+
+                        '</div>'+
+                        '</div>');*/
                     quantityQuotesIncrement();
                     $('#quote').val('');
+                } else {
+                    if (data.error === 'S210') {
+                        alert('Превышено максимальное количество символов для цитаты - 2000.');
+                    }
                 }
             }
         });
@@ -279,7 +313,7 @@ function moreQuotes() {
                         '<div id="'+quote.id+'" class="cart border_shadow">' +
                         '<div class="username">'+
                         '<img src="/resources/img/nerd_2.jpg" width="100" class="userava"/>'+
-                        '<a href="'+quote.userNickname+'"> marat</a>'+
+                        '<a href="'+quote.userNickname+'">'+quote.userNickname+'</a>'+
                         '<b><span class="pull-right" style="color:grey;opacity: 0.6;font-size:12pt;">'+quote.date+'</span></b>'+
                         '</div>'+
                         '<div style="margin-top: 20px;" class="field col-centered">'+quote.author+'</div>'+

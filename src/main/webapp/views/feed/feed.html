@@ -64,7 +64,7 @@
     <div th:replace="fragments/post"></div>
 </section>
 </div>
-<section class="col-lg-4 col-centered text-center" style="padding: 35px; font-size: 18px;" onclick="moreQuotes()" id="moreQuotes">
+<section th:if="${#lists.size(quotes) > 10}" class="col-lg-4 col-centered text-center" style="padding: 35px; font-size: 18px;" onclick="moreQuotes()" id="moreQuotes">
     <input type="button" class="btn btn-red" value="Показать еще"/>
 </section>
 

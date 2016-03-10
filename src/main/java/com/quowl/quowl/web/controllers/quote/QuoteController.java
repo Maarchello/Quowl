@@ -6,9 +6,11 @@ import com.quowl.quowl.domain.logic.user.User;
 import com.quowl.quowl.repository.books.BookRepository;
 import com.quowl.quowl.repository.quote.QuoteRepository;
 import com.quowl.quowl.repository.user.UserRepository;
+import com.quowl.quowl.utils.ExecutionStatus;
 import com.quowl.quowl.utils.SecurityUtils;
 import com.quowl.quowl.web.beans.JsonResultBean;
 import com.quowl.quowl.web.beans.user.QuoteBean;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -44,7 +46,11 @@ public class QuoteController {
         quo.setBook(user.getBookName());
         quo.setAuthor(user.getAuthorName());
         quo.setText(quote);
-        quo = quoteRepository.save(quo);
+        try {
+            quo = quoteRepository.save(quo);
+        } catch (DataIntegrityViolationException e) {
+            return JsonResultBean.failure(ExecutionStatus.S210.toString());
+        }
         QuoteBean quoteBean = new QuoteBean();
         quoteBean.copyDataFromDomain(quo);
 

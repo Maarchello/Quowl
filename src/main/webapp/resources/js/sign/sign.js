@@ -10,8 +10,17 @@ function signup() {
             type: "POST",
             data: ({username: username, password: password, email: email}),
             success: function(JsonResultBean) {
-                if (JsonResultBean.error) {
-                    $('#result_signup_error').show().text(JsonResultBean.error);
+                if (!JsonResultBean.error) {
+                    var message = $('#result_signup_message');
+                    message.show().css('color', 'yellowgreen').text('Регистрация прошла успешно!');
+
+                    setTimeout(function(){
+                        message.hide();
+                        $('#signup').hide(200);
+                    }, 3000);
+
+                } else if (JsonResultBean.error) {
+                    $('#result_signup_message').show().text(JsonResultBean.error);
                 }
             }
         });
