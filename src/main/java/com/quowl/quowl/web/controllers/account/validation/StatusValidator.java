@@ -3,7 +3,7 @@ package com.quowl.quowl.web.controllers.account.validation;
 
 import org.apache.commons.lang3.StringUtils;
 
-public class StatusValidate {
+public class StatusValidator {
 
     public static void validate(String book, String author) {
         if (StringUtils.isBlank(book)) {
