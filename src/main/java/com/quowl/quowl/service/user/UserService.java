@@ -16,7 +16,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 @Service
-public class UserService {
+public class UserService implements com.quowl.quowl.web.beans.Service<User, Long>{
     @Inject private BookRepository booksRepository;
     @Inject private QuoteRepository quoteRepository;
     @Inject private UserRepository userRepository;
@@ -81,4 +81,33 @@ public class UserService {
     }
 
 
+    @Override
+    public void save(User object) {
+
+    }
+
+    @Override
+    public void delete(User object) {
+
+    }
+
+    @Override
+    public void delete(Long aLong) {
+
+    }
+
+    @Override
+    public List<User> findAll() {
+        return null;
+    }
+
+    @Override
+    public User findOne(Long aLong) {
+        return userRepository.findOne(aLong);
+    }
+
+    @Override
+    public boolean exists(Long aLong) {
+        return false;
+    }
 }
