@@ -2,6 +2,7 @@ package com.quowl.quowl.service.account;
 
 import com.quowl.quowl.domain.logic.user.ProfileInfo;
 import com.quowl.quowl.repository.user.ProfileRepository;
+import com.quowl.quowl.web.beans.IService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +13,7 @@ import java.util.stream.Stream;
 
 @Service
 public class ProfileService
-        implements com.quowl.quowl.web.beans.Service<ProfileInfo, Long> {
+        implements IService<ProfileInfo, Long> {
 
     @Inject
     private ProfileRepository profileRepository;

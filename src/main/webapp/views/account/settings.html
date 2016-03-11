@@ -13,6 +13,10 @@
     <input type="text" th:value="*{birthday}" th:field="*{birthday}"/>
     <input type="hidden" th:value="*{id}" th:field="*{id}"/>
     <input type="submit"/>
+
+    <div th:if="${error != null}" th:text="${error}">
+        Ошибка здесь:
+    </div>
 </form>
 </body>
 </html>

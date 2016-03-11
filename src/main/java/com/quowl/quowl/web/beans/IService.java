@@ -10,7 +10,7 @@ import java.util.List;
  *
  * @author nllsdfx
  */
-public interface Service<T, ID extends Serializable> {
+public interface IService<T, ID extends Serializable> {
 
     /**
      * Saves the given object.
