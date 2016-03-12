@@ -14,9 +14,8 @@
     <link rel="stylesheet" href="/resources/css/account/profile.css" />
     <link rel="stylesheet" href="/resources/css/feed/feed.css" />
 </head>
-<body>
+<body id="body">
 <div th:replace="fragments/header"></div>
-
 
 <section class="bg">
     <div class="col-lg-10 col-centered">
@@ -51,7 +50,7 @@
                     <div>Книг</div>
                 </div>
                 <div class="current profile_menu col-lg-3 col-md-3 col-sm-3 col-xs-2" th:onclick="'javascript:quotes(\'' + ${user.nickname} +'\')'">
-                    <span th:text="${#lists.size(quotes)}" style="font-weight: 700;"></span>
+                    <span th:text="${user.countQuotes}" style="font-weight: 700;"></span>
                     <div>Цитат</div>
                 </div>
                 <div class="current profile_menu col-lg-3 col-md-3 col-sm-3 col-xs-4" th:onclick="'javascript:followers(\'' + ${user.followers} + '\')'">
@@ -73,6 +72,7 @@
     <img src="/resources/gif/loading.gif" style="display: none; margin:auto;" id="loading" class=" col-centered text-center"/>
 </div>
 
+
 <div style="display: none;" class="col-lg-10 col-md-8 col-sm-8 col-xs-8 col-centered flag" id="quotes_content">
     <section th:each="quote : ${quotes}" id="quotes" class="col-lg-4 col-md-5 col-sm-7 col-xs-8 col-centered ">
         <div th:replace="fragments/post"></div>
@@ -82,6 +82,8 @@
 <section style="display: none; overflow: hidden;" class="col-lg-10 col-md-8 col-sm-8 col-xs-8 col-centered flag" id="profile_content"></section>
 
 <div th:replace="fragments/editor"></div>
+
+<div th:text="${error}"></div>
 
 </body>
 </html>

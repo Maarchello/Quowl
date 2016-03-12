@@ -13,11 +13,13 @@ $(document).ready(function() {
     }).ajaxStop(function () {
         $("#loading").hide();
     });
+
 });
+
 
 function quotes(nickname) {
     var quotes = $('#quotes_content');
-    quotes.show();
+    showOneMenu(quotes);
 }
 
 function subscribe(following) {
@@ -95,8 +97,8 @@ function following(following) {
 
 function drawFollowers(followers) {
     var profile_content = $('#profile_content');
-    showOneMenu(profile_content);
     profile_content.empty();
+    showOneMenu(profile_content);
 
     var keys = Object.keys(followers);
     for (var i = 0; i < keys.length; i++) {

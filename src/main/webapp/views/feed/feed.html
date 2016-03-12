@@ -31,7 +31,7 @@
 
     <div id="status">
         <div class="status">
-            <span class="authorName" id="author"  th:style="${user.authorName} == null ? 'color:darkgrey' : 'color:black'"  onclick="editStatus('authorName')" th:text="${user.authorName} == null ? 'Автор' : ${user.authorName}">Author</span>
+            <span class="authorName" id="author" th:style="${user.authorName} == null ? 'color:darkgrey' : 'color:black'"  onclick="editStatus('authorName')" th:text="${user.authorName} == null ? 'Автор' : ${user.authorName}">Author</span>
             <input type="text" id="authorName_edit" class="book col-lg-12 center-block" placeholder="Автор"/>
         </div>
         <div class="status">
@@ -64,7 +64,7 @@
     <div th:replace="fragments/post"></div>
 </section>
 </div>
-<section th:if="${#lists.size(quotes) > 10}" class="col-lg-4 col-centered text-center" style="padding: 35px; font-size: 18px;" onclick="moreQuotes()" id="moreQuotes">
+<section th:if="${#lists.size(quotes) >= 10}" class="col-lg-4 col-centered text-center" style="padding: 35px; font-size: 18px;" onclick="moreQuotes()" id="moreQuotes">
     <input type="button" class="btn btn-red" value="Показать еще"/>
 </section>
 

@@ -10,6 +10,8 @@ a:hover{color:black}
     outline: none; background-color: #f35d54; font-weight: 500; color:white; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
+.li:hover {background: lightgrey}
+
 .input {font-size:15pt; -moz-text-decoration-color: black; border:none; border-bottom: solid #b6b8b9 1px !important; text-align: center; padding-top:7px; background-color: whitesmoke; }
 .input:focus {border-bottom: solid black 1px !important;}
 

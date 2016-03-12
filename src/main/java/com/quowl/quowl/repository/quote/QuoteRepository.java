@@ -16,6 +16,9 @@ public interface QuoteRepository extends JpaRepository<Quote, Long> {
     @Query("select q from Quote q where user_id in ?1 order by q.createdDate desc ")
     List<Quote> findAllByFollowing(List<Long> users);
 
+    @Query("select q from Quote q where user.id = ?1 order by q.createdDate desc")
+    List<Quote> findTenByUser(Long userId, Pageable pageable);
+
     @Query("select q from Quote q where user.id in ?1 order by q.createdDate desc")
     List<Quote> findTenByFollowing(List<Long> users, Pageable pageable);
 

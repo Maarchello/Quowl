@@ -22,6 +22,7 @@ function openModal(id) {
     modal.id = id;
 }
 
+
 function closeModal() {
     modal.style.display = "none";
 }
@@ -322,7 +323,7 @@ function moreQuotes() {
                         '<div class="text-center" id="quote_text_'+quote.id+'" style="font-family:Copperplate; padding: 10px 25px;">'+quote.text+'</div>'+
 
                         '<hr class="line margin-top" />'+
-                        '<div style="margin-bottom:30px;" class="field col-centered">'+quote.book+'</div>'+
+                        '<div style="margin-bottom:30px; cursor: pointer;" class="field col-centered" onclick="addBook('+quote.userId, quote.book+')">'+quote.book+'</div>'+
 
                         '<div style="height: 40px;">'+
                         '<div class="pull-left like" onclick="like($(this).parent().parent());">' +
@@ -362,4 +363,9 @@ function containsUser(list, value) {
      } else {
          return "/resources/img/unlike.png";
      }
+}
+
+function addBook(name, user_id) {
+    alert(name);
+    alert(user_id);
 }

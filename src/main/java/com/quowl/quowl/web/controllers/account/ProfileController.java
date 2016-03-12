@@ -14,6 +14,7 @@ import com.quowl.quowl.web.beans.book.BookBean;
 import com.quowl.quowl.web.beans.user.CurrentUserBean;
 import com.quowl.quowl.web.beans.user.QuoteBean;
 import com.quowl.quowl.web.beans.user.UserBean;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -36,7 +37,8 @@ public class ProfileController {
         User user = userRepository.findOneByNickname(nickname);
         UserBean userBean = userService.convertUserToUserBean(user);
         CurrentUserBean currentUser = userService.getCurrentUser();
-        List<Quote> quo = quoteRepository.findAllByUserIdOrderByCreatedDateDesc(userBean.getId());
+
+        List<Quote> quo = quoteRepository.findTenByUser(user.getId(), new PageRequest(0, 10)); //quoteRepository.findAllByUserIdOrderByCreatedDateDesc(userBean.getId());
         List<QuoteBean> quotes = quoteService.convertQuotesToQuoteBean(quo);
 
         model.addAttribute("quotes", quotes);
