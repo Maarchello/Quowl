@@ -1,5 +1,7 @@
 package com.quowl.quowl.config;
 
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -56,6 +58,30 @@ public class DatabaseConfig {
             throw new IllegalArgumentException("Can't find 'hibernate.properties' in classpath!");
         }
     }
+
+/*    @Bean
+    public DataSource dataSource() {
+        HikariConfig config = new HikariConfig();
+        config.setDataSourceClassName(env.getRequiredProperty("db.dataSourceClassName"));
+        config.addDataSourceProperty("url", env.getRequiredProperty("db.url"));
+        config.addDataSourceProperty("databaseName", env.getRequiredProperty("db.name"));
+        config.addDataSourceProperty("user", env.getRequiredProperty("db.username"));
+        config.addDataSourceProperty("password", env.getRequiredProperty("db.password"));
+        config.addDataSourceProperty("encoding", "utf8");
+
+        config.addDataSourceProperty("cachePrepStmts", "true");
+        config.addDataSourceProperty("prepStmtCacheSize", "250");
+        config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
+        config.addDataSourceProperty("useServerPrepStmts", "true");
+        config.setLeakDetectionThreshold(15000);
+        config.setConnectionTimeout(30000);
+
+        config.setMaximumPoolSize(20);
+
+        HikariDataSource dataSource = new HikariDataSource(config);
+
+        return dataSource;
+    }*/
 
     @Bean
     public DataSource dataSource() {

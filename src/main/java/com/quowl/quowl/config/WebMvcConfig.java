@@ -43,11 +43,6 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
         return new DeviceHandlerMethodArgumentResolver();
     }
 
-    @Bean
-    public UserDetailsService getUserDetailsService() {
-        return new CustomUserDetailsService();
-    }
-
 
     @Bean
     public TemplateResolver templateResolver() {

@@ -1,3 +1,4 @@
+/*
 package com.quowl.quowl;
 
 import com.quowl.quowl.config.DatabaseConfig;
@@ -31,3 +32,4 @@ public class ApplicationInitializer implements WebApplicationInitializer {
         servlet.setLoadOnStartup(1);
     }
 }
+*/

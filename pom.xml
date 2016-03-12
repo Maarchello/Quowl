@@ -13,7 +13,7 @@
         <spring.version>4.2.3.RELEASE</spring.version>
         <jackson.version>2.6.4</jackson.version>
         <spring-security.version>4.0.1.RELEASE</spring-security.version>
-        <spring-data-jpa.version>1.9.0.RELEASE</spring-data-jpa.version>
+        <spring-data-jpa.version>1.8.0.RELEASE</spring-data-jpa.version>
         <hibernate-entitymanager.version>5.0.2.Final</hibernate-entitymanager.version>
         <mysql-connector-java.version>5.1.6</mysql-connector-java.version>
         <thymeleaf.version>2.1.4.RELEASE</thymeleaf.version>
@@ -114,14 +114,15 @@
             <version>${spring-data-jpa.version}</version>
         </dependency>
         <dependency>
+            <groupId>com.zaxxer</groupId>
+            <artifactId>HikariCP</artifactId>
+            <version>2.4.3</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
             <groupId>javax.transaction</groupId>
             <artifactId>jta</artifactId>
             <version>1.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.data</groupId>
-            <artifactId>spring-data-commons-core</artifactId>
-            <version>1.4.0.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
