@@ -16,6 +16,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.inject.Inject;
 
+/**
+ * This class is controller for {@link ProfileService}
+ * and for all settings files at all. It sets attributes
+ * for clients requests and receives attributes if
+ * client sends it.
+ *
+ * @see #settings(Device, Model)
+ * @see #update(ProfileBean, Model)
+ * @see BaseController
+ */
 @Controller
 public class SettingsController extends BaseController {
 
@@ -24,6 +34,13 @@ public class SettingsController extends BaseController {
     @Inject
     private ProfileService profileService;
 
+    /**
+     * Sends Profile Bean to client.
+     *
+     * @param device
+     * @param model  is used to add attributes.
+     * @return the path to required view.
+     */
     @RequestMapping(value = "/settings")
     public String settings(Device device, Model model) {
         UserBean userBean = userService.getUserBean();
@@ -34,6 +51,13 @@ public class SettingsController extends BaseController {
         return "account/settings";
     }
 
+    /**
+     * Receives settings attributes from client.
+     *
+     * @param profileBean the profile bean with profiles settings.
+     * @param model       is used to return answer to client.
+     * @return the path to required view.
+     */
     @RequestMapping(value = "/settings", method = RequestMethod.POST)
     public String update(@ModelAttribute(value = "profileBean") ProfileBean profileBean, Model model) {
 
