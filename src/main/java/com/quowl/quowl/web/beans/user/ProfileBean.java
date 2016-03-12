@@ -6,7 +6,18 @@ import com.quowl.quowl.domain.logic.user.ProfileInfo;
 import com.quowl.quowl.web.beans.WebBean;
 import org.joda.time.LocalDate;
 
-
+/**
+ * The DTO layer under {@link ProfileInfo} entity.
+ * It is used to get only needed fields without
+ * accessing DB. It is also better to send it to
+ * client side instead of ProfileInfo entity.
+ * Use {@link #copyDataFromDomain(ProfileInfo)} to
+ * copy fields from entity to ProfileBean object or
+ * {@link #copyDataFromDomain(Object)} backwards.
+ *
+ * @see WebBean
+ *
+ */
 public class ProfileBean implements WebBean<ProfileInfo> {
 
     private long id;
@@ -15,7 +26,8 @@ public class ProfileBean implements WebBean<ProfileInfo> {
     private Gender gender;
     private LocalDate birthday;
 
-    public ProfileBean(){}
+    public ProfileBean() {
+    }
 
     public ProfileBean(ProfileInfo profileInfo) {
         this.firstName = profileInfo.getFirstName();
@@ -65,11 +77,23 @@ public class ProfileBean implements WebBean<ProfileInfo> {
         this.id = id;
     }
 
+    /**
+     *
+     * @param obj the entity object to copy from.
+     */
     @Override
     public void copyDataFromDomain(ProfileInfo obj) {
-
+        id = obj.getId();
+        birthday = obj.getBirthDate();
+        gender = obj.getGender();
+        firstName = obj.getFirstName();
+        lastName = obj.getLastName();
     }
 
+    /**
+     *
+     * @param obj the entity object to copy in.
+     */
     @Override
     public void copyDataToDomain(ProfileInfo obj) {
         obj.setId(id);

@@ -54,7 +54,7 @@ public class SettingsController extends BaseController {
     /**
      * Receives settings attributes from client.
      *
-     * @param profileBean the profile bean with profiles settings.
+     * @param profileBean the received profile bean with profiles settings.
      * @param model       is used to return answer to client.
      * @return the path to required view.
      */
