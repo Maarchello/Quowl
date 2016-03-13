@@ -36,6 +36,10 @@ public class BookService {
         return bookRepository.findOneByBookAndAuthor(bookName, authorName);
     }
 
+    public String findAuthorByUserIdAndBook(Long userId, String book) {
+        return bookRepository.findAuthorByUserIdAndBook(userId, book);
+    }
+
     public List<Books> findAllByUser(User user) {
         return bookRepository.findAllByUser(user);
     }

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class StatusController {
@@ -21,7 +22,7 @@ public class StatusController {
 
     @RequestMapping(value = "/saveStatus", method = RequestMethod.POST)
     @ResponseBody
-    public JsonResultBean saveStatus(@RequestParam("bookName") String bookName, @RequestParam("authorName") String authorName) {
+    public JsonResultBean saveStatus(@RequestParam("bookName") String bookName, @RequestParam("authorName") String authorName, HttpServletRequest request) {
         if (StringUtils.isBlank(bookName) || bookName.equalsIgnoreCase("Название книги")) {
             bookName = null;
         }

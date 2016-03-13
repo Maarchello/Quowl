@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class QuoteController {
@@ -24,7 +25,7 @@ public class QuoteController {
 
     @RequestMapping(value = "/addQuote", method = RequestMethod.POST)
     @ResponseBody
-    public JsonResultBean addNewQuote(@RequestParam(value = "quote", required = true) String quote) {
+    public JsonResultBean addNewQuote(@RequestParam(value = "quote", required = true) String quote, HttpServletRequest request) {
         String nickname = SecurityUtils.getCurrentLogin();
         User user = userRepository.findOneByNickname(nickname);
         if (user.getBookName() == null || user.getAuthorName() == null) {

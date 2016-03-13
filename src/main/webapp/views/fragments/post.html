@@ -12,7 +12,7 @@
             <div  class="text-center" th:id="'quote_text_' + ${quote.id}" th:text="${quote.text}" style="font-family: Copperplate; padding: 10px 25px;"></div>
 
             <hr class="line margin-top" />
-            <div style="margin-bottom:30px; cursor: pointer;" class="field col-centered" onclick="addBook()" th:onclick="'javascript:addBook(\'' + ${quote.book} + '\' , \'' +${quote.userId} + '\')'" th:text="${quote.book}">Book</div>
+            <div style="margin-bottom:30px; cursor: pointer;" class="field col-centered" onclick="addBook()" th:onclick="'javascript:addBook(\'' + ${quote.userId} + '\' , \'' +${quote.book} + '\', \'' + ${currentUser.id} + '\')'" th:text="${quote.book}">Book</div>
         </div>
     </div>
     <div style="height: 40px;">

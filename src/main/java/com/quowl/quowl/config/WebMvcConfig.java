@@ -1,21 +1,15 @@
 package com.quowl.quowl.config;
 
-import com.quowl.quowl.service.user.CustomUserDetailsService;
 import org.apache.commons.lang3.CharEncoding;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.mobile.device.Device;
 import org.springframework.mobile.device.DeviceHandlerMethodArgumentResolver;
-import org.springframework.mobile.device.DeviceResolverHandlerInterceptor;
-import org.springframework.mobile.device.DeviceWebArgumentResolver;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-import org.springframework.web.servlet.mvc.method.annotation.ServletWebArgumentResolverAdapter;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;

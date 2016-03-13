@@ -62,7 +62,7 @@ function addQuote() {
                         '<div id="'+data.data.id+'" class="cart border_shadow">' +
                         '<div class="username">'+
                         '<img src="/resources/img/nerd_2.jpg" width="100" class="userava"/>'+
-                        '<a href="'+data.data.userNickname+'"> marat</a>'+
+                        '<a href="'+data.data.userNickname+'">'+data.data.userNickname+'</a>'+
                         '<b><span class="pull-right" style="color:grey;opacity: 0.6;font-size:12pt;">'+data.data.date+'</span></b>'+
                         '</div>'+
                         '<div style="margin-top: 20px;" class="field col-centered">'+data.data.author+'</div>'+
@@ -260,6 +260,7 @@ function saveStatus() {
                     setTimeout(function () {
                         $('#status_message').hide(300);
                     }, 2000);
+                    bkComplete = true;
                 }
             }
         });
@@ -281,6 +282,7 @@ function bookComplete() {
                     setTimeout(function () {
                         $('#status_message').hide(300);
                     }, 3000);
+                    clearStatus();
                     bkComplete = false;
                 } else if (data.error == 'S100'){
                     $('#status_message').text('Книга уже добавленна в прочитанные.').css('font-size', '13px').show(300);
@@ -295,6 +297,11 @@ function bookComplete() {
             }
         })
     }
+}
+
+function clearStatus() {
+    $('.authorName').text("Автор").css('color', 'darkgrey');
+    $('.bookName').text('Название книги').css('color', 'darkgrey');
 }
 
 var page = 1;
@@ -323,17 +330,13 @@ function moreQuotes() {
                         '<div class="text-center" id="quote_text_'+quote.id+'" style="font-family:Copperplate; padding: 10px 25px;">'+quote.text+'</div>'+
 
                         '<hr class="line margin-top" />'+
-                        '<div style="margin-bottom:30px; cursor: pointer;" class="field col-centered" onclick="addBook('+quote.userId, quote.book+')">'+quote.book+'</div>'+
+                        '<div style="margin-bottom:30px; cursor: pointer;" class="field col-centered" onclick="addBook('+quote.userId+', \''+quote.book+'\', \''+currentUser.id+'\')">'+quote.book+'</div>'+
 
                         '<div style="height: 40px;">'+
                         '<div class="pull-left like" onclick="like($(this).parent().parent());">' +
                         '<img id="like_unlike" src="'+containsUser(quote.users, currentUser)+'" width="30" height="30" />' +
                         '</div>'+
                         '<div class="pull-left likes_count" id="likes">'+quote.users.length+'</div>'+
-
-                            /*'<div style="display:inline-block;min-height:inherit;width: 80%" class="pull-left">'+
-                             '<input class="form-control" style="min-height: 100%" width="100%" placeholder="Введите комментарий"/>'+
-                             '</div>'+*/
                         '<div id="'+quote.id+'" class="pull-right" style="display: inline-block; cursor:pointer; width: 8%; height: 100%;" onclick="editorOfQuote(this.id);">'+
                         '<img src="/resources/img/edit.png" width="30" />'+
                         '</div>'+
@@ -365,7 +368,18 @@ function containsUser(list, value) {
      }
 }
 
-function addBook(name, user_id) {
-    alert(name);
-    alert(user_id);
+function addBook(user_id, book, currentUserId) {
+    var currentId = parseInt(currentUserId);
+    var userId = parseInt(user_id);
+    if (userId && book && currentId) {
+        $.ajax({
+            url: 'addBook/'+book+'/'+userId+'/'+currentId,
+            type: 'GET',
+            success: function(data) {
+                if (!data.error) {
+                    alert('success');
+                }
+            }
+        })
+    }
 }

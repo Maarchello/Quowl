@@ -11,6 +11,8 @@ import com.quowl.quowl.web.beans.user.QuoteBean;
 import com.quowl.quowl.web.beans.user.UserBean;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.mobile.device.Device;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -39,6 +41,7 @@ public class FeedController {
 
         List<Quote> quo2 = quoteRepository.findTenByFollowing(following, new PageRequest(0, 10));
         List<QuoteBean> quotes = quoteService.convertQuotesToQuoteBean(quo2);
+
 
         model.addAttribute("quotes", quotes);
         model.addAttribute("user", userBean);

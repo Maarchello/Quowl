@@ -157,7 +157,6 @@ function books(user_id) {
 }
 
 function drawBooks(books) {
-    console.log(books);
     var profile_content = $('#profile_content');
     showOneMenu(profile_content);
     profile_content.empty();
@@ -165,7 +164,7 @@ function drawBooks(books) {
     var keys = Object.keys(books);
     for (var i = 0; i < keys.length; i++) {
         var book = books[i];
-        profile_content.append('<div class="books">' +
+        profile_content.append('<div class="books" id="'+book.id+'">' +
             '<div class="bookk col-lg-1">' +
             '<span>'+book.author+'</span>' +
             '<img src="/resources/img/background.jpg" height="250" width="200" />' +
