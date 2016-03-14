@@ -82,9 +82,12 @@
 
 
 <div style="margin-right: 10px;" class="col-lg-10 col-md-9 col-sm-8 col-xs-8 col-centered flag" id="quotes_content">
+    <div id="quu">
     <section th:each="quote : ${quotes}" id="quotes" class="col-lg-5 col-md-8 col-sm-12 col-xs-8 col-centered">
         <div th:replace="fragments/post"></div>
     </section>
+    </div>
+
     <section th:if="${#lists.size(quotes) >= 10}" class="col-lg-4 col-centered text-center" style="padding: 35px; font-size: 18px;" onclick="moreQuotes()" id="moreQuotes">
         <input type="button" class="btn btn-red" value="Показать еще"/>
     </section>

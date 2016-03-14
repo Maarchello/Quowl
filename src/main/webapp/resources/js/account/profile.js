@@ -156,6 +156,53 @@ function books(user_id) {
     }
 }
 
+function moreQuotes() {
+    $.ajax({
+        url: 'moreQuotes/'+page,
+        type: 'GET',
+        success: function(data) {
+            if (!data.error) {
+                var quotes = data.datas[0];
+                var currentUser = data.datas[1];
+                var keys = Object.keys(quotes);
+
+                for (var i = 0; i < keys.length; i++) {
+                    var quote = quotes[i];
+                    $('#quu').append('<section id="quotes" class="col-lg-5 col-md-8 col-sm-12 col-xs-8 col-centered">' +
+                        '<div id="'+quote.id+'" class="cart border_shadow">' +
+                        '<div class="username">'+
+                        '<img src="/resources/img/nerd_2.jpg" width="100" class="userava"/>'+
+                        '<a href="'+quote.userNickname+'">'+quote.userNickname+'</a>'+
+                        '<b><span class="pull-right" style="color:grey;opacity: 0.6;font-size:12pt;">'+quote.date+'</span></b>'+
+                        '</div>'+
+                        '<div style="margin-top: 20px;" class="field col-centered">'+quote.author+'</div>'+
+                        '<hr class="line margin-bottom" />'+
+
+                        '<div class="text-center" id="quote_text_'+quote.id+'" style="font-family:Copperplate; padding: 10px 25px;">'+quote.text+'</div>'+
+
+                        '<hr class="line margin-top" />'+
+                        '<div style="margin-bottom:30px; cursor: pointer;" class="field col-centered" onclick="addBook('+quote.userId+', \''+quote.book+'\', \''+currentUser.id+'\')">'+quote.book+'</div>'+
+
+                        '<div style="height: 40px;">'+
+                        '<div class="pull-left like" onclick="like($(this).parent().parent());">' +
+                        '<img id="like_unlike" src="'+containsUser(quote.users, currentUser)+'" width="30" height="30" />' +
+                        '</div>'+
+                        '<div class="pull-left likes_count" id="likes">'+quote.users.length+'</div>'+
+                        '<div id="'+quote.id+'" class="pull-right" style="display: inline-block; cursor:pointer; width: 8%; height: 100%;" onclick="editorOfQuote(this.id);">'+
+                        '<img src="/resources/img/edit.png" width="30" />'+
+                        '</div>'+
+                        '</div>'+
+                        '</div>' +
+                        '</section>')
+                }
+                page += 1;
+            } else if (data.error == 'S200') {
+                $('#moreQuotes').remove();
+            }
+        }
+    })
+}
+
 function drawBooks(books) {
     var profile_content = $('#profile_content');
     showOneMenu(profile_content);
