@@ -5,10 +5,11 @@
 
 ## Directory-based project format:
 .idea/
-# if you remove the above rule, at least ignore the following:
 
+# if you remove the above rule, at least ignore the following:
 # User-specific stuff:
- .idea/workspace.xml
+target/
+
 # .idea/tasks.xml
 # .idea/dictionaries
 # .idea/shelf
