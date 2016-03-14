@@ -32,12 +32,12 @@
                     </a>
                 </div>
                 <div th:if="${user.id} != ${currentUser.id}" class="text-center col-centered">
-                    <div th:if="!${#lists.contains(user.followers, currentUser.id)}" th:id="${user.id}" class="col-lg-3 col-md-4 col-sm-4 col-xs-4 col-centered link settings sub_wrap subscribe" style="font-size: 16px;" onclick="subscribe(this.id)">
+                    <div th:if="!${#lists.contains(user.followers, currentUser.id)}" th:id="${user.id}" class="col-lg-10 col-centered link settings sub_wrap subscribe" style="font-size: 16px;" onclick="subscribe(this.id)">
                         <span class="glyphicon glyphicon-user"></span>
                         <span class="sub" th:text="'Подписаться'">Подписаться</span>
                     </div>
 
-                    <div th:if="${#lists.contains(user.followers, currentUser.id)}" th:id="${user.id}" class="col-lg-3 col-md-4 col-sm-4 col-xs-4 col-centered link settings sub_wrap unsubscribe" style="font-size: 16px;" onclick="subscribe(this.id)">
+                    <div th:if="${#lists.contains(user.followers, currentUser.id)}" th:id="${user.id}" class="col-lg-10 col-centered link settings sub_wrap unsubscribe" style="font-size: 16px;" onclick="subscribe(this.id)">
                         <span class="glyphicon glyphicon-user"></span>
                         <span class="sub" th:text="'Отписаться'"></span>
                     </div>
@@ -67,7 +67,7 @@
 </section>
 
 <div class="border-bottom col-centered col-lg-10 col-md-9 col-sm-8 col-xs-8 margin-bottom" style="min-height: 150px; margin-right: 10px; overflow: hidden;">
-    <div  class="col-centered col-lg-8 col-md-10 border">
+    <div  class="col-centered col-lg-8 col-md-10">
         <span><img src="/resources/img/book1.jpeg" width="120" style="margin-right: 5%; box-shadow: 0 0 10px black;" /></span>
         <span><img src="/resources/img/book2.jpg" width="120" style="margin-right: 5%; box-shadow: 0 0 10px black;" /></span>
         <span><img src="/resources/img/book3.jpg" width="120" style="margin-right: 5%; box-shadow: 0 0 10px black;" /></span>
