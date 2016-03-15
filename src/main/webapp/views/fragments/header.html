@@ -10,5 +10,9 @@
             <a class="link" th:href="${'/logout.html'}"><li class="li">Выйти</li></a>
         </ul>
     </div>
-    <input type="search" placeholder="Найти друга" />
+
+    <div class="col-centered border inline-block">
+        <input type="search" oninput="searchFriends(this.value)"  placeholder="Найти друга" />
+        <div id="resultSearch"></div>
+    </div>
 </header>

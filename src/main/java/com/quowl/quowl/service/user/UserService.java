@@ -40,6 +40,10 @@ public class UserService {
         return userBean;
     }
 
+    public List<User> search(String nickname) {
+        return userRepository.search(nickname);
+    }
+
     public List<UserBean> converUsersToUserBean(List<User> users) {
         List<UserBean> beans = new LinkedList<>();
 

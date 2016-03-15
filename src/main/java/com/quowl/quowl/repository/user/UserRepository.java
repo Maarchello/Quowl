@@ -17,4 +17,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query("select u from User u where u.id in ?1")
     List<User> findAllById(List<Long> ids);
 
+    @Query("select u.id, u.nickname from User u where u.nickname like concat('%', ?1, '%' )")
+    List<User> search(String nickname);
+
 }

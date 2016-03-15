@@ -7,6 +7,23 @@ $(document).ready(function(){
     }
 });
 
+function searchFriends(nickname) {
+    $('#resultSearch').empty();
+    if (nickname) {
+        $.ajax({
+            url: 'search/' + nickname,
+            type: 'GET',
+            success: function (data) {
+                var keys = Object.keys(data.data);
+                for (var i = 0; i < keys.length; i++) {
+                    var user = data.data[i];
+                    $('#resultSearch').append('<div id="'+user[0]+'">'+user[1]+'</div>')
+                }
+
+            }
+        })
+    }
+}
 
 function showContextMenu() {
     var menu = $('#context-menu');
