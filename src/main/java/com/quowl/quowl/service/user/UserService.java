@@ -16,7 +16,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 @Service
-public class UserService {
+public class UserService  {
     @Inject private BookRepository booksRepository;
     @Inject private QuoteRepository quoteRepository;
     @Inject private UserRepository userRepository;

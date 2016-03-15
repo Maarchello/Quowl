@@ -1,10 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8" />
     <title>Title</title>
 </head>
 <body>
 <h1>SETTINGS</h1>
+<form action="#" method="post" th:object="${profileBean}" th:action="@{/settings}">
+    <input type="text" th:value="*{firstName}" th:field="*{firstName}"/>
+    <input type="text" th:value="*{lastName}" th:field="*{lastName}"/>
+    <input type="text" th:value="*{gender}" th:field="*{gender}"/>
+    <input type="text" th:value="*{birthday}" th:field="*{birthday}"/>
+    <input type="hidden" th:value="*{id}" th:field="*{id}"/>
+    <input type="submit"/>
+
+    <div th:if="${error != null}" th:text="${error}">
+        Ошибка здесь:
+    </div>
+</form>
 </body>
 </html>
