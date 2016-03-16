@@ -1,18 +1,42 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8" />
-    <title>Title</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title th:text="'Настройка профиля | ' + ${currentUser.nickname}">Редактирование профиля </title>
+    <script src="/resources/js/global/jquery-2.2.0.min.js"></script>
+    <script src="/resources/js/global/general.js"></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" />
+    <link rel="stylesheet" href="/resources/css/global/bootstrap.min.css" />
+    <link rel="stylesheet" href="/resources/css/global/general.css" />
+
 </head>
 <body>
-<h1>SETTINGS</h1>
-<form action="#" method="post" th:object="${profileBean}" th:action="@{/settings}">
-    <input type="text" th:value="*{firstName}" th:field="*{firstName}"/>
-    <input type="text" th:value="*{lastName}" th:field="*{lastName}"/>
-    <input type="text" th:value="*{gender}" th:field="*{gender}"/>
-    <input type="text" th:value="*{birthday}" th:field="*{birthday}"/>
+<header th:replace="fragments/header"></header>
+<script>
+    $(function() {
+        $( "#datepicker" ).datepicker({
+            changeMonth: true,
+            changeYear: true,
+            yearRange: '1930:2016',
+        });
+    });
+</script>
+<section id="left-navbar" class="border col-lg-2 col-md-4 col-sm-4 col-xs-5">
+
+</section>
+
+<form action="#" class="form-group col-centered inline-block col-lg-2 text-center" method="post" th:object="${profileBean}" th:action="@{/settings}">
+    <input type="text" th:value="*{firstName}" class="form-control margin-bottom text-center" th:field="*{firstName}" placeholder="Имя"/>
+    <input type="text" th:value="*{lastName}" class="form-control margin-bottom text-center" th:field="*{lastName}" placeholder="Фамиля"/>
+    <select class="form-control margin-bottom text-center" th:field="*{gender}">
+        <option th:selected="*{#strings.toString(gender)} == 'MALE'" value="MALE" th:field="*{gender}">Мужчина</option>
+        <option th:selected="*{#strings.toString(gender)} == 'FEMALE'" value="FEMALE" th:field="*{gender}">Женщина</option>
+    </select>
+    <input id="datepicker" type="text" th:value="*{birthday}" class="form-control margin-bottom text-center" th:field="*{birthday}" placeholder="Дата рождения"/>
     <input type="hidden" th:value="*{id}" th:field="*{id}"/>
-    <input type="submit"/>
+    <input type="submit" class="btn btn-red" value="Сохранить"/>
 
     <div th:if="${error != null}" th:text="${error}">
         Ошибка здесь:

@@ -31,6 +31,7 @@ public class UserService  {
         userBean.setCountReadBooks(booksRepository.countAllReadBooks(user.getId()));
         userBean.setCountQuotes(quoteRepository.countAllQuotes(user.getId()));
         userBean.setProfileBean(new ProfileBean(user.getProfileInfo()));
+        userBean.setGender(user.getProfileInfo().getGender());
 
         List<Long> followers = subscribeRepository.findAllFollowersIdByFollowing(user.getId());
         List<Long> following = subscribeRepository.findAllFollowingsIdByFUser(user.getId());
@@ -56,6 +57,7 @@ public class UserService  {
             bean.setCountReadBooks(booksRepository.countAllReadBooks(user.getId()));
             bean.setCountQuotes(quoteRepository.countAllQuotes(user.getId()));
             bean.setProfileBean(new ProfileBean(user.getProfileInfo()));
+            bean.setGender(user.getProfileInfo().getGender());
 
             List<Long> followers = subscribeRepository.findAllFollowersIdByFollowing(user.getId());
             List<Long> following = subscribeRepository.findAllFollowingsIdByFUser(user.getId());

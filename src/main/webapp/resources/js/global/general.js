@@ -17,7 +17,7 @@ function searchFriends(nickname) {
                 var keys = Object.keys(data.data);
                 for (var i = 0; i < keys.length; i++) {
                     var user = data.data[i];
-                    $('#resultSearch').append('<div id="'+user[0]+'">'+user[1]+'</div>')
+                    $('#resultSearch').append('<a href="'+user[1]+'" class="text-center"><div class="border-bottom link" style="background: white; height:40px;" id="'+user[0]+'"><img src="/resources/img/nerd_2.jpg" width="30" />'+user[1]+'</div></a>')
                 }
 
             }

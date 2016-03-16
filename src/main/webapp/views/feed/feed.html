@@ -43,7 +43,11 @@
 
     <div style="margin-bottom: 5px; overflow: hidden; padding-right:15px; padding-left: 15px">
         <div>
-            <button class="btn btn-red pull-left" onclick="bookComplete()">Прочитал(а)</button>
+            <div th:switch="${#strings.toString(user.gender)}">
+                <button class="btn btn-red pull-left" onclick="bookComplete()" th:case="'MALE'">Прочитал</button>
+                <button class="btn btn-red pull-left" onclick="bookComplete()" th:case="'FEMALE'">Прочитала</button>
+                <button class="btn btn-red pull-left" onclick="bookComplete()" th:case="*">Прочитал(а)</button>
+            </div>
         </div>
         <div style="">
             <button class="btn btn-red pull-right" onclick="saveStatus()">Сохранить</button>

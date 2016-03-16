@@ -1,4 +1,4 @@
-<header class="page-header header">
+<header class="page-header header border">
     <div class="col-lg-1 pull-right " style="height: 100%; display: block;">
         <img src="/resources/img/nerd_2.jpg" class="link" width="50" onclick="showContextMenu()" style="border-radius: 50%" />
     </div>
@@ -11,8 +11,8 @@
         </ul>
     </div>
 
-    <div class="col-centered border inline-block">
-        <input type="search" oninput="searchFriends(this.value)"  placeholder="Найти друга" />
-        <div id="resultSearch"></div>
+    <div class="col-centered block overflow" style="width:200px;">
+        <input type="search" class="text-center border" oninput="searchFriends(this.value)" style="width:200px; height:30px; border-radius: 50px;" placeholder="Поиск друзей" />
+        <div id="resultSearch" style="max-height: 300px; overflow-y: scroll"></div>
     </div>
 </header>

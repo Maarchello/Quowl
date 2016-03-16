@@ -1,6 +1,7 @@
 package com.quowl.quowl.web.beans.user;
 
 
+import com.quowl.quowl.domain.logic.user.Gender;
 import com.quowl.quowl.domain.logic.user.User;
 import com.quowl.quowl.web.beans.WebBean;
 
@@ -17,6 +18,7 @@ public class UserBean implements WebBean<User> {
     private ProfileBean profileBean;
     private List<Long> followers;
     private List<Long> following;
+    private Gender gender;
 
     public Long getId() {
         return id;
@@ -130,5 +132,13 @@ public class UserBean implements WebBean<User> {
 
     public void setFollowing(List<Long> following) {
         this.following = following;
+    }
+
+    public Gender getGender() {
+        return gender;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
     }
 }

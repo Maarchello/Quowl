@@ -3,6 +3,7 @@ package com.quowl.quowl.web.controllers.account;
 import com.quowl.quowl.domain.logic.user.ProfileInfo;
 import com.quowl.quowl.service.account.ProfileService;
 import com.quowl.quowl.service.user.UserService;
+import com.quowl.quowl.web.beans.user.CurrentUserBean;
 import com.quowl.quowl.web.beans.user.ProfileBean;
 import com.quowl.quowl.web.beans.user.UserBean;
 import com.quowl.quowl.web.controllers.account.validation.SettingsValidator;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * This class is controller for {@link ProfileService}
@@ -45,7 +47,9 @@ public class SettingsController extends BaseController {
     public String settings(Device device, Model model) {
         UserBean userBean = userService.getUserBean();
         ProfileBean profileBean = userBean.getProfileBean();
+        CurrentUserBean currentUserBean = userService.getCurrentUser();
 
+        model.addAttribute("currentUser", currentUserBean);
         model.addAttribute("profileBean", profileBean);
 
         return "account/settings";
@@ -59,7 +63,7 @@ public class SettingsController extends BaseController {
      * @return the path to required view.
      */
     @RequestMapping(value = "/settings", method = RequestMethod.POST)
-    public String update(@ModelAttribute(value = "profileBean") ProfileBean profileBean, Model model) {
+    public String update(@ModelAttribute(value = "profileBean") ProfileBean profileBean, Model model, HttpServletRequest request) {
 
         ProfileBean receivedProfile = profileBean;
 
@@ -73,6 +77,6 @@ public class SettingsController extends BaseController {
             model.addAttribute("error", "Имя не может быть пустым.");
         }
 
-        return "account/settings";
+        return "redirect:/settings";
     }
 }

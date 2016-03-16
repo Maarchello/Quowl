@@ -1,3 +1,4 @@
+body {background: whitesmoke}
 input{outline: none; }
 textarea{outline: none; display:inline-block; vertical-align:middle; resize: none;}
 button{background-color:#f35d54}
@@ -29,6 +30,7 @@ a:hover{color:black}
 
 .block {display: block;}
 .inline-block {display: inline-block;}
+.overflow {overflow: hidden;}
 
 .hr {border: none; background: lightgrey; height:1px;}
 

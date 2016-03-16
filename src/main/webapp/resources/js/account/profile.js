@@ -7,13 +7,6 @@ $(document).ready(function() {
         $(this).addClass('selected');
     });
 
-
-    $(document).ajaxStart(function () {
-        $("#loading").css({'display' : 'block', 'margin': 'auto'});
-    }).ajaxStop(function () {
-        $("#loading").hide();
-    });
-
 });
 
 
