@@ -57,7 +57,9 @@ public class ProfileService
         return profileRepository.exists(aLong);
     }
 
+    public void changePassword(String current, String newPassword, String verify) {
 
+    }
 
 
 }

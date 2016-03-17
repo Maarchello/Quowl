@@ -33,6 +33,10 @@ public class SecurityService {
 
     }
 
+    public void refreshAuthentication(String username, String password) {
+        SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(username, password));
+    }
+
     public void logout(HttpServletResponse response) {
         SecurityContextHolder.getContext().setAuthentication(null);
         CookieUtils.removeAuthCookie(response);

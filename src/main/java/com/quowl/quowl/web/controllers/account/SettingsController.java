@@ -2,7 +2,9 @@ package com.quowl.quowl.web.controllers.account;
 
 import com.quowl.quowl.domain.logic.user.ProfileInfo;
 import com.quowl.quowl.service.account.ProfileService;
+import com.quowl.quowl.service.system.FileStorageService;
 import com.quowl.quowl.service.user.UserService;
+import com.quowl.quowl.utils.SecurityUtils;
 import com.quowl.quowl.web.beans.user.CurrentUserBean;
 import com.quowl.quowl.web.beans.user.ProfileBean;
 import com.quowl.quowl.web.beans.user.UserBean;
@@ -14,9 +16,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * This class is controller for {@link ProfileService}
@@ -35,6 +40,17 @@ public class SettingsController extends BaseController {
     private UserService userService;
     @Inject
     private ProfileService profileService;
+    @Inject
+    private FileStorageService fileStorageService;
+    @Inject
+    private SettingsValidator settingsValidator;
+
+    @ModelAttribute
+    private void setContext(Model model) {
+        CurrentUserBean currentUserBean = userService.getCurrentUser();
+
+        model.addAttribute("currentUser", currentUserBean);
+    }
 
     /**
      * Sends Profile Bean to client.
@@ -47,9 +63,7 @@ public class SettingsController extends BaseController {
     public String settings(Device device, Model model) {
         UserBean userBean = userService.getUserBean();
         ProfileBean profileBean = userBean.getProfileBean();
-        CurrentUserBean currentUserBean = userService.getCurrentUser();
 
-        model.addAttribute("currentUser", currentUserBean);
         model.addAttribute("profileBean", profileBean);
 
         return "account/settings";
@@ -63,20 +77,43 @@ public class SettingsController extends BaseController {
      * @return the path to required view.
      */
     @RequestMapping(value = "/settings", method = RequestMethod.POST)
-    public String update(@ModelAttribute(value = "profileBean") ProfileBean profileBean, Model model, HttpServletRequest request) {
-
-        ProfileBean receivedProfile = profileBean;
-
-        boolean isValid = SettingsValidator.isValid(receivedProfile);
+    public String update(@ModelAttribute(value = "profileBean") ProfileBean profileBean, Model model) {
+        boolean isValid = settingsValidator.isValid(profileBean);
 
         if (isValid) {
             ProfileInfo profileInfo = new ProfileInfo();
-            receivedProfile.copyDataToDomain(profileInfo);
+            profileBean.copyDataToDomain(profileInfo);
             profileService.save(profileInfo);
         } else {
             model.addAttribute("error", "Имя не может быть пустым.");
         }
 
+        return "redirect:/settings";
+    }
+
+    @RequestMapping(value = "/settings/avatar/change", method = RequestMethod.POST)
+    public String uploadImage(@RequestParam("image") MultipartFile file) {
+        String nickname = SecurityUtils.getCurrentLogin();
+        boolean alright = fileStorageService.uploadImage(file, nickname);
+
+        return "redirect:/settings";
+    }
+
+    @RequestMapping(value = "/settings/password/change", method = RequestMethod.GET)
+    public String changePassword(Model model) {
+        return "account/changepassword";
+    }
+
+    @RequestMapping(value = "/settings/password/change", method = RequestMethod.POST)
+    public String changePassword(@RequestParam("current") String current, @RequestParam("new") String newPassword, @RequestParam("verify") String verify, HttpServletResponse response, HttpServletRequest request, Model model) {
+        boolean success = settingsValidator.isValidPassword(current, newPassword, verify);
+
+        if (success) {
+            userService.changePassword(newPassword, response, request);
+        } else {
+            model.addAttribute("fail", "Change password failed. Make sure you typed correctly.");
+            return "account/changepassword";
+        }
         return "redirect:/settings";
     }
 }

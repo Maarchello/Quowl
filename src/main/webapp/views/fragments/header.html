@@ -4,7 +4,7 @@
     </div>
     <div class="border_shadow col-lg-1 text-center"><a class="link" th:href="@{/feed}">LOGO</a></div>
     <div id="context-menu" class="col-lg-1 border_shadow pull-right" style="display: none; background: white; padding: 0; margin-top: 50px;">
-        <ul style="list-style-type: none; font-size: 20px; width: 100%; padding: 0; font-family: Copperplate;" class="text-center">
+        <ul style="list-style-type: none; font-size: 20px; width: 100%; padding: 0; font-family: Copperplate;" class="text-center overflow inline-block">
             <a class="link" th:href="${currentUser.nickname}"><li class="li">Профиль</li></a>
             <a class="link" th:href="${'/settings'}"><li class="li">Настройки</li></a>
             <a class="link" th:href="${'/logout.html'}"><li class="li">Выйти</li></a>

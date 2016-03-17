@@ -8,6 +8,7 @@ import com.quowl.quowl.repository.user.UserRepository;
 import com.quowl.quowl.service.account.ProfileService;
 import com.quowl.quowl.service.book.BookService;
 import com.quowl.quowl.service.quote.QuoteService;
+import com.quowl.quowl.service.system.FileStorageService;
 import com.quowl.quowl.service.user.UserService;
 import com.quowl.quowl.web.beans.JsonResultBean;
 import com.quowl.quowl.web.beans.book.BookBean;
@@ -20,6 +21,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
+import java.util.Base64;
 import java.util.List;
 
 @Controller
@@ -30,6 +32,7 @@ public class ProfileController {
     @Inject private QuoteService quoteService;
     @Inject private ProfileService profileService;
     @Inject private BookService bookService;
+    @Inject private FileStorageService fileStorageService;
 
 
     @RequestMapping(value = "/{nickname}", method = RequestMethod.GET)
@@ -41,6 +44,7 @@ public class ProfileController {
         List<Quote> quo = quoteRepository.findTenByUser(user.getId(), new PageRequest(0, 10)); //quoteRepository.findAllByUserIdOrderByCreatedDateDesc(userBean.getId());
         List<QuoteBean> quotes = quoteService.convertQuotesToQuoteBean(quo);
 
+        model.addAttribute("avatar", Base64.getEncoder().encodeToString(fileStorageService.getImage(user.getNickname())));
         model.addAttribute("quotes", quotes);
         model.addAttribute("user", userBean);
         model.addAttribute("currentUser", currentUser);

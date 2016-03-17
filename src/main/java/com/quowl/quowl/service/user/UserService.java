@@ -5,15 +5,25 @@ import com.quowl.quowl.repository.books.BookRepository;
 import com.quowl.quowl.repository.quote.QuoteRepository;
 import com.quowl.quowl.repository.user.SubscribeRepository;
 import com.quowl.quowl.repository.user.UserRepository;
+import com.quowl.quowl.service.signinup.SecurityService;
+import com.quowl.quowl.service.system.TokenProvider;
+import com.quowl.quowl.utils.CookieUtils;
 import com.quowl.quowl.utils.SecurityUtils;
 import com.quowl.quowl.web.beans.user.CurrentUserBean;
 import com.quowl.quowl.web.beans.user.ProfileBean;
 import com.quowl.quowl.web.beans.user.UserBean;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService  {
@@ -21,6 +31,33 @@ public class UserService  {
     @Inject private QuoteRepository quoteRepository;
     @Inject private UserRepository userRepository;
     @Inject private SubscribeRepository subscribeRepository;
+    @Inject private PasswordEncoder passwordEncoder;
+    @Inject @Qualifier("customUserDetails") private UserDetailsService userDetailsService;
+    @Inject private SecurityService securityService;
+    @Inject private TokenProvider tokenProvider;
+
+    public User getByNickname(String nickname) {
+        return userRepository.findOneByNickname(nickname);
+    }
+
+    public void changePassword(String current, HttpServletResponse response, HttpServletRequest request) {
+        User user = userRepository.findOneByNickname(SecurityUtils.getCurrentLogin());
+        String encryptedPassword = passwordEncoder.encode(current);
+        user.setPassword(encryptedPassword);
+        userRepository.save(user);
+        refreshCookieForPassword(response, request);
+    }
+
+    private void refreshCookieForPassword(HttpServletResponse response, HttpServletRequest request) {
+        User user = userRepository.findOneByNickname(SecurityUtils.getCurrentLogin());
+        UserDetails details = userDetailsService.loadUserByUsername(user.getEmail());
+
+        securityService.refreshAuthentication(user.getUsername(), user.getPassword());
+
+        String token = tokenProvider.createToken(details);
+        CookieUtils.setAuthCookie(response, token);
+
+    }
 
     public UserBean convertUserToUserBean(User user) {
         UserBean userBean = new UserBean();
