@@ -17,7 +17,7 @@ public interface IService<T, ID extends Serializable> {
      *
      * @param object the entity to save.
      */
-    void save(T object);
+    T save(T object);
 
     /**
      * Deletes the given object.

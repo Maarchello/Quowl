@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.quowl.quowl.domain.base.AuditingEntity;
 import com.quowl.quowl.domain.logic.books.Books;
 import com.quowl.quowl.domain.logic.quote.Quote;
+import com.quowl.quowl.domain.system.Notification;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.springframework.security.core.GrantedAuthority;
@@ -11,16 +12,20 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 
 @Entity
 @Table(name = "user")
-public class User extends AuditingEntity implements UserDetails {
+public class User extends AuditingEntity implements UserDetails, Serializable {
 
     @Size(max = 100)
     @Column(name = "nickname", length = 100)
     private String nickname;
+
+    @Column
+    private String filename;
 
     @Size(max = 100)
     @Column(name = "email", nullable = false, unique = true, length = 100)
@@ -49,6 +54,9 @@ public class User extends AuditingEntity implements UserDetails {
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     @Fetch(value = FetchMode.SUBSELECT)
     private List<Books> books;
+
+    @OneToMany(mappedBy = "to", fetch = FetchType.LAZY)
+    private List<Notification> notifications;
 
     @Column
     private String bookName;
@@ -192,5 +200,21 @@ public class User extends AuditingEntity implements UserDetails {
         result = 31 * result + (langKey != null ? langKey.hashCode() : 0);
         result = 31 * result + (profileInfo != null ? profileInfo.hashCode() : 0);
         return result;
+    }
+
+    public String getFilename() {
+        return filename;
+    }
+
+    public void setFilename(String filename) {
+        this.filename = filename;
+    }
+
+    public List<Notification> getNotifications() {
+        return notifications;
+    }
+
+    public void setNotifications(List<Notification> notifications) {
+        this.notifications = notifications;
     }
 }

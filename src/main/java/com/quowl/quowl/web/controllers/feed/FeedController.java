@@ -1,7 +1,9 @@
 package com.quowl.quowl.web.controllers.feed;
 
 import com.quowl.quowl.domain.logic.quote.Quote;
+import com.quowl.quowl.domain.system.Notification;
 import com.quowl.quowl.repository.quote.QuoteRepository;
+import com.quowl.quowl.service.notification.NotificationService;
 import com.quowl.quowl.service.quote.QuoteService;
 import com.quowl.quowl.service.user.UserService;
 import com.quowl.quowl.utils.ExecutionStatus;
@@ -9,6 +11,7 @@ import com.quowl.quowl.web.beans.JsonResultBean;
 import com.quowl.quowl.web.beans.user.CurrentUserBean;
 import com.quowl.quowl.web.beans.user.QuoteBean;
 import com.quowl.quowl.web.beans.user.UserBean;
+import com.quowl.quowl.web.controllers.base.BaseController;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.mobile.device.Device;
 import org.springframework.security.core.Authentication;
@@ -25,7 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-public class FeedController {
+public class FeedController extends BaseController {
     @Inject private UserService userService;
     @Inject private QuoteService quoteService;
     @Inject private QuoteRepository quoteRepository;
@@ -40,14 +43,14 @@ public class FeedController {
         following.add(userBean.getId());
 
         List<Quote> quo2 = quoteRepository.findTenByFollowing(following, new PageRequest(0, 10));
-        List<QuoteBean> quotes = quoteService.convertQuotesToQuoteBean(quo2);
 
+        List<QuoteBean> quotes = quoteService.convertQuotesToQuoteBean(quo2);
 
         model.addAttribute("quotes", quotes);
         model.addAttribute("user", userBean);
         model.addAttribute("currentUser", currentUser);
         long finish = System.currentTimeMillis();
-        System.out.println("Execute time: " + (finish - startTime) + "mm");
+        System.out.println("Execute time: " + (finish - startTime) + "ms");
         if (device.isMobile()) {
             return "mobile/feed/feed";
         }

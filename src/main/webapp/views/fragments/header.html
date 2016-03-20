@@ -1,17 +1,25 @@
 <header class="page-header header border">
-    <div class="col-lg-1 pull-right " style="height: 100%; display: block;">
-        <img src="/resources/img/nerd_2.jpg" class="link" width="50" onclick="showContextMenu()" style="border-radius: 50%" />
+    <div th:if="${currentUser.id} != null" class="col-lg-1 pull-right border block link"  style="height: 100%;">
+        <div th:id="${currentUser.id}" onclick="showNotifications(this.id)">
+            <span th:text="${notify} == 0 ? '' : ${notify}" id="countNotify"></span>
+            <span class="glyphicon glyphicon-bell font20"></span>
+        </div>
+        <div id="notifications" style="display: none;"></div>
     </div>
-    <div class="border_shadow col-lg-1 text-center"><a class="link" th:href="@{/feed}">LOGO</a></div>
-    <div id="context-menu" class="col-lg-1 border_shadow pull-right" style="display: none; background: white; padding: 0; margin-top: 50px;">
-        <ul style="list-style-type: none; font-size: 20px; width: 100%; padding: 0; font-family: Copperplate;" class="text-center overflow inline-block">
-            <a class="link" th:href="${currentUser.nickname}"><li class="li">Профиль</li></a>
-            <a class="link" th:href="${'/settings'}"><li class="li">Настройки</li></a>
-            <a class="link" th:href="${'/logout.html'}"><li class="li">Выйти</li></a>
-        </ul>
+    <div th:if="${currentUser.id} != null" class="col-lg-1 pull-right border" style="height: 100%; display: block;">
+        <img th:src="'data:image/png;base64,'+${myavatar}" class="link" width="40" onclick="showContextMenu()" style="border-radius: 50%" />
+        <div id="context-menu" class="col-lg-12 border_shadow" style="display: none; background: white; padding: 0; margin-top: 10px;">
+            <ul style="list-style-type: none; font-size: 20px; width: 100%; padding: 0; font-family: Copperplate;" class="text-center overflow inline-block">
+                <a class="link" th:href="${currentUser.nickname}"><li class="li">Профиль</li></a>
+                <a class="link" th:href="${'/settings'}"><li class="li">Настройки</li></a>
+                <a class="link" th:href="${'/logout.html'}"><li class="li">Выйти</li></a>
+            </ul>
+        </div>
     </div>
 
-    <div class="col-centered block overflow" style="width:200px;">
+    <div class="border_shadow col-lg-1 text-center"><a class="link" th:href="@{/feed}">LOGO</a></div>
+
+    <div class="col-centered block border overflow" style="width:200px;">
         <input type="search" class="text-center border" oninput="searchFriends(this.value)" style="width:200px; height:30px; border-radius: 50px;" placeholder="Поиск друзей" />
         <div id="resultSearch" style="max-height: 300px; overflow-y: scroll"></div>
     </div>

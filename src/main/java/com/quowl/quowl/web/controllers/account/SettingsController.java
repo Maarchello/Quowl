@@ -1,6 +1,7 @@
 package com.quowl.quowl.web.controllers.account;
 
 import com.quowl.quowl.domain.logic.user.ProfileInfo;
+import com.quowl.quowl.domain.logic.user.User;
 import com.quowl.quowl.service.account.ProfileService;
 import com.quowl.quowl.service.system.FileStorageService;
 import com.quowl.quowl.service.user.UserService;
@@ -22,6 +23,8 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.Base64;
 
 /**
  * This class is controller for {@link ProfileService}
@@ -34,7 +37,7 @@ import javax.servlet.http.HttpServletResponse;
  * @see BaseController
  */
 @Controller
-public class SettingsController extends BaseController {
+public class SettingsController  {
 
     @Inject
     private UserService userService;
@@ -46,9 +49,11 @@ public class SettingsController extends BaseController {
     private SettingsValidator settingsValidator;
 
     @ModelAttribute
-    private void setContext(Model model) {
+    private void setContext(Model model) throws IOException {
         CurrentUserBean currentUserBean = userService.getCurrentUser();
+        User user = userService.getByNickname(SecurityUtils.getCurrentLogin());
 
+        model.addAttribute("myavatar", Base64.getEncoder().encodeToString(fileStorageService.getImage(user)));
         model.addAttribute("currentUser", currentUserBean);
     }
 
@@ -59,9 +64,11 @@ public class SettingsController extends BaseController {
      * @param model  is used to add attributes.
      * @return the path to required view.
      */
-    @RequestMapping(value = "/settings")
-    public String settings(Device device, Model model) {
-        UserBean userBean = userService.getUserBean();
+    @RequestMapping(value = "/settings", method = RequestMethod.GET)
+    public String settings(Device device, Model model) throws IOException {
+        User user = userService.getByNickname(SecurityUtils.getCurrentLogin());
+
+        UserBean userBean = userService.convertUserToUserBean(user);
         ProfileBean profileBean = userBean.getProfileBean();
 
         model.addAttribute("profileBean", profileBean);
@@ -93,8 +100,7 @@ public class SettingsController extends BaseController {
 
     @RequestMapping(value = "/settings/avatar/change", method = RequestMethod.POST)
     public String uploadImage(@RequestParam("image") MultipartFile file) {
-        String nickname = SecurityUtils.getCurrentLogin();
-        boolean alright = fileStorageService.uploadImage(file, nickname);
+        boolean alright = fileStorageService.uploadImage(file);
 
         return "redirect:/settings";
     }

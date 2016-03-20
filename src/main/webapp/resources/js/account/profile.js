@@ -15,7 +15,7 @@ function quotes(nickname) {
     showOneMenu(quotes);
 }
 
-function subscribe(following) {
+function subscribe(following, follower) {
     $.ajax({
         url: 'subscribe',
         type: 'POST',
