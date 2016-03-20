@@ -9,6 +9,7 @@ import com.quowl.quowl.service.signinup.SecurityService;
 import com.quowl.quowl.service.system.TokenProvider;
 import com.quowl.quowl.utils.CookieUtils;
 import com.quowl.quowl.utils.SecurityUtils;
+import com.quowl.quowl.web.beans.IService;
 import com.quowl.quowl.web.beans.user.CurrentUserBean;
 import com.quowl.quowl.web.beans.user.ProfileBean;
 import com.quowl.quowl.web.beans.user.UserBean;
@@ -26,7 +27,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class UserService  {
+public class UserService implements IService<User, Long> {
     @Inject private BookRepository booksRepository;
     @Inject private QuoteRepository quoteRepository;
     @Inject private UserRepository userRepository;
@@ -107,10 +108,11 @@ public class UserService  {
 
     public CurrentUserBean getCurrentUser() {
         String nickname = SecurityUtils.getCurrentLogin();
-        User user = userRepository.findOneByNickname(nickname);
 
         CurrentUserBean cub = new CurrentUserBean();
         if (nickname.equals("anonymousUser")) return cub;
+
+        User user = userRepository.findOneByNickname(nickname);
         cub.copyDataFromDomain(user);
 
         return cub;
@@ -124,4 +126,33 @@ public class UserService  {
     }
 
 
+    @Override
+    public User save(User object) {
+        return userRepository.save(object);
+    }
+
+    @Override
+    public void delete(User object) {
+        userRepository.delete(object);
+    }
+
+    @Override
+    public void delete(Long aLong) {
+        userRepository.delete(aLong);
+    }
+
+    @Override
+    public List<User> findAll() {
+        return userRepository.findAll();
+    }
+
+    @Override
+    public User findOne(Long aLong) {
+        return userRepository.findOne(aLong);
+    }
+
+    @Override
+    public boolean exists(Long aLong) {
+        return userRepository.exists(aLong);
+    }
 }

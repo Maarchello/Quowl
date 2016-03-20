@@ -25,6 +25,42 @@ function searchFriends(nickname) {
     }
 }
 
+function showNotifications(id) {
+    var notification = $('#notifications');
+    if (notification.is(':visible')) {
+        notification.hide();
+        return;
+    }
+    notification.empty();
+    $.ajax({
+        url: 'notifications/' + id,
+        type: 'GET',
+        success: function(data) {
+            console.log(data);
+            notificationSeenTrue(id);
+            if (!data.error) {
+                var keys = Object.keys(data.data);
+                for (var i = 0; i < keys.length; i++) {
+                    var notify = data.data[i];
+                    $('#notifications').show().prepend('<div>'+notify.message+'<a href="/'+notify.fromUser+'">'+notify.fromUser+'</a></div>');
+                }
+            }
+        }
+    })
+}
+
+function notificationSeenTrue(id) {
+    $.ajax({
+        url: 'notification/seen/' + id,
+        type: 'GET',
+        success: function(data) {
+            if (!data.error) {
+                $('#countNotify').empty();
+            }
+        }
+    })
+}
+
 function showContextMenu() {
     var menu = $('#context-menu');
     if (menu.is(':visible')) {

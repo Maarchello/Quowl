@@ -15,17 +15,19 @@ import com.quowl.quowl.web.beans.book.BookBean;
 import com.quowl.quowl.web.beans.user.CurrentUserBean;
 import com.quowl.quowl.web.beans.user.QuoteBean;
 import com.quowl.quowl.web.beans.user.UserBean;
+import com.quowl.quowl.web.controllers.base.BaseController;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
+import java.io.IOException;
 import java.util.Base64;
 import java.util.List;
 
 @Controller
-public class ProfileController {
+public class ProfileController extends BaseController {
     @Inject private UserRepository userRepository;
     @Inject private UserService userService;
     @Inject private QuoteRepository quoteRepository;
@@ -36,7 +38,7 @@ public class ProfileController {
 
 
     @RequestMapping(value = "/{nickname}", method = RequestMethod.GET)
-    public String getProfile(@PathVariable("nickname") String nickname, Model model) {
+    public String getProfile(@PathVariable("nickname") String nickname, Model model) throws IOException {
         User user = userRepository.findOneByNickname(nickname);
         UserBean userBean = userService.convertUserToUserBean(user);
         CurrentUserBean currentUser = userService.getCurrentUser();
@@ -44,7 +46,7 @@ public class ProfileController {
         List<Quote> quo = quoteRepository.findTenByUser(user.getId(), new PageRequest(0, 10)); //quoteRepository.findAllByUserIdOrderByCreatedDateDesc(userBean.getId());
         List<QuoteBean> quotes = quoteService.convertQuotesToQuoteBean(quo);
 
-        model.addAttribute("avatar", Base64.getEncoder().encodeToString(fileStorageService.getImage(user.getNickname())));
+        model.addAttribute("avatar", Base64.getEncoder().encodeToString(fileStorageService.getImage(user)));
         model.addAttribute("quotes", quotes);
         model.addAttribute("user", userBean);
         model.addAttribute("currentUser", currentUser);

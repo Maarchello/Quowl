@@ -27,8 +27,8 @@ public class ProfileService
     }
 
     @Override
-    public void save(ProfileInfo object) {
-        profileRepository.save(object);
+    public ProfileInfo save(ProfileInfo object) {
+        return profileRepository.save(object);
     }
 
     @Override
