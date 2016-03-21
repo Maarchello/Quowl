@@ -2,10 +2,10 @@ package com.quowl.quowl.domain.logic.books;
 
 import com.quowl.quowl.domain.base.AuditingEntity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
+import javax.persistence.*;
 
 @Entity
+@Table(uniqueConstraints = {@UniqueConstraint(name = "UQ_IDX_USER_BOOK_AUTHOR", columnNames = {"userId", "book", "author"})})
 public class BookPlan extends AuditingEntity {
 
     @Column

@@ -19,28 +19,38 @@ function subscribe(following, follower) {
     $.ajax({
         url: 'subscribe',
         type: 'POST',
-        data: ({following: following}),
+        data: ({following: following, follower:follower}),
         success: function(data) {
             if (!data.error) {
                 var elementFollowers = $('#followers');
-                if (data.data == 'Increment') {
                     var followers = elementFollowers.text();
                     var followersInt = incrementString(followers);
                     elementFollowers.text(followersInt);
                     $('.sub').text('Отписаться');
                     $('.sub_wrap').removeClass('subscribe');
                     $('.sub_wrap').addClass('unsubscribe');
-                } else if (data.data == 'Decrement') {
-                    var followers = elementFollowers.text();
-                    var followersInt = decrementString(followers);
-                    elementFollowers.text(followersInt);
-                    $('.sub').text('Подписаться');
-                    $('.sub_wrap').removeClass('unsubscribe');
-                    $('.sub_wrap').addClass('subscribe');
-                }
             }
         }
     });
+}
+
+function unsubscribe(following, follower) {
+    $.ajax({
+        url: 'unsubscribe',
+        type: 'POST',
+        data: ({following: following, follower: follower}),
+        success: function(data) {
+            if (!data.error) {
+                var elementFollowers = $('#followers');
+                var followers = elementFollowers.text();
+                var followersInt = decrementString(followers);
+                elementFollowers.text(followersInt);
+                $('.sub').text('Подписаться');
+                $('.sub_wrap').removeClass('unsubscribe');
+                $('.sub_wrap').addClass('subscribe');
+            }
+        }
+    })
 }
 
 function showOneMenu(menu) {
@@ -197,8 +207,9 @@ function moreQuotes() {
 }
 
 function drawBooks(books) {
-    var profile_content = $('#profile_content');
-    showOneMenu(profile_content);
+    var profile_content = $('#book_content');
+    var book_wrapper = $('#book_wrapper');
+    showOneMenu(book_wrapper);
     profile_content.empty();
 
     var keys = Object.keys(books);
@@ -211,5 +222,24 @@ function drawBooks(books) {
             '<span>'+book.name+'</span>' +
             '</div>' +
             '</div>')
+    }
+}
+
+function showLibrary() {
+    drawBooks(bookBean);
+}
+
+var bookPlanBean = {};
+function showBookPlan(user_id) {
+    if (!bookPlanBean.length) {
+        $.ajax({
+            url: 'getBookPlan/' + user_id,
+            type: 'GET',
+            success: function(data) {
+                if (!data.error) {
+                    console.log(data);
+                }
+            }
+        })
     }
 }
