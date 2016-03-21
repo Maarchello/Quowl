@@ -3,6 +3,7 @@ package com.quowl.quowl.service.notification;
 import com.quowl.quowl.domain.logic.user.User;
 import com.quowl.quowl.domain.system.Notification;
 import com.quowl.quowl.repository.notification.NotificationRepository;
+import com.quowl.quowl.service.user.UserService;
 import com.quowl.quowl.web.beans.IService;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,7 @@ import java.util.List;
 @Service
 public class NotificationService implements IService<Notification, Long> {
     @Inject private NotificationRepository notificationRepository;
+    @Inject private UserService userService;
 
     public void createNotify(String from, User to, String message) {
         Notification notification = new Notification();
@@ -21,6 +23,19 @@ public class NotificationService implements IService<Notification, Long> {
         notification.setMessage(message);
         notification.setSeen(false);
         save(notification);
+    }
+
+    public void createNotify(String from, List<Long> followers, String message) {
+        Notification notification = new Notification();
+        notification.setFromUser(from);
+        notification.setMessage(message);
+        notification.setSeen(false);
+
+        for (long i = 0; i < followers.size(); i++) {
+            User user = userService.findOne(i);
+            notification.setTo(user);
+            save(notification);
+        }
     }
 
     public List<Notification> getAllUnread(Long userId) {

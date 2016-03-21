@@ -24,6 +24,8 @@ public class BookController {
     @Inject private BookService bookService;
     @Inject private BookPlanService planService;
 
+    private final static String BOOK_FINISH_NOTIFICATION = "прочитал(а) книгу";
+
 
     @RequestMapping(value = "/bookComplete", method = RequestMethod.GET)
     @ResponseBody
@@ -31,6 +33,7 @@ public class BookController {
         String nickname = SecurityUtils.getCurrentLogin();
         User user = userRepository.findOneByNickname(nickname);
 
+        //TODO: добавить в поиск айди юзера, иначе если у двух людей одна и та же книга, будет беда
         Books book = bookService.findOneByBookAndAuthor(user.getBookName(), user.getAuthorName());
         if (book != null) {
             if (!book.isReaded()) {
