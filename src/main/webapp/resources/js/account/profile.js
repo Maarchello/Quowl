@@ -19,7 +19,7 @@ function subscribe(following, follower) {
     $.ajax({
         url: 'subscribe',
         type: 'POST',
-        data: ({following: following}),
+        data: ({following: following, follower:follower}),
         success: function(data) {
             if (!data.error) {
                 var elementFollowers = $('#followers');

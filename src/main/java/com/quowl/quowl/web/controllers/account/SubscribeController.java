@@ -27,22 +27,16 @@ public class SubscribeController {
 
     @RequestMapping(value = "/subscribe", method = RequestMethod.POST)
     @ResponseBody
-    public JsonResultBean subscribe(@RequestParam("following") Long following) {
-        if (following == null) {
-            return JsonResultBean.failure("");
+    public JsonResultBean subscribe(@RequestParam("following") Long following, @RequestParam("follower") Long follower) {
+        if (following == null || follower == null) {
+            return JsonResultBean.failure(ExecutionStatus.SNULL.toString());
         }
-        User from = userService.getByNickname(SecurityUtils.getCurrentLogin());
-        Long follower = userService.getCurrentUser().getId();
         Subscribe subscribe = new Subscribe();
         subscribe.setFollowing(following);
         subscribe.setFollower(follower);
-        try {
-            subscribeRepository.save(subscribe);
-        } catch (DataIntegrityViolationException e) {
-            subscribeRepository.delete(subscribeRepository.findByFollowerAndFollowing(follower, following));
-            return JsonResultBean.success("Decrement");
-        }
+        subscribeRepository.save(subscribe);
 
+        User from = userService.getByNickname(SecurityUtils.getCurrentLogin());
         User to = userService.findOne(following);
         notificationService.createNotify(from.getNickname(), to, SUBSCRIBE_NOTIFICATION);
         return JsonResultBean.success("Increment");
@@ -50,11 +44,10 @@ public class SubscribeController {
 
     @RequestMapping(value = "/unsubscribe", method = RequestMethod.POST)
     @ResponseBody
-    public JsonResultBean unsubscribe(@RequestParam("following") Long following) {
-        if (following == null) {
+    public JsonResultBean unsubscribe(@RequestParam("following") Long following, @RequestParam("follower") Long follower) {
+        if (following == null || follower == null) {
             return JsonResultBean.failure(ExecutionStatus.SNULL.toString());
         }
-        Long follower = userService.getCurrentUser().getId();
         Subscribe subscribe = subscribeRepository.findByFollowerAndFollowing(follower, following);
         subscribeRepository.delete(subscribe);
 
