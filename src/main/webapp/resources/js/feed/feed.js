@@ -369,17 +369,22 @@ function containsUser(list, value) {
 }
 
 function addBook(user_id, book, currentUserId) {
-    var currentId = parseInt(currentUserId);
-    var userId = parseInt(user_id);
-    if (userId && book && currentId) {
-        $.ajax({
-            url: 'addBook/'+book+'/'+userId+'/'+currentId,
-            type: 'GET',
-            success: function(data) {
-                if (!data.error) {
-                    alert('success');
+    var sure = confirm("Вы хотите добавить эту книгу в свой плановый список?");
+    if (sure) {
+        var currentId = parseInt(currentUserId);
+        var userId = parseInt(user_id);
+        if (userId && book && currentId) {
+            $.ajax({
+                url: 'addBook/' + book + '/' + userId + '/' + currentId,
+                type: 'GET',
+                success: function (data) {
+                    if (!data.error) {
+                        alert('Книга успешно добавлена в Ваш плановый список.');
+                    } else if (data.error == 'S110') {
+                        alert('Эта книга уже есть в Вашем плановом списке.')
+                    }
                 }
-            }
-        })
+            })
+        }
     }
 }

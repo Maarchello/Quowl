@@ -207,8 +207,9 @@ function moreQuotes() {
 }
 
 function drawBooks(books) {
-    var profile_content = $('#profile_content');
-    showOneMenu(profile_content);
+    var profile_content = $('#book_content');
+    var book_wrapper = $('#book_wrapper');
+    showOneMenu(book_wrapper);
     profile_content.empty();
 
     var keys = Object.keys(books);
@@ -221,5 +222,24 @@ function drawBooks(books) {
             '<span>'+book.name+'</span>' +
             '</div>' +
             '</div>')
+    }
+}
+
+function showLibrary() {
+    drawBooks(bookBean);
+}
+
+var bookPlanBean = {};
+function showBookPlan(user_id) {
+    if (!bookPlanBean.length) {
+        $.ajax({
+            url: 'getBookPlan/' + user_id,
+            type: 'GET',
+            success: function(data) {
+                if (!data.error) {
+                    console.log(data);
+                }
+            }
+        })
     }
 }

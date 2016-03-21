@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.inject.Inject;
+import java.util.List;
 
 @Controller
 public class BookController {
@@ -59,8 +60,22 @@ public class BookController {
         bookPlan.setBook(book);
         bookPlan.setAuthor(author);
         bookPlan.setUserId(currentUserId);
-        planService.save(bookPlan);
+
+        boolean success = planService.tryAdd(bookPlan);
+
+        if (!success) {
+            return JsonResultBean.failure(ExecutionStatus.S110.toString());
+        }
+
         return JsonResultBean.success(ExecutionStatus.OK.toString());
+    }
+
+    @RequestMapping(value = "/getBookPlan/{user_id}")
+    @ResponseBody
+    public JsonResultBean getBookPlan(@PathVariable("user_id") Long userId) {
+        List<BookPlan> planList = planService.getByUserId(userId);
+
+        return JsonResultBean.success(planList);
     }
 
 }
