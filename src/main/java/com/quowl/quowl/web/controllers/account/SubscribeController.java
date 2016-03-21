@@ -48,4 +48,17 @@ public class SubscribeController {
         return JsonResultBean.success("Increment");
     }
 
+    @RequestMapping(value = "/unsubscribe", method = RequestMethod.POST)
+    @ResponseBody
+    public JsonResultBean unsubscribe(@RequestParam("following") Long following) {
+        if (following == null) {
+            return JsonResultBean.failure(ExecutionStatus.SNULL.toString());
+        }
+        Long follower = userService.getCurrentUser().getId();
+        Subscribe subscribe = subscribeRepository.findByFollowerAndFollowing(follower, following);
+        subscribeRepository.delete(subscribe);
+
+        return JsonResultBean.success("Decrement");
+    }
+
 }

@@ -23,24 +23,34 @@ function subscribe(following, follower) {
         success: function(data) {
             if (!data.error) {
                 var elementFollowers = $('#followers');
-                if (data.data == 'Increment') {
                     var followers = elementFollowers.text();
                     var followersInt = incrementString(followers);
                     elementFollowers.text(followersInt);
                     $('.sub').text('Отписаться');
                     $('.sub_wrap').removeClass('subscribe');
                     $('.sub_wrap').addClass('unsubscribe');
-                } else if (data.data == 'Decrement') {
-                    var followers = elementFollowers.text();
-                    var followersInt = decrementString(followers);
-                    elementFollowers.text(followersInt);
-                    $('.sub').text('Подписаться');
-                    $('.sub_wrap').removeClass('unsubscribe');
-                    $('.sub_wrap').addClass('subscribe');
-                }
             }
         }
     });
+}
+
+function unsubscribe(following, follower) {
+    $.ajax({
+        url: 'unsubscribe',
+        type: 'POST',
+        data: ({following: following, follower: follower}),
+        success: function(data) {
+            if (!data.error) {
+                var elementFollowers = $('#followers');
+                var followers = elementFollowers.text();
+                var followersInt = decrementString(followers);
+                elementFollowers.text(followersInt);
+                $('.sub').text('Подписаться');
+                $('.sub_wrap').removeClass('unsubscribe');
+                $('.sub_wrap').addClass('subscribe');
+            }
+        }
+    })
 }
 
 function showOneMenu(menu) {
