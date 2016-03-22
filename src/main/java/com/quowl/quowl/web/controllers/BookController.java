@@ -21,9 +21,12 @@ import java.util.List;
 @Controller
 public class BookController {
 
-    @Inject private UserRepository userRepository;
-    @Inject private BookService bookService;
-    @Inject private BookPlanService planService;
+    @Inject
+    private UserRepository userRepository;
+    @Inject
+    private BookService bookService;
+    @Inject
+    private BookPlanService planService;
 
     private final static String BOOK_FINISH_NOTIFICATION = "прочитал(а) книгу";
 
@@ -41,6 +44,10 @@ public class BookController {
                 book.setReaded(true);
                 user.setBookName(null);
                 user.setAuthorName(null);
+            } else if (book.getAuthor() == null) {
+                return JsonResultBean.failure(ExecutionStatus.S130.toString());
+            } else if (book.getBook() == null) {
+                return JsonResultBean.failure(ExecutionStatus.S131.toString());
             } else {
                 return JsonResultBean.failure(ExecutionStatus.S100.toString());
             }
