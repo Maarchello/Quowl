@@ -13,10 +13,15 @@ import java.util.List;
 
 @Service
 public class NotificationService implements IService<Notification, Long> {
-    @Inject private NotificationRepository notificationRepository;
-    @Inject private UserService userService;
+    @Inject
+    private NotificationRepository notificationRepository;
+    @Inject
+    private UserService userService;
 
     public void createNotify(String from, User to, String message) {
+        if (to.getNickname().equals(from)) {
+            return;
+        }
         Notification notification = new Notification();
         notification.setFromUser(from);
         notification.setTo(to);
