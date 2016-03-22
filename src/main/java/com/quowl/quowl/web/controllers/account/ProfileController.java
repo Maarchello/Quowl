@@ -53,6 +53,7 @@ public class ProfileController extends BaseController {
         return "account/profile";
     }
 
+    //TODO create FollowerBean instead UserBean. In FollowerBean except Gender and ProfileBean
     @RequestMapping(value = "/followers", method = RequestMethod.POST)
     @ResponseBody
     public JsonResultBean getFollowers(@RequestParam("followers") String followers) {
@@ -63,6 +64,7 @@ public class ProfileController extends BaseController {
         return JsonResultBean.success(beanFollowers);
     }
 
+    //TODO create FollowerBean instead UserBean. In FollowerBean except Gender and ProfileBean
     @RequestMapping(value = "/followings", method = RequestMethod.POST)
     @ResponseBody
     public JsonResultBean getFollowings(@RequestParam("following") String following) {
