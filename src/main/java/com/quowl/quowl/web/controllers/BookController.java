@@ -44,14 +44,19 @@ public class BookController {
                 book.setReaded(true);
                 user.setBookName(null);
                 user.setAuthorName(null);
-            } else if (book.getAuthor() == null) {
-                return JsonResultBean.failure(ExecutionStatus.S130.toString());
-            } else if (book.getBook() == null) {
-                return JsonResultBean.failure(ExecutionStatus.S131.toString());
             } else {
                 return JsonResultBean.failure(ExecutionStatus.S100.toString());
             }
         }
+
+
+        if (user.getAuthorName() == null) {
+            return JsonResultBean.failure(ExecutionStatus.S130.toString());
+        } else if (user.getBookName() == null) {
+            return JsonResultBean.failure(ExecutionStatus.S131.toString());
+        }
+
+
         try {
             bookService.save(book);
             userRepository.save(user);

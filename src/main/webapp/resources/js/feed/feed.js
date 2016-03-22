@@ -293,10 +293,12 @@ function bookComplete() {
                 } else if (data.error == 'S130') {
 
                     $('#status_message').text('Автор не установлен').css('font-size', '13px').show(300);
+                    bkComplete = false;
 
                 } else if (data.error == 'S131'){
 
                     $("#status_message").text("Название книги не установлено").css('font-size', '13px').show(300);
+                    bkComplete = false;
 
                 } else if (data.error = 'S000') {
                     console.log('Error in Book controller.');
