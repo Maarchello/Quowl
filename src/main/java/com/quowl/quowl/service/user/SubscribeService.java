@@ -3,7 +3,7 @@ package com.quowl.quowl.service.user;
 
 import com.quowl.quowl.domain.logic.user.Subscribe;
 import com.quowl.quowl.repository.user.SubscribeRepository;
-import com.quowl.quowl.web.beans.IService;
+import com.quowl.quowl.web.beans.system.IService;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;

@@ -1,21 +1,17 @@
 package com.quowl.quowl.web.controllers.feed;
 
 import com.quowl.quowl.domain.logic.quote.Quote;
-import com.quowl.quowl.domain.system.Notification;
 import com.quowl.quowl.repository.quote.QuoteRepository;
-import com.quowl.quowl.service.notification.NotificationService;
 import com.quowl.quowl.service.quote.QuoteService;
 import com.quowl.quowl.service.user.UserService;
 import com.quowl.quowl.utils.ExecutionStatus;
-import com.quowl.quowl.web.beans.JsonResultBean;
+import com.quowl.quowl.web.beans.system.JsonResultBean;
 import com.quowl.quowl.web.beans.user.CurrentUserBean;
 import com.quowl.quowl.web.beans.user.QuoteBean;
 import com.quowl.quowl.web.beans.user.UserBean;
 import com.quowl.quowl.web.controllers.base.BaseController;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.mobile.device.Device;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;

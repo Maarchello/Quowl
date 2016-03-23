@@ -4,7 +4,7 @@ import com.quowl.quowl.domain.logic.user.User;
 import com.quowl.quowl.domain.system.Notification;
 import com.quowl.quowl.repository.notification.NotificationRepository;
 import com.quowl.quowl.service.user.UserService;
-import com.quowl.quowl.web.beans.IService;
+import com.quowl.quowl.web.beans.system.IService;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 

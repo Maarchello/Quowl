@@ -2,7 +2,7 @@ package com.quowl.quowl.web.controllers.signinup;
 
 import com.quowl.quowl.service.signinup.RegistrationService;
 import com.quowl.quowl.utils.ExecutionStatus;
-import com.quowl.quowl.web.beans.JsonResultBean;
+import com.quowl.quowl.web.beans.system.JsonResultBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataIntegrityViolationException;

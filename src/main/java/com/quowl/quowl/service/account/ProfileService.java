@@ -2,7 +2,7 @@ package com.quowl.quowl.service.account;
 
 import com.quowl.quowl.domain.logic.user.ProfileInfo;
 import com.quowl.quowl.repository.user.ProfileRepository;
-import com.quowl.quowl.web.beans.IService;
+import com.quowl.quowl.web.beans.system.IService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 

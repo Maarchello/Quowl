@@ -8,7 +8,7 @@ import com.quowl.quowl.repository.quote.QuoteRepository;
 import com.quowl.quowl.repository.user.UserRepository;
 import com.quowl.quowl.utils.ExecutionStatus;
 import com.quowl.quowl.utils.SecurityUtils;
-import com.quowl.quowl.web.beans.JsonResultBean;
+import com.quowl.quowl.web.beans.system.JsonResultBean;
 import com.quowl.quowl.web.beans.user.QuoteBean;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;

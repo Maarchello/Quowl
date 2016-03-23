@@ -2,7 +2,7 @@ package com.quowl.quowl.web.beans.user;
 
 
 import com.quowl.quowl.domain.logic.user.User;
-import com.quowl.quowl.web.beans.WebBean;
+import com.quowl.quowl.web.beans.system.WebBean;
 
 public class CurrentUserBean implements WebBean<User> {
 

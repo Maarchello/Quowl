@@ -1,4 +1,4 @@
-package com.quowl.quowl.web.beans;
+package com.quowl.quowl.web.beans.system;
 
 
 import com.quowl.quowl.utils.ExecutionStatus;

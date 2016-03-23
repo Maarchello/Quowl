@@ -3,7 +3,7 @@ package com.quowl.quowl.web.beans.user;
 
 import com.quowl.quowl.domain.logic.user.Gender;
 import com.quowl.quowl.domain.logic.user.ProfileInfo;
-import com.quowl.quowl.web.beans.WebBean;
+import com.quowl.quowl.web.beans.system.WebBean;
 import org.joda.time.LocalDate;
 
 /**

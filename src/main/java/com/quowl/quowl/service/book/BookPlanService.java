@@ -3,7 +3,7 @@ package com.quowl.quowl.service.book;
 
 import com.quowl.quowl.domain.logic.books.BookPlan;
 import com.quowl.quowl.repository.books.BookPlanRepository;
-import com.quowl.quowl.web.beans.IService;
+import com.quowl.quowl.web.beans.system.IService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataIntegrityViolationException;

@@ -2,14 +2,12 @@ package com.quowl.quowl.web.controllers.account;
 
 import com.quowl.quowl.domain.logic.user.Subscribe;
 import com.quowl.quowl.domain.logic.user.User;
-import com.quowl.quowl.repository.user.SubscribeRepository;
 import com.quowl.quowl.service.notification.NotificationService;
 import com.quowl.quowl.service.user.SubscribeService;
 import com.quowl.quowl.service.user.UserService;
 import com.quowl.quowl.utils.ExecutionStatus;
 import com.quowl.quowl.utils.SecurityUtils;
-import com.quowl.quowl.web.beans.JsonResultBean;
-import org.springframework.dao.DataIntegrityViolationException;
+import com.quowl.quowl.web.beans.system.JsonResultBean;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;

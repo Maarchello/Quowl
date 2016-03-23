@@ -10,7 +10,7 @@ import com.quowl.quowl.service.book.BookService;
 import com.quowl.quowl.service.quote.QuoteService;
 import com.quowl.quowl.service.system.FileStorageService;
 import com.quowl.quowl.service.user.UserService;
-import com.quowl.quowl.web.beans.JsonResultBean;
+import com.quowl.quowl.web.beans.system.JsonResultBean;
 import com.quowl.quowl.web.beans.book.BookBean;
 import com.quowl.quowl.web.beans.user.CurrentUserBean;
 import com.quowl.quowl.web.beans.user.QuoteBean;

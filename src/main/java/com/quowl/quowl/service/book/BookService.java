@@ -5,6 +5,7 @@ import com.quowl.quowl.domain.logic.user.User;
 import com.quowl.quowl.repository.books.BookRepository;
 import com.quowl.quowl.service.quote.QuoteService;
 import com.quowl.quowl.web.beans.book.BookBean;
+import com.quowl.quowl.web.beans.book.TopBooksBean;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
@@ -66,9 +67,51 @@ public class BookService {
 
         return beans;
     }
+    /**
+     * Get top books names from DB.
+     *
+     * @param page the limit for select query.
+     * @return top {page} books names from DB.
+     */
+    public List<TopBooksBean> getTopBooks(Long page) {
+        List<Object[]> topObjectBooks = findTheMostReadBooks(page);
+
+        return convertToTopBean(topObjectBooks);
+    }
+
+    /**
+     * Get top authors names from DB.
+     *
+     * @param page the limit for select query.
+     * @return top {page} authors names.
+     */
+    public List<TopBooksBean> getTopAuthors(Long page) {
+        List<Object[]> topObjectBooks = findTheMostReadAuthors(page);
+
+        return convertToTopBean(topObjectBooks);
+    }
+
+    /**
+     * Convert from authors/books to TopBooksBean
+     * @param topObjectBooks the list of authors/books
+     * @return bean
+     * PS. my first javadoc comment. I did try.
+     */
+
+    private List<TopBooksBean> convertToTopBean(List<Object[]> topObjectBooks) {
+        List<TopBooksBean> topBooksBeanList = new ArrayList<>();
+        for (Object[] objects : topObjectBooks) {
+            TopBooksBean bean = new TopBooksBean();
+            bean.setTitle((String) objects[0]);
+            bean.setCount((long) objects[1]);
+            topBooksBeanList.add(bean);
+        }
+        return topBooksBeanList;
+
+    }
 
     // The one page limit.
-    private static final int PAGE_LIMIT = 5;
+    private static final Long PAGE_LIMIT = 5L;
 
     /**
      * Selects the most read books from books DB.
@@ -77,8 +120,8 @@ public class BookService {
      * @return list of <code>Object[]</code> arrays.
      * Object[] contains a book and its count rows in DB.
      */
-    public List<Object[]> findTheMostReadBooks(int page) {
-        return bookRepository.findTheMostReadBooks(new PageRequest(page, PAGE_LIMIT));
+    public List<Object[]> findTheMostReadBooks(Long page) {
+        return bookRepository.findTheMostReadBooks(page, PAGE_LIMIT);
     }
 
     /**
@@ -88,8 +131,8 @@ public class BookService {
      * @return list of <code>Object[]</code> arrays.
      * Object[] contains an author and its count rows in DB.
      */
-    public List<Object[]> findTheMostReadAuthors(int page) {
-        return bookRepository.findTheMostReadAuthors(new PageRequest(page, PAGE_LIMIT));
+    public List<Object[]> findTheMostReadAuthors(Long page) {
+        return bookRepository.findTheMostReadAuthors(page, PAGE_LIMIT);
     }
 
 }

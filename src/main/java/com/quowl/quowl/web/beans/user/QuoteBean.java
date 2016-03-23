@@ -1,7 +1,7 @@
 package com.quowl.quowl.web.beans.user;
 
 import com.quowl.quowl.domain.logic.quote.Quote;
-import com.quowl.quowl.web.beans.WebBean;
+import com.quowl.quowl.web.beans.system.WebBean;
 
 import java.util.Date;
 import java.util.List;

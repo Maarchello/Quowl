@@ -3,13 +3,12 @@ package com.quowl.quowl.service.user;
 import com.quowl.quowl.domain.logic.user.User;
 import com.quowl.quowl.repository.books.BookRepository;
 import com.quowl.quowl.repository.quote.QuoteRepository;
-import com.quowl.quowl.repository.user.SubscribeRepository;
 import com.quowl.quowl.repository.user.UserRepository;
 import com.quowl.quowl.service.signinup.SecurityService;
 import com.quowl.quowl.service.system.TokenProvider;
 import com.quowl.quowl.utils.CookieUtils;
 import com.quowl.quowl.utils.SecurityUtils;
-import com.quowl.quowl.web.beans.IService;
+import com.quowl.quowl.web.beans.system.IService;
 import com.quowl.quowl.web.beans.user.CurrentUserBean;
 import com.quowl.quowl.web.beans.user.ProfileBean;
 import com.quowl.quowl.web.beans.user.UserBean;
@@ -24,7 +23,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UserService implements IService<User, Long> {

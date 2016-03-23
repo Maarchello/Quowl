@@ -2,7 +2,7 @@ package com.quowl.quowl.web.controllers.notification;
 
 import com.quowl.quowl.domain.system.Notification;
 import com.quowl.quowl.service.notification.NotificationService;
-import com.quowl.quowl.web.beans.JsonResultBean;
+import com.quowl.quowl.web.beans.system.JsonResultBean;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;

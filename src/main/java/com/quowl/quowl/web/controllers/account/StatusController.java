@@ -5,7 +5,7 @@ import com.quowl.quowl.domain.logic.user.User;
 import com.quowl.quowl.repository.user.UserRepository;
 import com.quowl.quowl.service.book.BookService;
 import com.quowl.quowl.utils.SecurityUtils;
-import com.quowl.quowl.web.beans.JsonResultBean;
+import com.quowl.quowl.web.beans.system.JsonResultBean;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
