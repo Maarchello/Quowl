@@ -80,7 +80,7 @@ public class ProfileController extends BaseController {
     public JsonResultBean getBooks(@RequestParam("userId") Long userId) {
         User user = userRepository.findOne(userId);
         List<Books> books = bookService.findAllByUser(user);
-        List<BookBean> bookBeans = bookService.converList(books);
+        List<BookBean> bookBeans = bookService.convertList(books);
         return JsonResultBean.success(bookBeans);
     }
 }
