@@ -1,7 +1,9 @@
 package com.quowl.quowl.web.controllers.account;
 
+import com.quowl.quowl.domain.logic.books.Books;
 import com.quowl.quowl.domain.logic.user.User;
 import com.quowl.quowl.repository.user.UserRepository;
+import com.quowl.quowl.service.book.BookService;
 import com.quowl.quowl.utils.SecurityUtils;
 import com.quowl.quowl.web.beans.JsonResultBean;
 import org.apache.commons.lang3.StringUtils;
@@ -18,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 public class StatusController {
 
     @Inject private UserRepository userRepository;
+    @Inject private BookService bookService;
 
 
     @RequestMapping(value = "/saveStatus", method = RequestMethod.POST)
@@ -32,9 +35,23 @@ public class StatusController {
 
         String nickname = SecurityUtils.getCurrentLogin();
         User user = userRepository.findOneByNickname(nickname);
+
+        Books book = bookService.findOneByBookAndAuthorAndUserId(bookName, authorName, user.getId());
+
+        if (book == null) {
+            book = new Books();
+            book.setBook(bookName);
+            book.setAuthor(authorName);
+            book.setReaded(false);
+            book.setUser(user);
+            bookService.save(book);
+        }
+
         user.setBookName(bookName);
         user.setAuthorName(authorName);
         userRepository.save(user);
+
+
 
         return JsonResultBean.success();
     }

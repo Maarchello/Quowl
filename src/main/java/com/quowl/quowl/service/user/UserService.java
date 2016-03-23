@@ -31,7 +31,7 @@ public class UserService implements IService<User, Long> {
     @Inject private BookRepository booksRepository;
     @Inject private QuoteRepository quoteRepository;
     @Inject private UserRepository userRepository;
-    @Inject private SubscribeRepository subscribeRepository;
+    @Inject private SubscribeService subscribeService;
     @Inject private PasswordEncoder passwordEncoder;
     @Inject @Qualifier("customUserDetails") private UserDetailsService userDetailsService;
     @Inject private SecurityService securityService;
@@ -71,8 +71,8 @@ public class UserService implements IService<User, Long> {
         userBean.setProfileBean(new ProfileBean(user.getProfileInfo()));
         userBean.setGender(user.getProfileInfo().getGender());
 
-        List<Long> followers = subscribeRepository.findAllFollowersIdByFollowing(user.getId());
-        List<Long> following = subscribeRepository.findAllFollowingsIdByFUser(user.getId());
+        List<Long> followers = subscribeService.findAllFollowersIdByFollowing(user.getId());
+        List<Long> following = subscribeService.findAllFollowingsIdByFUser(user.getId());
         userBean.setFollowing(following);
         userBean.setFollowers(followers);
 
@@ -97,8 +97,8 @@ public class UserService implements IService<User, Long> {
             bean.setProfileBean(new ProfileBean(user.getProfileInfo()));
             bean.setGender(user.getProfileInfo().getGender());
 
-            List<Long> followers = subscribeRepository.findAllFollowersIdByFollowing(user.getId());
-            List<Long> following = subscribeRepository.findAllFollowingsIdByFUser(user.getId());
+            List<Long> followers = subscribeService.findAllFollowersIdByFollowing(user.getId());
+            List<Long> following = subscribeService.findAllFollowingsIdByFUser(user.getId());
             bean.setFollowing(following);
             bean.setFollowers(followers);
             beans.add(bean);

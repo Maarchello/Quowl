@@ -32,8 +32,14 @@ public class BookService {
         return bookRepository.findAll();
     }
 
-    public Books findOneByBookAndAuthor(String bookName, String authorName) {
-        return bookRepository.findOneByBookAndAuthor(bookName, authorName);
+    public void bookFinish(Books book, User user) {
+        book.setReaded(true);
+        user.setBookName(null);
+        user.setAuthorName(null);
+    }
+
+    public Books findOneByBookAndAuthorAndUserId(String bookName, String authorName, Long userId) {
+        return bookRepository.findOneByBookAndAuthorAndUserId(bookName, authorName, userId);
     }
 
     public String findAuthorByUserIdAndBook(Long userId, String book) {

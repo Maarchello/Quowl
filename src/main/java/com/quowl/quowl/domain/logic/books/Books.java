@@ -6,7 +6,7 @@ import com.quowl.quowl.domain.logic.user.User;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "books")
+@Table(name = "books", indexes = {@Index(name = "IDX_BOOK_AUTHOR_USER", columnList = "user_id,author,book") })
 public class Books extends AuditingEntity {
 
     @Column

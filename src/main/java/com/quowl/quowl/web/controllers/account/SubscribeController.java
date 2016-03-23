@@ -4,6 +4,7 @@ import com.quowl.quowl.domain.logic.user.Subscribe;
 import com.quowl.quowl.domain.logic.user.User;
 import com.quowl.quowl.repository.user.SubscribeRepository;
 import com.quowl.quowl.service.notification.NotificationService;
+import com.quowl.quowl.service.user.SubscribeService;
 import com.quowl.quowl.service.user.UserService;
 import com.quowl.quowl.utils.ExecutionStatus;
 import com.quowl.quowl.utils.SecurityUtils;
@@ -20,7 +21,7 @@ import javax.inject.Inject;
 @Controller
 public class SubscribeController {
     @Inject private UserService userService;
-    @Inject private SubscribeRepository subscribeRepository;
+    @Inject private SubscribeService subscribeService;
     @Inject private NotificationService notificationService;
 
     private final static String SUBSCRIBE_NOTIFICATION = "На ваши обновления подписан(а)";
@@ -34,7 +35,7 @@ public class SubscribeController {
         Subscribe subscribe = new Subscribe();
         subscribe.setFollowing(following);
         subscribe.setFollower(follower);
-        subscribeRepository.save(subscribe);
+        subscribeService.save(subscribe);
 
         User from = userService.getByNickname(SecurityUtils.getCurrentLogin());
         User to = userService.findOne(following);
@@ -48,8 +49,8 @@ public class SubscribeController {
         if (following == null || follower == null) {
             return JsonResultBean.failure(ExecutionStatus.SNULL.toString());
         }
-        Subscribe subscribe = subscribeRepository.findByFollowerAndFollowing(follower, following);
-        subscribeRepository.delete(subscribe);
+        Subscribe subscribe = subscribeService.findByFollowerAndFollowing(follower, following);
+        subscribeService.delete(subscribe);
 
         return JsonResultBean.success("Decrement");
     }

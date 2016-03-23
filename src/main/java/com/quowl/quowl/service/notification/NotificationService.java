@@ -36,8 +36,8 @@ public class NotificationService implements IService<Notification, Long> {
         notification.setMessage(message);
         notification.setSeen(false);
 
-        for (long i = 0; i < followers.size(); i++) {
-            User user = userService.findOne(i);
+        for (Long follower : followers) {
+            User user = userService.findOne(follower);
             notification.setTo(user);
             save(notification);
         }

@@ -3,9 +3,12 @@ package com.quowl.quowl.web.controllers;
 import com.quowl.quowl.domain.logic.books.BookPlan;
 import com.quowl.quowl.domain.logic.books.Books;
 import com.quowl.quowl.domain.logic.user.User;
+import com.quowl.quowl.domain.system.Notification;
 import com.quowl.quowl.repository.user.UserRepository;
 import com.quowl.quowl.service.book.BookPlanService;
 import com.quowl.quowl.service.book.BookService;
+import com.quowl.quowl.service.notification.NotificationService;
+import com.quowl.quowl.service.user.SubscribeService;
 import com.quowl.quowl.utils.ExecutionStatus;
 import com.quowl.quowl.utils.SecurityUtils;
 import com.quowl.quowl.web.beans.JsonResultBean;
@@ -27,6 +30,10 @@ public class BookController {
     private BookService bookService;
     @Inject
     private BookPlanService planService;
+    @Inject
+    private NotificationService notificationService;
+    @Inject
+    private SubscribeService subscribeService;
 
     private final static String BOOK_FINISH_NOTIFICATION = "прочитал(а) книгу";
 
@@ -37,32 +44,30 @@ public class BookController {
         String nickname = SecurityUtils.getCurrentLogin();
         User user = userRepository.findOneByNickname(nickname);
 
-        //TODO: добавить в поиск айди юзера, иначе если у двух людей одна и та же книга, будет беда
-        Books book = bookService.findOneByBookAndAuthor(user.getBookName(), user.getAuthorName());
-        if (book != null) {
-            if (!book.isReaded()) {
-                book.setReaded(true);
-                user.setBookName(null);
-                user.setAuthorName(null);
-            } else {
-                return JsonResultBean.failure(ExecutionStatus.S100.toString());
-            }
-        }
-
-
         if (user.getAuthorName() == null) {
             return JsonResultBean.failure(ExecutionStatus.S130.toString());
         } else if (user.getBookName() == null) {
             return JsonResultBean.failure(ExecutionStatus.S131.toString());
         }
 
+        Books book = bookService.findOneByBookAndAuthorAndUserId(user.getBookName(), user.getAuthorName(), user.getId());
+        if (book != null) {
+            if (!book.isReaded()) {
+                bookService.bookFinish(book, user);
+            } else {
+                return JsonResultBean.failure(ExecutionStatus.S100.toString());
+            }
+        }
 
         try {
             bookService.save(book);
-            userRepository.save(user);
+            user = userRepository.save(user);
         } catch (Exception e) {
             return JsonResultBean.failure(ExecutionStatus.S000.toString());
         }
+
+        List<Long> followers = subscribeService.findAllFollowersIdByFollowing(user.getId());
+        notificationService.createNotify(user.getNickname(), followers, BOOK_FINISH_NOTIFICATION);
 
         return JsonResultBean.success();
     }
