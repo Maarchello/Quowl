@@ -3,6 +3,7 @@ package com.quowl.quowl.web.controllers.account;
 import com.quowl.quowl.domain.logic.user.ProfileInfo;
 import com.quowl.quowl.domain.logic.user.User;
 import com.quowl.quowl.service.account.ProfileService;
+import com.quowl.quowl.service.storage.StorageService;
 import com.quowl.quowl.service.system.FileStorageService;
 import com.quowl.quowl.service.user.UserService;
 import com.quowl.quowl.utils.SecurityUtils;
@@ -24,7 +25,6 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Base64;
 
 /**
  * This class is controller for {@link ProfileService}
@@ -37,23 +37,16 @@ import java.util.Base64;
  * @see BaseController
  */
 @Controller
-public class SettingsController  {
+public class SettingsController extends BaseController  {
 
-    @Inject
-    private UserService userService;
-    @Inject
-    private ProfileService profileService;
-    @Inject
-    private FileStorageService fileStorageService;
-    @Inject
-    private SettingsValidator settingsValidator;
+    @Inject private UserService userService;
+    @Inject private ProfileService profileService;
+    @Inject private FileStorageService fileStorageService;
+    @Inject private SettingsValidator settingsValidator;
 
     @ModelAttribute
     private void setContext(Model model) throws IOException {
         CurrentUserBean currentUserBean = userService.getCurrentUser();
-        User user = userService.getByNickname(SecurityUtils.getCurrentLogin());
-
-        model.addAttribute("myavatar", Base64.getEncoder().encodeToString(fileStorageService.getImage(user)));
         model.addAttribute("currentUser", currentUserBean);
     }
 

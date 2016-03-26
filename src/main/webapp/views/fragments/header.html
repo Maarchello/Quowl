@@ -7,7 +7,7 @@
         <div id="notifications" style="display: none;"></div>
     </div>
     <div th:if="${currentUser.id} != null" class="col-lg-1 pull-right border" style="height: 100%; display: block;">
-        <img th:src="'data:image/png;base64,'+${myavatar}" class="link" width="40" onclick="showContextMenu()" style="border-radius: 50%" />
+        <img th:src="${myavatar}" class="link" width="40" onclick="showContextMenu()" style="border-radius: 50%" />
         <div id="context-menu" class="col-lg-12 border_shadow" style="display: none; background: white; padding: 0; margin-top: 10px;">
             <ul style="list-style-type: none; font-size: 20px; width: 100%; padding: 0; font-family: Copperplate;" class="text-center overflow inline-block">
                 <a class="link" th:href="@{/{profilename}(profilename=${currentUser.nickname})}"><li class="li">Профиль</li></a>

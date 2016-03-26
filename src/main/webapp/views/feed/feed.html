@@ -15,53 +15,104 @@
 <div th:replace="fragments/header"></div>
 
 <!-- Слева профиль -->
-<section id="left-menu" class="col-lg-2 col-md-3 col-sm-2 col-xs-2 border_shadow" onclick="clear()">
-    <div class="username">
-        <img src="/resources/img/nerd_2.jpg" class="userava"/>
-        <a href="" th:href="${user.nickname}" th:text="${user.nickname}"></a>
-    </div>
+<section class="container-fluid">
+    <div class="row">
+        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+            <section id="left-menu" class="col-lg-10 col-md-12 col-sm-12 col-xs-12 border_shadow" onclick="clear()">
+                <div class="username">
+                    <img th:src="${myavatar}" class="userava"/>
+                    <a href="" th:href="${user.nickname}" th:text="${user.nickname}"></a>
+                </div>
 
-    <div id="user-info" >
-        <div style="display: inline-block; font-weight: 500; text-align: center;" th:text="'Цитат:'">Цитат</div>
-        <div id="count_quotes" style="display: inline-block;font-weight: 700;" th:text="${user.countQuotes}">5</div> |
-        <div style="display: inline-block; font-weight: 500;" th:text="'Прочитанных книг: '">Прочтенные книги</div>
-        <div id="count_books" style="display: inline-block; font-weight: 700;" th:text="${user.countReadBooks}">count</div>
-    </div>
-    <hr class="hr margin-top" />
+                <div id="user-info" >
+                    <div style="display: inline-block; font-weight: 500; text-align: center;" th:text="'Цитат:'">Цитат</div>
+                    <div id="count_quotes" style="display: inline-block;font-weight: 700;" th:text="${user.countQuotes}">5</div> |
+                    <div style="display: inline-block; font-weight: 500;" th:text="'Прочитанных книг: '">Прочтенные книги</div>
+                    <div id="count_books" style="display: inline-block; font-weight: 700;" th:text="${user.countReadBooks}">count</div>
+                </div>
+                <hr class="hr margin-top" />
 
-    <div id="status">
-        <div class="status">
-            <span class="authorName" id="author" th:style="${user.authorName} == null ? 'color:darkgrey' : 'color:black'"  onclick="editStatus('authorName')" th:text="${user.authorName} == null ? 'Автор' : ${user.authorName}">Author</span>
-            <input type="text" id="authorName_edit" class="book col-lg-12 center-block" placeholder="Автор"/>
+                <div id="status">
+                    <div class="status">
+                        <span class="authorName" id="author" th:style="${user.authorName} == null ? 'color:darkgrey' : 'color:black'"  onclick="editStatus('authorName')" th:text="${user.authorName} == null ? 'Автор' : ${user.authorName}">Author</span>
+                        <input type="text" id="authorName_edit" class="book col-lg-12 center-block" placeholder="Автор"/>
+                    </div>
+                    <div class="status">
+                        <span class="bookName" id="book" th:style="${user.bookName} == null ? 'color:darkgrey' : 'color:black'" onclick="editStatus('bookName')" th:text="${user.bookName} == null ? 'Название книги' : ${user.bookName}">Book</span>
+                        <input type="text" id="bookName_edit" class="book col-lg-12" placeholder="Название книги"/>
+                    </div>
+                    <span id="status_message" class="col-centered" style="display: none; position: absolute; text-align:center; width:90%;">Ready</span>
+                </div><br />
+
+                <div style="margin-bottom: 5px; overflow: hidden; padding-right:15px; padding-left: 15px">
+                    <div>
+                        <div th:switch="${#strings.toString(user.gender)}">
+                            <button class="btn btn-red pull-left" onclick="bookComplete()" th:case="'MALE'">Прочитал</button>
+                            <button class="btn btn-red pull-left" onclick="bookComplete()" th:case="'FEMALE'">Прочитала</button>
+                            <button class="btn btn-red pull-left" onclick="bookComplete()" th:case="*">Прочитал(а)</button>
+                        </div>
+                    </div>
+                    <div style="">
+                        <button class="btn btn-red pull-right" onclick="saveStatus()">Сохранить</button>
+                    </div>
+
+
+                </div>
+            </section>
         </div>
-        <div class="status">
-            <span class="bookName" id="book" th:style="${user.bookName} == null ? 'color:darkgrey' : 'color:black'" onclick="editStatus('bookName')" th:text="${user.bookName} == null ? 'Название книги' : ${user.bookName}">Book</span>
-            <input type="text" id="bookName_edit" class="book col-lg-12" placeholder="Название книги"/>
-        </div>
-        <span id="status_message" class="col-centered" style="display: none; position: absolute; text-align:center; width:90%;">Ready</span>
-    </div><br />
 
-    <div style="margin-bottom: 5px; overflow: hidden; padding-right:15px; padding-left: 15px">
-        <div>
-            <div th:switch="${#strings.toString(user.gender)}">
-                <button class="btn btn-red pull-left" onclick="bookComplete()" th:case="'MALE'">Прочитал</button>
-                <button class="btn btn-red pull-left" onclick="bookComplete()" th:case="'FEMALE'">Прочитала</button>
-                <button class="btn btn-red pull-left" onclick="bookComplete()" th:case="*">Прочитал(а)</button>
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <section class="col-lg-8 col-md-12 col-sm-12 col-xs-12 col-centered">
+                <div class="cart" style="background:none;">
+                    <textarea class="form-control margin-bottom" cols="30" rows="6" id="quote" onclick="clearAll();" style="text-align: center; font-size:15pt;" spellcheck="true" placeholder="Цитата"></textarea>
+                    <button class="btn" onclick="addQuote()" th:text="'Добавить'">Send</button>
+                </div>
+            </section>
+        </div>
+
+    <div class="col-lg-3">
+        <section class="col-lg-10 col-md-3 col-sm-2 col-xs-2 stat-block border_shadow margin-bottom">
+            <div>
+                <div class="text-center">Top 5 authors</div>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Author</th>
+                        <th>Count</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="author : ${topAuthors}">
+                        <td th:text="${author.title}"></td>
+                        <td th:text="${author.count}"></td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
-        </div>
-        <div style="">
-            <button class="btn btn-red pull-right" onclick="saveStatus()">Сохранить</button>
-        </div>
+        </section>
+    </div>
     </div>
 </section>
 
-
-<section class="col-lg-4 col-md-5 col-sm-7 col-xs-8 col-centered">
-    <div class="cart" style="background:none;">
-        <textarea class="form-control margin-bottom" cols="30" rows="6" id="quote" onclick="clearAll();" style="text-align: center; font-size:15pt;" spellcheck="true" placeholder="Цитата"></textarea>
-        <button class="btn" onclick="addQuote()" th:text="'Добавить'">Send</button>
-    </div>
-</section>
+<!--<section class="col-lg-10 col-md-3 col-sm-2 col-xs-2 stat-block border_shadow">
+        <div>Top 5 books</div>
+        <div>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Book</th>
+                    <th>Count</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="book : ${topBooks}">
+                    <td th:text="${book.title}"></td>
+                    <td th:text="${book.count}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>-->
 
 <div id="quu">
 <section th:each="quote : ${quotes}" id="quotes" class="col-lg-4 col-md-5 col-sm-7 col-xs-8 col-centered">

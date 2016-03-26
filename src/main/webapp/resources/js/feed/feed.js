@@ -334,7 +334,7 @@ function moreQuotes() {
                     $('#quu').append('<section id="quotes" class="col-lg-4 col-md-5 col-sm-7 col-xs-8 col-centered">' +
                         '<div id="' + quote.id + '" class="cart border_shadow">' +
                         '<div class="username">' +
-                        '<img src="/resources/img/nerd_2.jpg" width="100" class="userava"/>' +
+                        '<img src="'+quote.userAvatar+'" width="100" class="userava"/>' +
                         '<a href="' + quote.userNickname + '">' + quote.userNickname + '</a>' +
                         '<b><span class="pull-right" style="color:grey;opacity: 0.6;font-size:12pt;">' + quote.date + '</span></b>' +
                         '</div>' +

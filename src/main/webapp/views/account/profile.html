@@ -21,7 +21,7 @@
     <div class="col-lg-2 col-md-3 col-sm-3 pull-left" style="position: fixed">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="col-centered" style="margin-bottom: 10px;">
-                <img th:src="'data:image/png;base64,'+${avatar}" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 col-centered avatar" />
+                <img th:src="${avatar}" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 col-centered avatar" />
                 <div th:text="${user.profileBean.firstName} == null ? ${user.nickname} : ${user.profileBean.firstName} + ' ' + ${user.profileBean.lastName}" class="col-centered name">Марат &nbsp;&nbsp;Каджаев</div>
                 <div th:if="${currentUser.id} == ${user.id}" class="text-center col-centered" style="font-size: 16px;">
                     <a href="" th:href="'settings'" class="link">

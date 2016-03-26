@@ -14,6 +14,7 @@ public class QuoteBean implements WebBean<Quote> {
     private String author;
     private String text;
     private String date;
+    private String userAvatar;
     private String userNickname;
     private List<UserBean> users;
 
@@ -104,5 +105,13 @@ public class QuoteBean implements WebBean<Quote> {
         obj.setAuthor(this.getAuthor());
         obj.setBook(this.getBook());
         obj.setText(this.getText());
+    }
+
+    public String getUserAvatar() {
+        return userAvatar;
+    }
+
+    public void setUserAvatar(String userAvatar) {
+        this.userAvatar = userAvatar;
     }
 }

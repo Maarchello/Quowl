@@ -8,6 +8,7 @@ import com.quowl.quowl.repository.user.UserRepository;
 import com.quowl.quowl.service.account.ProfileService;
 import com.quowl.quowl.service.book.BookService;
 import com.quowl.quowl.service.quote.QuoteService;
+import com.quowl.quowl.service.storage.StorageService;
 import com.quowl.quowl.service.system.FileStorageService;
 import com.quowl.quowl.service.user.UserService;
 import com.quowl.quowl.web.beans.system.JsonResultBean;
@@ -34,7 +35,7 @@ public class ProfileController extends BaseController {
     @Inject private QuoteService quoteService;
     @Inject private ProfileService profileService;
     @Inject private BookService bookService;
-    @Inject private FileStorageService fileStorageService;
+    @Inject private StorageService storageService;
 
 
     @RequestMapping(value = "/{nickname}", method = RequestMethod.GET)
@@ -46,7 +47,7 @@ public class ProfileController extends BaseController {
         List<Quote> quo = quoteRepository.findTenByUser(user.getId(), new PageRequest(0, 10)); //quoteRepository.findAllByUserIdOrderByCreatedDateDesc(userBean.getId());
         List<QuoteBean> quotes = quoteService.convertQuotesToQuoteBean(quo);
 
-        model.addAttribute("avatar", Base64.getEncoder().encodeToString(fileStorageService.getImage(user)));
+        model.addAttribute("avatar", storageService.getAvatarUrl(user));
         model.addAttribute("quotes", quotes);
         model.addAttribute("user", userBean);
         model.addAttribute("currentUser", currentUser);
@@ -59,7 +60,7 @@ public class ProfileController extends BaseController {
     public JsonResultBean getFollowers(@RequestParam("followers") String followers) {
         List<Long> followersList = profileService.parseFromString(followers);
         List<User> follower = userRepository.findAllById(followersList);
-        List<UserBean> beanFollowers = userService.converUsersToUserBean(follower);
+        List<UserBean> beanFollowers = userService.convertUsersToUserBean(follower);
 
         return JsonResultBean.success(beanFollowers);
     }
@@ -70,7 +71,7 @@ public class ProfileController extends BaseController {
     public JsonResultBean getFollowings(@RequestParam("following") String following) {
         List<Long> followingList = profileService.parseFromString(following);
         List<User> followings = userRepository.findAllById(followingList);
-        List<UserBean> beanFollowings = userService.converUsersToUserBean(followings);
+        List<UserBean> beanFollowings = userService.convertUsersToUserBean(followings);
 
         return JsonResultBean.success(beanFollowings);
     }
