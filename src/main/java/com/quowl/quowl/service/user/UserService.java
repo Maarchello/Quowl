@@ -5,6 +5,7 @@ import com.quowl.quowl.repository.books.BookRepository;
 import com.quowl.quowl.repository.quote.QuoteRepository;
 import com.quowl.quowl.repository.user.UserRepository;
 import com.quowl.quowl.service.signinup.SecurityService;
+import com.quowl.quowl.service.storage.StorageService;
 import com.quowl.quowl.service.system.TokenProvider;
 import com.quowl.quowl.utils.CookieUtils;
 import com.quowl.quowl.utils.SecurityUtils;
@@ -81,7 +82,7 @@ public class UserService implements IService<User, Long> {
         return userRepository.search(nickname);
     }
 
-    public List<UserBean> converUsersToUserBean(List<User> users) {
+    public List<UserBean> convertUsersToUserBean(List<User> users) {
         List<UserBean> beans = new LinkedList<>();
 
         for (User user : users) {

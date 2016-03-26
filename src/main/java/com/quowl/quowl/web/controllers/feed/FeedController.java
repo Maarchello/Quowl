@@ -2,9 +2,11 @@ package com.quowl.quowl.web.controllers.feed;
 
 import com.quowl.quowl.domain.logic.quote.Quote;
 import com.quowl.quowl.repository.quote.QuoteRepository;
+import com.quowl.quowl.service.book.BookService;
 import com.quowl.quowl.service.quote.QuoteService;
 import com.quowl.quowl.service.user.UserService;
 import com.quowl.quowl.utils.ExecutionStatus;
+import com.quowl.quowl.web.beans.book.TopBooksBean;
 import com.quowl.quowl.web.beans.system.JsonResultBean;
 import com.quowl.quowl.web.beans.user.CurrentUserBean;
 import com.quowl.quowl.web.beans.user.QuoteBean;
@@ -28,6 +30,7 @@ public class FeedController extends BaseController {
     @Inject private UserService userService;
     @Inject private QuoteService quoteService;
     @Inject private QuoteRepository quoteRepository;
+    @Inject private BookService bookService;
 
     @RequestMapping(value = "/feed", method = RequestMethod.GET)
     public String openFeedPage(Model model, Device device) {
@@ -42,6 +45,11 @@ public class FeedController extends BaseController {
 
         List<QuoteBean> quotes = quoteService.convertQuotesToQuoteBean(quo2);
 
+        List<TopBooksBean> authors = bookService.getTopAuthors();
+        List<TopBooksBean> books = bookService.getTopBooks();
+
+        model.addAttribute("topAuthors", authors);
+        model.addAttribute("topBooks", books);
         model.addAttribute("quotes", quotes);
         model.addAttribute("user", userBean);
         model.addAttribute("currentUser", currentUser);

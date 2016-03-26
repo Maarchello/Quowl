@@ -62,6 +62,7 @@ public class FileStorageService {
         return true;
     }
 
+    //TODO: delete if unnecessary
     public byte[] getImage(User user) throws IOException {
 
         AmazonS3 client = new AmazonS3Client(getCredentials());

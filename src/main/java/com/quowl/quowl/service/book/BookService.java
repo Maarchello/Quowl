@@ -10,6 +10,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -73,8 +74,8 @@ public class BookService {
      * @param page the limit for select query.
      * @return top {page} books names from DB.
      */
-    public List<TopBooksBean> getTopBooks(Long page) {
-        List<Object[]> topObjectBooks = findTheMostReadBooks(page);
+    public List<TopBooksBean> getTopBooks() {
+        List<Object[]> topObjectBooks = findTheMostReadBooks();
 
         return convertToTopBean(topObjectBooks);
     }
@@ -85,8 +86,8 @@ public class BookService {
      * @param page the limit for select query.
      * @return top {page} authors names.
      */
-    public List<TopBooksBean> getTopAuthors(Long page) {
-        List<Object[]> topObjectBooks = findTheMostReadAuthors(page);
+    public List<TopBooksBean> getTopAuthors() {
+        List<Object[]> topObjectBooks = findTheMostReadAuthors();
 
         return convertToTopBean(topObjectBooks);
     }
@@ -103,7 +104,7 @@ public class BookService {
         for (Object[] objects : topObjectBooks) {
             TopBooksBean bean = new TopBooksBean();
             bean.setTitle((String) objects[0]);
-            bean.setCount((long) objects[1]);
+            bean.setCount((BigInteger) objects[1]);
             topBooksBeanList.add(bean);
         }
         return topBooksBeanList;
@@ -120,8 +121,8 @@ public class BookService {
      * @return list of <code>Object[]</code> arrays.
      * Object[] contains a book and its count rows in DB.
      */
-    public List<Object[]> findTheMostReadBooks(Long page) {
-        return bookRepository.findTheMostReadBooks(page, PAGE_LIMIT);
+    public List<Object[]> findTheMostReadBooks() {
+        return bookRepository.findTheMostReadBooks(PAGE_LIMIT);
     }
 
     /**
@@ -131,8 +132,8 @@ public class BookService {
      * @return list of <code>Object[]</code> arrays.
      * Object[] contains an author and its count rows in DB.
      */
-    public List<Object[]> findTheMostReadAuthors(Long page) {
-        return bookRepository.findTheMostReadAuthors(page, PAGE_LIMIT);
+    public List<Object[]> findTheMostReadAuthors() {
+        return bookRepository.findTheMostReadAuthors(PAGE_LIMIT);
     }
 
 }

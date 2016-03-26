@@ -22,12 +22,12 @@
     <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 pull-right" style="border-color: limegreen">
 
         <div id="edit-account" class="setting">
-            <form id="uploadFile" enctype="multipart/form-data" class="margin-bottom">
+            <!--<form id="uploadFile" enctype="multipart/form-data" class="margin-bottom">
                 <div>Загрузите аватарку:</div>
                 <div class="fileUpload">
                     <input type="file" id="image" name="image" accept="image/*" class="upload"/>
                 </div>
-            </form>
+            </form>-->
 
             <form action="#" class="form-group col-centered inline-block col-lg-4 text-center" method="post" th:object="${profileBean}" th:action="@{/settings}">
                 <input type="text" th:value="*{firstName}" class="form-control margin-bottom text-center" th:field="*{firstName}" placeholder="Имя"/>

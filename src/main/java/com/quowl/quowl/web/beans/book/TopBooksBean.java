@@ -1,6 +1,8 @@
 package com.quowl.quowl.web.beans.book;
 
 
+import java.math.BigInteger;
+
 /**
  * The class is provided to get top read books
  * and authors from DB.
@@ -10,15 +12,8 @@ package com.quowl.quowl.web.beans.book;
 public class TopBooksBean {
 
     private String title;
-    private Long count;
+    private BigInteger count;
 
-    public Long getCount() {
-        return count;
-    }
-
-    public void setCount(Long count) {
-        this.count = count;
-    }
 
     public String getTitle() {
         return title;
@@ -26,5 +21,13 @@ public class TopBooksBean {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public BigInteger getCount() {
+        return count;
+    }
+
+    public void setCount(BigInteger count) {
+        this.count = count;
     }
 }
