@@ -2,6 +2,7 @@ package com.quowl.quowl;
 
 
 import com.quowl.quowl.config.DatabaseConfig;
+import com.quowl.quowl.config.InternalizationConfig;
 import com.quowl.quowl.config.SecurityConfig;
 import com.quowl.quowl.config.WebMvcConfig;
 import org.springframework.web.filter.CharacterEncodingFilter;
@@ -12,7 +13,7 @@ import javax.servlet.Filter;
 public class AppInit extends AbstractAnnotationConfigDispatcherServletInitializer {
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return new Class<?>[]{SecurityConfig.class, DatabaseConfig.class};
+        return new Class<?>[]{SecurityConfig.class, DatabaseConfig.class, InternalizationConfig.class};
     }
 
     @Override

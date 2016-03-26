@@ -26,9 +26,16 @@ public class InternalizationConfig extends WebMvcConfigurerAdapter {
     public LocaleResolver localeResolver(){
         CookieLocaleResolver resolver = new CookieLocaleResolver();
         resolver.setDefaultLocale(Locale.ENGLISH);
-        resolver.setCookieName("local");
-        resolver.setCookieMaxAge(4800);
+        resolver.setCookieName("locale");
+        resolver.setCookieMaxAge(60 * 60 * 24 * 365 * 10);
         return resolver;
+    }
+
+    @Bean
+    public LocaleChangeInterceptor localeChangeInterceptor() {
+        LocaleChangeInterceptor changeInterceptor = new LocaleChangeInterceptor();
+        changeInterceptor.setParamName("lang");
+        return changeInterceptor;
     }
 
     @Bean
@@ -46,9 +53,7 @@ public class InternalizationConfig extends WebMvcConfigurerAdapter {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        LocaleChangeInterceptor interceptor = new LocaleChangeInterceptor();
-        interceptor.setParamName("lang");
-        registry.addInterceptor(interceptor);
+        registry.addInterceptor(localeChangeInterceptor());
         registry.addInterceptor(deviceResolverHandlerInterceptor());
     }
 
