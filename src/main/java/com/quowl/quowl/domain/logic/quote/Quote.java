@@ -5,10 +5,11 @@ import com.quowl.quowl.domain.logic.user.User;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.Set;
 
 @Entity
-@Table(name = "quote")
+@Table(name = "quote", indexes = {
+        @Index(name = "IDX_BOOKID", columnList = "bookId"),
+        @Index(name = "IDX_USER", columnList = "user_id")})
 public class Quote extends AuditingEntity {
 
     @Column

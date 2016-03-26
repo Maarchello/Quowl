@@ -7,6 +7,9 @@ import com.quowl.quowl.domain.logic.user.User;
 import javax.persistence.*;
 
 @Entity
+@Table(indexes = {
+        @Index(name = "IDX_USER", columnList = "to_user")
+})
 public class Notification extends AuditingEntity {
 
     @Column

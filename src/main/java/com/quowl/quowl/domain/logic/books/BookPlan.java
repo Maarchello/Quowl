@@ -5,7 +5,8 @@ import com.quowl.quowl.domain.base.AuditingEntity;
 import javax.persistence.*;
 
 @Entity
-@Table(uniqueConstraints = {@UniqueConstraint(name = "UQ_IDX_USER_BOOK_AUTHOR", columnNames = {"userId", "book", "author"})})
+@Table(uniqueConstraints = {@UniqueConstraint(name = "UQ_IDX_USER_BOOK_AUTHOR", columnNames = {"userId", "book", "author"})},
+        indexes = @Index(name = "IDX_USER", columnList = "userId"))
 public class BookPlan extends AuditingEntity {
 
     @Column

@@ -17,7 +17,10 @@ import java.util.Collection;
 import java.util.List;
 
 @Entity
-@Table(name = "user")
+@Table(name = "user", indexes = {
+        @Index(name = "IDX_ID", columnList = "id"),
+        @Index(name = "IDX_NICKNAME", columnList = "nickname")
+})
 public class User extends AuditingEntity implements UserDetails, Serializable {
 
     @Size(max = 100)
