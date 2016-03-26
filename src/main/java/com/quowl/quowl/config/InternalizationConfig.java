@@ -25,7 +25,7 @@ public class InternalizationConfig extends WebMvcConfigurerAdapter {
     @Bean
     public LocaleResolver localeResolver(){
         CookieLocaleResolver resolver = new CookieLocaleResolver();
-        resolver.setDefaultLocale(Locale.ENGLISH);
+        resolver.setDefaultLocale(new Locale("ru"));
         resolver.setCookieName("locale");
         resolver.setCookieMaxAge(60 * 60 * 24 * 365 * 10);
         return resolver;
