@@ -28,6 +28,7 @@ public class InternalizationConfig extends WebMvcConfigurerAdapter {
         resolver.setDefaultLocale(new Locale("ru"));
         resolver.setCookieName("locale");
         resolver.setCookieMaxAge(60 * 60 * 24 * 365 * 10);
+
         return resolver;
     }
 
