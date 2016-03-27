@@ -1,6 +1,7 @@
 package com.quowl.quowl.web.beans.user;
 
 import com.quowl.quowl.domain.logic.quote.Quote;
+import com.quowl.quowl.domain.system.Comment;
 import com.quowl.quowl.web.beans.system.WebBean;
 
 import java.util.Date;
@@ -17,6 +18,7 @@ public class QuoteBean implements WebBean<Quote> {
     private String userAvatar;
     private String userNickname;
     private List<UserBean> users;
+    private List<Comment> comments;
 
     public Long getId() {
         return id;
@@ -113,5 +115,13 @@ public class QuoteBean implements WebBean<Quote> {
 
     public void setUserAvatar(String userAvatar) {
         this.userAvatar = userAvatar;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
 }

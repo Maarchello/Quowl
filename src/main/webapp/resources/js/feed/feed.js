@@ -402,3 +402,61 @@ function addBook(user_id, book, currentUserId) {
         }
     }
 }
+
+
+function listenEnter(input, id) {
+    alert('listening');
+    input.addEventListener("keypress", function(e) {
+       if (e.keyCode === 13) {
+           var message = $(input).val();
+           addComment(message, id);
+       }
+    });
+}
+
+function send(span, userId, userNickname) {
+    var input = $(span).prev();
+    var id = $(input).attr('id');
+    var message = $(input).val();
+
+    var validate = validation(message);
+
+    if (validate) {
+        addComment(message, id, userId, userNickname, input);
+    }
+}
+
+function addComment(message, quote_id, userId, userNickname, input) {
+    $.ajax({
+        url: '/comment/add',
+        type: 'POST',
+        data: ({comment: message, quote_id: quote_id, user_id: userId, user_nickname: userNickname}),
+        success: function(data) {
+            if (!data.error) {
+                console.log(data);
+                var comment = data.data;
+                $(input).val('');
+                $('#comments').append('<div>'+comment.message+'</div>');
+            } else if (data.error == 'S300') {
+                alert('Empty comment');
+            }
+        }
+    })
+}
+
+function validation(string) {
+    var str = string.trim();
+    return str.length > 0
+}
+
+function deleteComment(id) {
+    $.ajax({
+        url: '/comment/delete/'+id,
+        type: 'DELETE',
+        success: function(data) {
+            if (!data.error) {
+                $('#comment_' + id).remove();
+            }
+        }
+    })
+}
