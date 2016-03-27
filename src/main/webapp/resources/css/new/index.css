@@ -1,3 +1,13 @@
+/* CSS Reset */
+* {
+    margin: 0;
+    padding: 0;
+    outline: none;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+
 #greetings {
     color: #ffffff;
     min-height: 600px;
@@ -10,7 +20,10 @@
 .jum-text {
     margin-top: 70px;
 }
-.body {margin: 0}
+
+.body {
+    margin: 0
+}
 
 * {
     font-family: 'Open Sans', sans-serif;
@@ -84,7 +97,7 @@
 /*End learn more button*/
 
 /*Login button*/
-.login-button {
+.login-button:link {
     display: inline-block;
     width: 100px;
     padding: 8px;
@@ -98,8 +111,16 @@
     border-radius 0.2s ease-out;
 }
 
-.login-button:hover {
+.login-button:visited{
     text-decoration: none;
+    outline: none;
+    color: white;
+}
+
+.login-button:hover,
+.login-button:active {
+    text-decoration: none;
+    outline: none;
     border-color: #fff;
     border-radius: 5px;
     color: #fff;

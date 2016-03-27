@@ -10,14 +10,19 @@
     <!--CSS-->
     <link rel="stylesheet" href="/resources/css/new/index.css"/>
     <!--JS-->
+
 </head>
 
 <body>
+<!--Login modal include-->
+<div id="login-include" th:include="fragments/login-modal">Login modal include</div>
+<!--Jumbotron-->
 <div class="jumbotron text-center" id="greetings">
+
     <!--Log in button-->
     <div class="container">
         <div class="col-sm-1 col-sm-offset-11">
-            <a href="#" class="login-button" th:text="#{login}">Login</a>
+            <a href="" data-toggle="modal" data-target="#login-modal" class="login-button" th:text="#{login}">Login</a>
         </div>
     </div>
 
