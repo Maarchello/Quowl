@@ -23,9 +23,9 @@ public class QuoteController {
     @Inject private UserRepository userRepository;
     @Inject private BookRepository booksRepository;
 
-    @RequestMapping(value = "/addQuote", method = RequestMethod.POST)
+    @RequestMapping(value = "/quote/add", method = RequestMethod.POST)
     @ResponseBody
-    public JsonResultBean addNewQuote(@RequestParam(value = "quote", required = true) String quote, HttpServletRequest request) {
+    public JsonResultBean addNewQuote(@RequestParam(value = "quote", required = true) String quote) {
         String nickname = SecurityUtils.getCurrentLogin();
         User user = userRepository.findOneByNickname(nickname);
         if (user.getBookName() == null || user.getAuthorName() == null) {
@@ -50,7 +50,7 @@ public class QuoteController {
         return JsonResultBean.success(quoteBean);
     }
 
-    @RequestMapping(value = "/editQuote/{id}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/quote/edit/{id}", method = RequestMethod.PUT)
     @ResponseBody
     public JsonResultBean editQuote(@PathVariable(value = "id") Long id, @RequestParam(value = "text") String text) {
         Quote quote = quoteRepository.findOne(id);
@@ -60,7 +60,7 @@ public class QuoteController {
         return JsonResultBean.success();
     }
 
-    @RequestMapping(value = "/deleteQuote/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/quote/delete/{id}", method = RequestMethod.DELETE)
     @ResponseBody
     public JsonResultBean deleteQuote(@PathVariable(value = "id") Long id) {
         quoteRepository.delete(id);

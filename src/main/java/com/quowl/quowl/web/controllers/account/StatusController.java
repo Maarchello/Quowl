@@ -23,7 +23,7 @@ public class StatusController {
     @Inject private BookService bookService;
 
 
-    @RequestMapping(value = "/saveStatus", method = RequestMethod.POST)
+    @RequestMapping(value = "/status/save", method = RequestMethod.POST)
     @ResponseBody
     public JsonResultBean saveStatus(@RequestParam("bookName") String bookName, @RequestParam("authorName") String authorName, HttpServletRequest request) {
         if (StringUtils.isBlank(bookName) || bookName.equalsIgnoreCase("Название книги")) {

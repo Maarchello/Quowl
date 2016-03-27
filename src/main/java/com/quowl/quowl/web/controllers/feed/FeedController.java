@@ -61,7 +61,7 @@ public class FeedController extends BaseController {
         return "feed/feed";
     }
 
-    @RequestMapping(value = "/moreQuotes/{page}", method = RequestMethod.GET)
+    @RequestMapping(value = "/quotes/more/{page}", method = RequestMethod.GET)
     @ResponseBody
     public JsonResultBean getQuotePagination(Device device, @PathVariable Integer page) {
         UserBean userBean = userService.getUserBean();
