@@ -13,12 +13,12 @@ import javax.servlet.Filter;
 public class AppInit extends AbstractAnnotationConfigDispatcherServletInitializer {
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return new Class<?>[]{SecurityConfig.class, DatabaseConfig.class, InternalizationConfig.class};
+        return new Class<?>[]{SecurityConfig.class, DatabaseConfig.class};
     }
 
     @Override
     protected Class<?>[] getServletConfigClasses() {
-        return new Class<?>[]{WebMvcConfig.class};
+        return new Class<?>[]{WebMvcConfig.class, InternalizationConfig.class};
     }
 
     @Override
