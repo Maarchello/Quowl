@@ -12,7 +12,7 @@ function signup() {
             success: function(JsonResultBean) {
                 if (!JsonResultBean.error) {
                     var message = $('#result_signup_message');
-                    message.show().css('color', 'yellowgreen').text('Регистрация прошла успешно!');
+                    message.show().text('Регистрация прошла успешно!');
 
                     setTimeout(function(){
                         message.hide();

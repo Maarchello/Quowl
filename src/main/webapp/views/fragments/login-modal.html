@@ -68,12 +68,13 @@
                         <label for="Repeat Password" th:text="#{repeatPassword}">Repeat Password</label>
                         <div class="bar"></div>
                     </div>
+                    <div class="error-container">
+                        <span id="result_signup_message"></span>
+                    </div>
                     <div class="button-container">
                         <button type="button" onclick="signup()"><span th:text="#{register}">Next</span></button>
                     </div>
-                    <div>
-                        <h2 id="result_signup_message"></h2>
-                    </div>
+
                 </form>
             </div>
         </div>
