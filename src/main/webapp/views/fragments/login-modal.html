@@ -4,11 +4,10 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>Login</title>
     <link rel="stylesheet" href="/resources/css/new/login-modal.css"/>
-
     <link rel='stylesheet prefetch' href='http://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900|RobotoDraft:400,100,300,500,700,900'/>
     <link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css'/>
-
     <link rel="stylesheet" href="css/style.css"/>
+    <script src="/resources/js/sign/sign.js"/>
 </head>
 
 <body>
@@ -18,47 +17,62 @@
         <div class="login-container">
             <div class="card"></div>
             <div class="card">
-                <h1 class="title">Login</h1>
+                <h1 class="title" th:text="#{enter}">Login</h1>
+                <!--Login-->
                 <form>
                     <div class="input-container">
-                        <input type="text" id="Username" required="required"/>
-                        <label for="Username">Username</label>
+                        <input type="text" id="loginUsername" required="required"/>
+                        <label for="loginUsername" th:text="#{username}">Username</label>
                         <div class="bar"></div>
                     </div>
                     <div class="input-container">
-                        <input type="password" id="Password" required="required"/>
-                        <label for="Password">Password</label>
+                        <input type="password" id="loginPassword" required="required"/>
+                        <label for="loginUsername" th:text="#{password}">Password</label>
                         <div class="bar"></div>
                     </div>
                     <div class="button-container">
-                        <button><span>Go</span></button>
+                        <button type="button" onclick="signin()"><span th:text="#{login}">Log in</span></button>
                     </div>
-                    <div class="footer"><a href="#">Forgot your password?</a></div>
+                    <div class="result message">
+                        <h2 id="result_signin_error"></h2>
+                    </div>
+                    <div class="footer"><a href="#" th:text="#{forgotPassword}">Forgot your password?</a></div>
                 </form>
             </div>
+            <!--End login-->
             <div class="card alt">
                 <div class="toggle"></div>
-                <h1 class="title">Register
+
+                <h1 class="title"><div th:text="#{register}">Register</div>
                     <div class="close"></div>
                 </h1>
+                <!--Register-->
                 <form>
                     <div class="input-container">
-                        <input type="text" id="Username" required="required"/>
-                        <label for="Username">Username</label>
+                        <input type="text" id="registerEmail" required="required"/>
+                        <label for="registerEmail" th:text="#{email}">Email</label>
                         <div class="bar"></div>
                     </div>
                     <div class="input-container">
-                        <input type="password" id="Password" required="required"/>
-                        <label for="Password">Password</label>
+                        <input type="text" id="registerUsername" required="required"/>
+                        <label for="registerUsername" th:text="#{username}">Username</label>
+                        <div class="bar"></div>
+                    </div>
+                    <div class="input-container">
+                        <input type="password" id="registerPassword" required="required"/>
+                        <label for="repeat password" th:text="#{password}">Password</label>
                         <div class="bar"></div>
                     </div>
                     <div class="input-container">
                         <input type="password" id="Repeat Password" required="required"/>
-                        <label for="Repeat Password">Repeat Password</label>
+                        <label for="Repeat Password" th:text="#{repeatPassword}">Repeat Password</label>
                         <div class="bar"></div>
                     </div>
                     <div class="button-container">
-                        <button><span>Next</span></button>
+                        <button type="button" onclick="signup()"><span th:text="#{register}">Next</span></button>
+                    </div>
+                    <div>
+                        <h2 id="result_signup_message"></h2>
                     </div>
                 </form>
             </div>

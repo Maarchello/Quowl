@@ -1,8 +1,8 @@
 function signup() {
     deleteErrors();
-    var username = $('#j_name').val().trim();
-    var email = $('#j_email').val().trim();
-    var password = $('#j_password').val().trim();
+    var username = $('#registerUsername').val().trim();
+    var email = $('#registerEmail').val().trim();
+    var password = $('#registerPassword').val().trim();
 
     if (fieldsNotEmpty(username, email, password)) {
         $.ajax({
@@ -30,8 +30,8 @@ function signup() {
 
 function signin() {
     deleteErrors();
-    var username = $('#name').val().trim();
-    var password = $('#password').val().trim();
+    var username = $('#loginUsername').val().trim();
+    var password = $('#loginPassword').val().trim();
 
     if (fieldNotEmptySignin(username, password)) {
         $.ajax({
