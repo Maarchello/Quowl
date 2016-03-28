@@ -8,7 +8,8 @@ import javax.persistence.Index;
 import javax.persistence.Table;
 
 @Entity
-@Table(indexes = {
+@Table(name = "comment",
+        indexes = {
         @Index(name = "IDX_QUOTE", columnList = "quoteId")
 })
 public class Comment extends AuditingEntity {
