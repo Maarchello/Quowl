@@ -109,7 +109,7 @@ function drawFollowers(followers) {
         profile_content.append(
             '<section class="col-lg-3 col-md-5 follower border ">' +
             '<div class="border-bottom text-center" style="padding: 10px;">' +
-            '<img src="/resources/img/nerd_2.jpg" class="userava"/>' +
+            '<img src="'+user.userAvatar+'" class="userava"/>' +
             '<a href="'+user.nickname+'">'+user.nickname+'</a>' +
             '</div>' +
 

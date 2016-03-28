@@ -35,6 +35,7 @@ public class UserService implements IService<User, Long> {
     @Inject @Qualifier("customUserDetails") private UserDetailsService userDetailsService;
     @Inject private SecurityService securityService;
     @Inject private TokenProvider tokenProvider;
+    @Inject private StorageService storageService;
 
     public User getByNickname(String nickname) {
         return userRepository.findOneByNickname(nickname);
@@ -69,6 +70,7 @@ public class UserService implements IService<User, Long> {
         userBean.setCountQuotes(quoteRepository.countAllQuotes(user.getId()));
         userBean.setProfileBean(new ProfileBean(user.getProfileInfo()));
         userBean.setGender(user.getProfileInfo().getGender());
+        userBean.setUserAvatar(storageService.getAvatarUrl(user));
 
         List<Long> followers = subscribeService.findAllFollowersIdByFollowing(user.getId());
         List<Long> following = subscribeService.findAllFollowingsIdByFUser(user.getId());
@@ -95,6 +97,7 @@ public class UserService implements IService<User, Long> {
             bean.setCountQuotes(quoteRepository.countAllQuotes(user.getId()));
             bean.setProfileBean(new ProfileBean(user.getProfileInfo()));
             bean.setGender(user.getProfileInfo().getGender());
+            bean.setUserAvatar(storageService.getAvatarUrl(user));
 
             List<Long> followers = subscribeService.findAllFollowersIdByFollowing(user.getId());
             List<Long> following = subscribeService.findAllFollowingsIdByFUser(user.getId());

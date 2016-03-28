@@ -6,6 +6,7 @@ import com.quowl.quowl.domain.logic.user.User;
 import com.quowl.quowl.repository.books.BookRepository;
 import com.quowl.quowl.repository.quote.QuoteRepository;
 import com.quowl.quowl.repository.user.UserRepository;
+import com.quowl.quowl.service.quote.QuoteService;
 import com.quowl.quowl.utils.ExecutionStatus;
 import com.quowl.quowl.utils.SecurityUtils;
 import com.quowl.quowl.web.beans.system.JsonResultBean;
@@ -19,9 +20,9 @@ import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class QuoteController {
-    @Inject private QuoteRepository quoteRepository;
     @Inject private UserRepository userRepository;
     @Inject private BookRepository booksRepository;
+    @Inject private QuoteService quoteService;
 
     @RequestMapping(value = "/quote/add", method = RequestMethod.POST)
     @ResponseBody
@@ -40,12 +41,11 @@ public class QuoteController {
         quo.setAuthor(user.getAuthorName());
         quo.setText(quote);
         try {
-            quo = quoteRepository.save(quo);
+            quo = quoteService.save(quo);
         } catch (DataIntegrityViolationException e) {
             return JsonResultBean.failure(ExecutionStatus.S210.toString());
         }
-        QuoteBean quoteBean = new QuoteBean();
-        quoteBean.copyDataFromDomain(quo);
+        QuoteBean quoteBean = quoteService.convertOne(quo);
 
         return JsonResultBean.success(quoteBean);
     }
@@ -53,9 +53,9 @@ public class QuoteController {
     @RequestMapping(value = "/quote/edit/{id}", method = RequestMethod.PUT)
     @ResponseBody
     public JsonResultBean editQuote(@PathVariable(value = "id") Long id, @RequestParam(value = "text") String text) {
-        Quote quote = quoteRepository.findOne(id);
+        Quote quote = quoteService.findOne(id);
         quote.setText(text);
-        quoteRepository.save(quote);
+        quoteService.save(quote);
 
         return JsonResultBean.success();
     }
@@ -63,7 +63,7 @@ public class QuoteController {
     @RequestMapping(value = "/quote/delete/{id}", method = RequestMethod.DELETE)
     @ResponseBody
     public JsonResultBean deleteQuote(@PathVariable(value = "id") Long id) {
-        quoteRepository.delete(id);
+        quoteService.delete(id);
         return JsonResultBean.success();
     }
 

@@ -62,28 +62,4 @@ public class FileStorageService {
         return true;
     }
 
-    //TODO: delete if unnecessary
-    public byte[] getImage(User user) throws IOException {
-
-        AmazonS3 client = new AmazonS3Client(getCredentials());
-        InputStream is;
-        byte[] img = null;
-        if (user == null || StringUtils.isBlank(user.getFilename())) {
-            File file = resourceLoader.getResource("classpath:images/noavatar.jpg").getFile();
-            img = FileUtils.readFileToByteArray(file);
-            return img;
-        }
-        try {
-            S3Object object = client.getObject(BUCKET_NAME, IMAGES_PATH + user.getNickname() + "/" + user.getFilename());
-            is = object.getObjectContent();
-            img = IOUtils.toByteArray(is);
-        } catch (AmazonS3Exception e){
-            if (e.getErrorCode().equalsIgnoreCase("NoSuchKey")) {
-                File file = resourceLoader.getResource("classpath:images/noavatar.jpg").getFile();
-                img = FileUtils.readFileToByteArray(file);
-            }
-        }
-        return img;
-    }
-
 }

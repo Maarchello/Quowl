@@ -61,7 +61,7 @@ function addQuote() {
                     $('#quu').prepend('<section id="quotes" class="col-lg-4 col-md-5 col-sm-7 col-xs-8 col-centered">' +
                         '<div id="' + data.data.id + '" class="cart border_shadow">' +
                         '<div class="username">' +
-                        '<img src="/resources/img/nerd_2.jpg" width="100" class="userava"/>' +
+                        '<img src="'+data.data.userAvatar+'" width="100" class="userava"/>' +
                         '<a href="' + data.data.userNickname + '">' + data.data.userNickname + '</a>' +
                         '<b><span class="pull-right" style="color:grey;opacity: 0.6;font-size:12pt;">' + data.data.date + '</span></b>' +
                         '</div>' +
@@ -291,7 +291,7 @@ function bookComplete() {
                     }, 3000);
                     bkComplete = false;
                 } else if (data.error == 'S130') {
-                    $('#status_message').text('Автор не установлен').css('font-size', '13px').show(300);
+                    $('#status_message').text('Автор не установлен. Введите автора и нажмите "Сохранить"').css('font-size', '13px').show(300);
                     setTimeout(function () {
                         $('#status_message').hide(300);
                     }, 3000);

@@ -86,6 +86,7 @@ public class SettingsController extends BaseController  {
             profileService.save(profileInfo);
         } else {
             model.addAttribute("error", "Имя не может быть пустым.");
+            return "account/settings";
         }
 
         return "redirect:/settings";

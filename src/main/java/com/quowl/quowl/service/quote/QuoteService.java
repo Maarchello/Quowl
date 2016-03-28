@@ -48,6 +48,20 @@ public class QuoteService implements IService<Quote, Long> {
         return quoteBeen;
     }
 
+    public QuoteBean convertOne(Quote quote) {
+        QuoteBean quoteBean = new QuoteBean();
+        quoteBean.setId(quote.getId());
+        quoteBean.setAuthor(quote.getAuthor());
+        quoteBean.setBook(quote.getBook());
+        quoteBean.setText(quote.getText());
+        quoteBean.setDate(quote.getCreatedDate());
+        quoteBean.setUserId(quote.getUser().getId());
+        quoteBean.setUserNickname(quote.getUser().getNickname());
+        quoteBean.setUserAvatar(storageService.getAvatarUrl(quote.getUser()));
+
+        return quoteBean;
+    }
+
     @Override
     public void delete(Quote quote) {
         quoteRepository.delete(quote);

@@ -99,6 +99,7 @@ public class QuoteBean implements WebBean<Quote> {
         setDate(obj.getCreatedDate());
         setUserId(obj.getUser().getId());
         setUserNickname(obj.getUser().getNickname());
+        setUserAvatar(obj.getUser().getFilename());
     }
 
     @Override

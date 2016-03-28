@@ -19,6 +19,7 @@ public class UserBean implements WebBean<User> {
     private List<Long> followers;
     private List<Long> following;
     private Gender gender;
+    private String userAvatar;
 
     public Long getId() {
         return id;
@@ -140,5 +141,13 @@ public class UserBean implements WebBean<User> {
 
     public void setGender(Gender gender) {
         this.gender = gender;
+    }
+
+    public String getUserAvatar() {
+        return userAvatar;
+    }
+
+    public void setUserAvatar(String userAvatar) {
+        this.userAvatar = userAvatar;
     }
 }
