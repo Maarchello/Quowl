@@ -1,15 +1,48 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <title th:text="#{index_title}"></title>
-
+    <title th:text="#{project_name} + ': ' + #{findYourStory}">Quowl</title>
+    <!--Bootstrap-->
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <!--CSS-->
     <link rel="stylesheet" href="/resources/css/new/index.css"/>
+    <!--JS-->
+
 </head>
+
 <body>
-    <div class="container" id="greetings">
-        <h1>НАЙДИ СВОЮ ИСТОРИЮ</h1>
-        <p>Бесконечное путешествие</p>
+<!--Login modal include-->
+<div id="login-include" th:include="fragments/login-modal">Login modal include</div>
+<!--Jumbotron-->
+<div class="jumbotron text-center" id="greetings">
+
+    <!--Log in button-->
+    <div class="container">
+        <div class="col-sm-1 col-sm-offset-11">
+            <a href="" data-toggle="modal" data-target="#login-modal" class="login-button" th:text="#{login}">Login</a>
+        </div>
     </div>
+
+    <div class="jum-text">
+        <h1 th:with="findYourStory=#{findYourStory}" th:text="${#strings.toUpperCase(findYourStory)}">Find your
+            story</h1>
+        <p th:text="#{eternalJourney}">Eternal Journey</p>
+    </div>
+    <!--Learn more button-->
+    <a href="#">
+        <div class="button-fill learn-more">
+            <div class="button-text" th:text="#{learn} + '&nbsp;' + #{more}">Learn More</div>
+            <div class="button-inside">
+                <div class="inside-text" th:text="#{learn} + '&nbsp;' + #{more}">Learn&nbsp;More</div>
+            </div>
+        </div>
+    </a>
+    <!--Learn more button script-->
+    <script src="/resources/js/design/index-design.js"></script>
+</div>
+
 </body>
 </html>

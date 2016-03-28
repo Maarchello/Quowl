@@ -1,8 +1,8 @@
 function signup() {
     deleteErrors();
-    var username = $('#j_name').val().trim();
-    var email = $('#j_email').val().trim();
-    var password = $('#j_password').val().trim();
+    var username = $('#registerUsername').val().trim();
+    var email = $('#registerEmail').val().trim();
+    var password = $('#registerPassword').val().trim();
 
     if (fieldsNotEmpty(username, email, password)) {
         $.ajax({
@@ -12,7 +12,7 @@ function signup() {
             success: function(JsonResultBean) {
                 if (!JsonResultBean.error) {
                     var message = $('#result_signup_message');
-                    message.show().css('color', 'yellowgreen').text('Регистрация прошла успешно!');
+                    message.show().text('Регистрация прошла успешно!');
 
                     setTimeout(function(){
                         message.hide();
@@ -30,8 +30,8 @@ function signup() {
 
 function signin() {
     deleteErrors();
-    var username = $('#name').val().trim();
-    var password = $('#password').val().trim();
+    var username = $('#loginUsername').val().trim();
+    var password = $('#loginPassword').val().trim();
 
     if (fieldNotEmptySignin(username, password)) {
         $.ajax({
@@ -52,12 +52,12 @@ function signin() {
 function fieldNotEmptySignin(name, password) {
     var isSuccess = true;
     if (!name) {
-        $('#name_error').show().text('Введите имя.');
+        $('#result_signin_error').show().text('Введите имя.');
         isSuccess = false;
     }
 
     if (!password) {
-        $('#password_error').show().text('Введите пароль.');
+        $('#result_signin_error').show().text('Введите пароль.');
         isSuccess = false;
     }
 
@@ -71,17 +71,17 @@ function deleteErrors() {
 function fieldsNotEmpty(name, email, password) {
     var isSuccess = true;
     if (!name) {
-        $('#j_name_error').show().text("Введите ваше имя.");
+        $('#result_signup_error').show().text("Введите ваше имя.");
         isSuccess = false;
     }
 
     if (!email) {
-        $('#j_email_error').show().text("Введите ваш email адресс.");
+        $('#result_signup_error').show().text("Введите ваш email адресс.");
         isSuccess = false;
     }
 
     if (!password) {
-        $('#j_password_error').show().text("Придумайте пароль.");
+        $('#result_signup_error').show().text("Придумайте пароль.");
         isSuccess = false;
     }
 
