@@ -37,7 +37,7 @@ public class BookController {
     private final static String BOOK_FINISH_NOTIFICATION = "прочитал(а) книгу";
 
 
-    @RequestMapping(value = "/bookComplete", method = RequestMethod.GET)
+    @RequestMapping(value = "/book/complete", method = RequestMethod.GET)
     @ResponseBody
     public JsonResultBean bookComplete() {
         String nickname = SecurityUtils.getCurrentLogin();
@@ -71,7 +71,7 @@ public class BookController {
         return JsonResultBean.success();
     }
 
-    @RequestMapping(value = "/addBook/{book}/{userId}/{currentId}")
+    @RequestMapping(value = "/bookplan/add/{book}/{userId}/{currentId}")
     @ResponseBody
     public JsonResultBean addBook(@PathVariable("book") String book, @PathVariable("userId") Long userId, @PathVariable("currentId") Long currentUserId) {
         String author = bookService.findAuthorByUserIdAndBook(userId, book);
@@ -89,7 +89,7 @@ public class BookController {
         return JsonResultBean.success(ExecutionStatus.OK.toString());
     }
 
-    @RequestMapping(value = "/getBookPlan/{user_id}")
+    @RequestMapping(value = "/bookplan/get/{user_id}")
     @ResponseBody
     public JsonResultBean getBookPlan(@PathVariable("user_id") Long userId) {
         List<BookPlan> planList = planService.getByUserId(userId);

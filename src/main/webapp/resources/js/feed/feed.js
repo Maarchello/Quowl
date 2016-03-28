@@ -52,7 +52,7 @@ function addQuote() {
     quote = quote.trim();
     if (quote) {
         $.ajax({
-            url: "addQuote",
+            url: "quote/add",
             type: "POST",
             data: ({quote: quote}),
             success: function (data) {
@@ -162,7 +162,7 @@ function editorOfQuote(id) {
 function editQuote(id) {
     var text = $('#quote_edit').val();
     $.ajax({
-        url: "editQuote/" + id + '?text=' + text,
+        url: "quote/edit/" + id + '?text=' + text,
         type: "PUT",
         success: function (data) {
             if (!data.error) {
@@ -177,7 +177,7 @@ function editQuote(id) {
 
 function deleteQuote(id) {
     $.ajax({
-        url: "deleteQuote/" + id,
+        url: "quote/delete/" + id,
         type: "DELETE",
         success: function (data) {
             if (!data.error) {
@@ -251,7 +251,7 @@ function saveStatus() {
 
     if (stChange) {
         $.ajax({
-            url: "saveStatus",
+            url: "status/save",
             type: "POST",
             data: ({bookName: bookName, authorName: authorName}),
             success: function (data) {
@@ -271,7 +271,7 @@ function saveStatus() {
 function bookComplete() {
     if (bkComplete) {
         $.ajax({
-            url: "bookComplete",
+            url: "book/complete",
             type: "GET",
             success: function (data) {
                 if (!data.error) {
@@ -321,7 +321,7 @@ function clearStatus() {
 var page = 1;
 function moreQuotes() {
     $.ajax({
-        url: 'moreQuotes/' + page,
+        url: 'quotes/more/' + page,
         type: 'GET',
         success: function (data) {
             if (!data.error) {
@@ -389,7 +389,7 @@ function addBook(user_id, book, currentUserId) {
         var userId = parseInt(user_id);
         if (userId && book && currentId) {
             $.ajax({
-                url: 'addBook/' + book + '/' + userId + '/' + currentId,
+                url: 'bookplan/add/' + book + '/' + userId + '/' + currentId,
                 type: 'GET',
                 success: function (data) {
                     if (!data.error) {
@@ -401,4 +401,62 @@ function addBook(user_id, book, currentUserId) {
             })
         }
     }
+}
+
+
+function listenEnter(input, id) {
+    alert('listening');
+    input.addEventListener("keypress", function(e) {
+       if (e.keyCode === 13) {
+           var message = $(input).val();
+           addComment(message, id);
+       }
+    });
+}
+
+function send(span, userId, userNickname) {
+    var input = $(span).prev();
+    var id = $(input).attr('id');
+    var message = $(input).val();
+
+    var validate = validation(message);
+
+    if (validate) {
+        addComment(message, id, userId, userNickname, input);
+    }
+}
+
+function addComment(message, quote_id, userId, userNickname, input) {
+    $.ajax({
+        url: '/comment/add',
+        type: 'POST',
+        data: ({comment: message, quote_id: quote_id, user_id: userId, user_nickname: userNickname}),
+        success: function(data) {
+            if (!data.error) {
+                console.log(data);
+                var comment = data.data;
+                $(input).val('');
+                $('#comments').append('<div>'+comment.message+'</div>');
+            } else if (data.error == 'S300') {
+                alert('Empty comment');
+            }
+        }
+    })
+}
+
+function validation(string) {
+    var str = string.trim();
+    return str.length > 0
+}
+
+function deleteComment(id) {
+    $.ajax({
+        url: '/comment/delete/'+id,
+        type: 'DELETE',
+        success: function(data) {
+            if (!data.error) {
+                $('#comment_' + id).remove();
+            }
+        }
+    })
 }

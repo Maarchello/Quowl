@@ -233,7 +233,7 @@ var bookPlanBean = {};
 function showBookPlan(user_id) {
     if (!bookPlanBean.length) {
         $.ajax({
-            url: 'getBookPlan/' + user_id,
+            url: 'bookplan/get/' + user_id,
             type: 'GET',
             success: function(data) {
                 if (!data.error) {

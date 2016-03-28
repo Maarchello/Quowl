@@ -26,4 +26,17 @@
             <img src="/resources/img/edit.png" width="30" />
         </div>
     </div>
+
+    <div th:each="comment : ${quote.comments}" id="comments">
+        <div th:id="'comment_' + ${comment.id}">
+            <span class="weight900"><a th:href="${comment.nickname}" th:text="${comment.nickname}"></a></span>
+            <span th:text="': ' + ${comment.message}"></span>
+            <span th:if="${comment.userId} == ${currentUser.id}" th:id="${comment.id}" onclick="deleteComment(this.id)" th:text="Delete"></span>
+        </div>
+    </div>
+
+    <div style="border: none; border-top: solid 1px lightgrey;">
+        <input th:id="${quote.id}" style="width:90%; border: none;" type="text" placeholder="Enter your comment.." class="required"/>
+        <span style="width:10%" onclick="send(this)" th:onclick="'javascript:send(this, \''+${currentUser.id}+'\', \''+${currentUser.nickname}+'\')'" class="border-left link">SEND</span>
+    </div>
 </div>

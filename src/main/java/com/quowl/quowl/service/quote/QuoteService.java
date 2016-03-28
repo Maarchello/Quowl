@@ -3,6 +3,7 @@ package com.quowl.quowl.service.quote;
 import com.quowl.quowl.domain.logic.quote.Quote;
 import com.quowl.quowl.domain.logic.user.User;
 import com.quowl.quowl.repository.quote.QuoteRepository;
+import com.quowl.quowl.service.comment.CommentService;
 import com.quowl.quowl.service.storage.StorageService;
 import com.quowl.quowl.service.user.UserService;
 import com.quowl.quowl.web.beans.system.IService;
@@ -18,6 +19,7 @@ public class QuoteService implements IService<Quote, Long> {
     @Inject private UserService userService;
     @Inject private QuoteRepository quoteRepository;
     @Inject private StorageService storageService;
+    @Inject private CommentService commentService;
 
 
     public Long countAllQuotesByBook(Long bookId) {
@@ -26,7 +28,6 @@ public class QuoteService implements IService<Quote, Long> {
 
     public List<QuoteBean> convertQuotesToQuoteBean(List<Quote> quotes) {
         List<QuoteBean> quoteBeen = new ArrayList<>();
-
         for (Quote quote : quotes) {
             QuoteBean bean = new QuoteBean();
             bean.setId(quote.getId());
@@ -38,6 +39,8 @@ public class QuoteService implements IService<Quote, Long> {
             bean.setUserNickname(quote.getUser().getNickname());
             bean.setUsers(userService.convertUsersToUserBean(quote.getLikes()));
             bean.setUserAvatar(storageService.getAvatarUrl(quote.getUser()));
+
+            bean.setComments(commentService.getAllByQuoteId(quote.getId()));
 
             quoteBeen.add(bean);
         }
