@@ -86,9 +86,12 @@ public class DatabaseConfig {
     @Bean
     public DataSource dataSource() {
         BasicDataSource basicDataSource = new BasicDataSource();
-        basicDataSource.setUrl(env.getRequiredProperty("db.url"));
         basicDataSource.setDriverClassName(env.getRequiredProperty("db.driver"));
+//        basicDataSource.setUrl(env.getRequiredProperty("db.amazon.url"));
+        basicDataSource.setUrl(env.getRequiredProperty("db.url"));
+//        basicDataSource.setUsername(env.getRequiredProperty("db.amazon.username"));
         basicDataSource.setUsername(env.getRequiredProperty("db.username"));
+//        basicDataSource.setPassword(env.getRequiredProperty("db.amazon.password"));
         basicDataSource.setPassword(env.getRequiredProperty("db.password"));
 
         basicDataSource.setInitialSize(Integer.valueOf(env.getRequiredProperty("db.initialSize")));

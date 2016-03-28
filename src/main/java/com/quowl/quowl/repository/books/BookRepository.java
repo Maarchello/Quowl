@@ -38,7 +38,7 @@ public interface BookRepository extends JpaRepository<Books, Long> {
      * @return list of <code>Object[]</code> arrays.
      * Object[] contains a book and its count rows in DB.
      */
-    @Query(value = "select b.book, count(b.book) as qty from Books b where b.readed = 1 group by b.book order by qty desc limit ?1", nativeQuery = true)
+    @Query(value = "select b.book, count(b.book) as qty from books b where b.readed = 1 group by b.book order by qty desc limit ?1", nativeQuery = true)
     List<Object[]> findTheMostReadBooks(Long limit);
 
     /**
@@ -48,6 +48,6 @@ public interface BookRepository extends JpaRepository<Books, Long> {
      * @return list of <code>Object[]</code> arrays.
      * Object[] contains an author and its count rows in DB.
      */
-    @Query(value = "select b.author, count(b.author) as qty from Books b where b.readed = 1 group by b.author order by qty desc limit ?1", nativeQuery = true)
+    @Query(value = "select b.author, count(b.author) as qty from books b where b.readed = 1 group by b.author order by qty desc limit ?1", nativeQuery = true)
     List<Object[]> findTheMostReadAuthors(Long limit);
 }
