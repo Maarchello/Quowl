@@ -52,12 +52,12 @@ function signin() {
 function fieldNotEmptySignin(name, password) {
     var isSuccess = true;
     if (!name) {
-        $('#name_error').show().text('Введите имя.');
+        $('#result_signin_error').show().text('Введите имя.');
         isSuccess = false;
     }
 
     if (!password) {
-        $('#password_error').show().text('Введите пароль.');
+        $('#result_signin_error').show().text('Введите пароль.');
         isSuccess = false;
     }
 
@@ -71,17 +71,17 @@ function deleteErrors() {
 function fieldsNotEmpty(name, email, password) {
     var isSuccess = true;
     if (!name) {
-        $('#j_name_error').show().text("Введите ваше имя.");
+        $('#result_signup_error').show().text("Введите ваше имя.");
         isSuccess = false;
     }
 
     if (!email) {
-        $('#j_email_error').show().text("Введите ваш email адресс.");
+        $('#result_signup_error').show().text("Введите ваш email адресс.");
         isSuccess = false;
     }
 
     if (!password) {
-        $('#j_password_error').show().text("Придумайте пароль.");
+        $('#result_signup_error').show().text("Придумайте пароль.");
         isSuccess = false;
     }
 

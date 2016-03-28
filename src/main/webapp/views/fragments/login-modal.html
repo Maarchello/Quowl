@@ -21,21 +21,22 @@
                 <!--Login-->
                 <form>
                     <div class="input-container">
-                        <input type="text" id="loginUsername" required="required"/>
+                        <input type="text" id="loginUsername" onclick="this.select()" required="required"/>
                         <label for="loginUsername" th:text="#{username}">Username</label>
                         <div class="bar"></div>
                     </div>
                     <div class="input-container">
-                        <input type="password" id="loginPassword" required="required"/>
-                        <label for="loginUsername" th:text="#{password}">Password</label>
+                        <input type="password" id="loginPassword" onclick="this.select()" required="required"/>
+                        <label for="loginPassword" th:text="#{password}">Password</label>
                         <div class="bar"></div>
+                    </div>
+                    <div class="error-container">
+                        <span id="result_signin_error" style="color: black"></span>
                     </div>
                     <div class="button-container">
                         <button type="button" onclick="signin()"><span th:text="#{login}">Log in</span></button>
                     </div>
-                    <div class="result message">
-                        <h2 id="result_signin_error"></h2>
-                    </div>
+
                     <div class="footer"><a href="#" th:text="#{forgotPassword}">Forgot your password?</a></div>
                 </form>
             </div>
@@ -49,22 +50,22 @@
                 <!--Register-->
                 <form>
                     <div class="input-container">
-                        <input type="text" id="registerEmail" required="required"/>
+                        <input type="text" id="registerEmail" onclick="this.select()" required="required"/>
                         <label for="registerEmail" th:text="#{email}">Email</label>
                         <div class="bar"></div>
                     </div>
                     <div class="input-container">
-                        <input type="text" id="registerUsername" required="required"/>
+                        <input type="text" id="registerUsername" onclick="this.select()" required="required"/>
                         <label for="registerUsername" th:text="#{username}">Username</label>
                         <div class="bar"></div>
                     </div>
                     <div class="input-container">
-                        <input type="password" id="registerPassword" required="required"/>
-                        <label for="repeat password" th:text="#{password}">Password</label>
+                        <input type="password" id="registerPassword" onclick="this.select()" required="required"/>
+                        <label for="registerPassword" th:text="#{password}">Password</label>
                         <div class="bar"></div>
                     </div>
                     <div class="input-container">
-                        <input type="password" id="Repeat Password" required="required"/>
+                        <input type="password" id="Repeat Password"/>
                         <label for="Repeat Password" th:text="#{repeatPassword}">Repeat Password</label>
                         <div class="bar"></div>
                     </div>

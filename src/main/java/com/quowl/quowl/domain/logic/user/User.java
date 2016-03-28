@@ -24,7 +24,7 @@ import java.util.List;
 public class User extends AuditingEntity implements UserDetails, Serializable {
 
     @Size(max = 100)
-    @Column(name = "nickname", length = 100)
+    @Column(name = "nickname", unique = true, length = 100)
     private String nickname;
 
     @Column
