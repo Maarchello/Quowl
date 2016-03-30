@@ -1,26 +1,22 @@
 function signup() {
     deleteErrors();
+
     var username = $('#registerUsername').val().trim();
     var email = $('#registerEmail').val().trim();
     var password = $('#registerPassword').val().trim();
+    var repeatedPassword = $('#registerRepeatPassword').val().trim();
 
-    if (fieldsNotEmpty(username, email, password)) {
+    if (isRegistrationValid(username, email, password, repeatedPassword)) {
         $.ajax({
             url: "signup",
             type: "POST",
             data: ({username: username, password: password, email: email}),
-            success: function(JsonResultBean) {
+            success: function (JsonResultBean) {
                 if (!JsonResultBean.error) {
-                    var message = $('#result_signup_message');
-                    message.show().text('Регистрация прошла успешно!');
-
-                    setTimeout(function(){
-                        message.hide();
-                        $('#signup').hide(200);
-                    }, 3000);
+                    $('#regServerResult').show();
 
                 } else if (JsonResultBean.error) {
-                    $('#result_signup_message').show().text(JsonResultBean.error);
+                    $('#regServerResult').show().text(JsonResultBean.error);
                 }
             }
         });
@@ -33,14 +29,14 @@ function signin() {
     var username = $('#loginUsername').val().trim();
     var password = $('#loginPassword').val().trim();
 
-    if (fieldNotEmptySignin(username, password)) {
+    if (loginFieldsNotEmpty(username, password)) {
         $.ajax({
             url: "login",
             type: "POST",
             data: ({name: username, password: password}),
-            success: function(JsonResultBean) {
+            success: function (JsonResultBean) {
                 if (JsonResultBean.error) {
-                    $('#result_signin_error').show().text(JsonResultBean.error);
+                    $('#logServerResult').show().text(JsonResultBean.error).css('color', 'black');
                 } else {
                     location.reload();
                 }
@@ -49,15 +45,13 @@ function signin() {
     }
 }
 
-function fieldNotEmptySignin(name, password) {
+function loginFieldsNotEmpty(name, password) {
     var isSuccess = true;
     if (!name) {
-        $('#result_signin_error').show().text('Введите имя.');
+        $('#logNameError').show();
         isSuccess = false;
-    }
-
-    if (!password) {
-        $('#result_signin_error').show().text('Введите пароль.');
+    } else if (!password) {
+        $('#logPassError').show();
         isSuccess = false;
     }
 
@@ -65,32 +59,48 @@ function fieldNotEmptySignin(name, password) {
 }
 
 function deleteErrors() {
-    $('.error_span').hide();
+    $('.resultMessage').hide();
 }
 
-function fieldsNotEmpty(name, email, password) {
+function registerFieldsNotEmpty(name, email, password, repeatPassword) {
     var isSuccess = true;
-    if (!name) {
-        $('#result_signup_error').show().text("Введите ваше имя.");
-        isSuccess = false;
-    }
 
     if (!email) {
-        $('#result_signup_error').show().text("Введите ваш email адресс.");
+        $('#regEmailError').show();
         isSuccess = false;
-    }
-
-    if (!password) {
-        $('#result_signup_error').show().text("Придумайте пароль.");
+    } else if (!name) {
+        $('#regNameError').show();
+        isSuccess = false;
+    } else if (!password) {
+        $('#regPassError').show();
+        isSuccess = false;
+    } else if (!repeatPassword) {
+        $('#regRepeatError').show();
         isSuccess = false;
     }
 
     return isSuccess;
 }
 
-function showSignUp() {
-    if ($('#signup').is(":visible")){
-        $('#signup').hide();
-    } else $('#signup').show();
+function checkRepeatPassword(password, repeatedPassword) {
+    if (password === repeatedPassword) {
+        return true;
+    } else {
+        $('#regPassNotMatched').show();
+        return false;
+    }
 
+}
+
+function isRegistrationValid(username, email, password, repeatedPassword) {
+
+    var isValid = true;
+
+    if (!registerFieldsNotEmpty(username, email, password, repeatedPassword)) {
+        isValid = false;
+    } else if (!checkRepeatPassword(password, repeatedPassword)) {
+        isValid = false;
+    }
+
+    return isValid;
 }

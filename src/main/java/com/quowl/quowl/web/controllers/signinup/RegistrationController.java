@@ -13,6 +13,12 @@ import javax.inject.Inject;
 
 @Controller
 public class RegistrationController {
+    //LocaleResolver
+    //HttpServletRequest
+    //Вытащить локаль
+    //Сделать валидатор компонент, инжект messageSource
+    //Там проверки паролей, и тд
+    //метод getMessage
     private final Logger log = LoggerFactory.getLogger(RegistrationController.class);
     @Inject private RegistrationService registrationService;
 

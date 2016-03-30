@@ -11,7 +11,7 @@
 #greetings {
     color: #ffffff;
     min-height: 95vh;
-    background: url("../../img/startpage-jumbotron-book.jpg") no-repeat center center;
+    background: url("../img/startpage-jumbotron-book.jpg") no-repeat center center;
     background-size: cover;
     padding-top: 25px;
 }
