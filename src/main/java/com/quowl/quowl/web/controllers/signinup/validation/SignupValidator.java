@@ -34,7 +34,7 @@ public class SignupValidator {
         } else if (!userNameExists(userName)) {
             return JsonResultBean.failure(messageSource.getMessage("nameExists", null, locale));
         } else {
-            return JsonResultBean.success();
+            return JsonResultBean.success(messageSource.getMessage("regSuccess", null, locale));
         }
 
 

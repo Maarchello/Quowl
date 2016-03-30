@@ -6,6 +6,7 @@ import com.quowl.quowl.web.beans.system.JsonResultBean;
 import com.quowl.quowl.web.controllers.signinup.validation.SignupValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.MessageSource;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +26,8 @@ public class RegistrationController {
     private RegistrationService registrationService;
     @Inject
     private SignupValidator validator;
+    @Inject
+    private MessageSource messageSource;
 
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
     @ResponseBody
@@ -38,9 +41,8 @@ public class RegistrationController {
 
         if (resultBean.getResult()){
             boolean result = registrationService.registerUser(username, password, email);
-
-            if (result) {
-                return JsonResultBean.success();
+            if (!result) {
+                return JsonResultBean.failure(messageSource.getMessage("", null, locale));
             }
         }
 

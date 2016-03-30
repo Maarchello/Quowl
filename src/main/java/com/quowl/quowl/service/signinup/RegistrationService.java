@@ -24,18 +24,22 @@ public class RegistrationService {
 
     @Transactional
     public boolean registerUser(String username, String password, String email) {
+        try {
+            ProfileInfo profileInfo = new ProfileInfo();
+            profileInfo = profileRepository.save(profileInfo);
 
-        ProfileInfo profileInfo = new ProfileInfo();
-        profileInfo = profileRepository.save(profileInfo);
-
-        User newUser = new User();
-        password = passwordEncoder.encode(password);
-        username = username.toLowerCase();
-        newUser.setPassword(password);
-        newUser.setNickname(username);
-        newUser.setEmail(email);
-        newUser.setProfileInfo(profileInfo);
-        userRepository.save(newUser);
+            User newUser = new User();
+            password = passwordEncoder.encode(password);
+            username = username.toLowerCase();
+            newUser.setPassword(password);
+            newUser.setNickname(username);
+            newUser.setEmail(email);
+            newUser.setProfileInfo(profileInfo);
+            userRepository.save(newUser);
+        } catch (Exception e) {
+            log.error("Some error: " + e.getMessage());
+            return false;
+        }
 
         log.info("Registration new user completed successfully!");
         return true;

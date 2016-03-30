@@ -15,7 +15,7 @@ function signup() {
                 console.log(JsonResultBean);
 
                 if (!JsonResultBean.error) {
-                    $('#regServerResult').show();
+                    $('#regServerResult').show().text(JsonResultBean.data);
 
                 } else if (JsonResultBean.error) {
                     $('#regServerResult').show().text(JsonResultBean.error);
