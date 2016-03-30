@@ -1,3 +1,20 @@
+function eraseRegInputs() {
+    $('.regInput').each(function () {
+        $(this).val('');
+    })
+}
+
+
+function hideResultMessages(){
+    var hideTimer = 30000;
+
+    setTimeout(function(){
+        $('.resultMessage').each(function(){
+            $(this).hide();
+        })
+    }, hideTimer)
+}
+
 function signup() {
     deleteErrors();
 
@@ -16,6 +33,10 @@ function signup() {
 
                 if (!JsonResultBean.error) {
                     $('#regServerResult').show().text(JsonResultBean.data);
+
+                    eraseRegInputs();
+                    hideResultMessages();
+
 
                 } else if (JsonResultBean.error) {
                     $('#regServerResult').show().text(JsonResultBean.error);
@@ -42,6 +63,8 @@ function signin() {
                 } else {
                     location.reload();
                 }
+
+                hideResultMessages();
             }
         })
     }
