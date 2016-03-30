@@ -5,7 +5,6 @@ import com.quowl.quowl.repository.books.BookRepository;
 import com.quowl.quowl.repository.quote.QuoteRepository;
 import com.quowl.quowl.repository.user.UserRepository;
 import com.quowl.quowl.service.signinup.SecurityService;
-import com.quowl.quowl.service.storage.StorageService;
 import com.quowl.quowl.service.system.TokenProvider;
 import com.quowl.quowl.utils.CookieUtils;
 import com.quowl.quowl.utils.SecurityUtils;
@@ -35,6 +34,18 @@ public class UserService implements IService<User, Long> {
     @Inject @Qualifier("customUserDetails") private UserDetailsService userDetailsService;
     @Inject private SecurityService securityService;
     @Inject private TokenProvider tokenProvider;
+
+
+    public boolean existsEmail(String email){
+        Long id = userRepository.findIdByEmail(email);
+
+        return id == null;
+    }
+
+    public boolean existsUserName(String userName){
+        Long id = userRepository.findIdByNickName(userName);
+        return id == null;
+    }
 
     public User getByNickname(String nickname) {
         return userRepository.findOneByNickname(nickname);

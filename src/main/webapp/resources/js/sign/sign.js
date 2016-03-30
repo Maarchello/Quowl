@@ -12,6 +12,8 @@ function signup() {
             type: "POST",
             data: ({username: username, password: password, email: email}),
             success: function (JsonResultBean) {
+                console.log(JsonResultBean);
+
                 if (!JsonResultBean.error) {
                     $('#regServerResult').show();
 

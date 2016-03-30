@@ -6,7 +6,6 @@ import com.quowl.quowl.repository.user.ProfileRepository;
 import com.quowl.quowl.repository.user.UserRepository;
 import com.quowl.quowl.utils.ExecutionStatus;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.validator.routines.EmailValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -24,15 +23,8 @@ public class RegistrationService {
     @Inject private PasswordEncoder passwordEncoder;
 
     @Transactional
-    public String registerUser(String username, String password, String email) {
-        if (StringUtils.isBlank(username) || StringUtils.isBlank(password) || StringUtils.isBlank(email)) {
-            log.warn("User data empty or null");
-            return ExecutionStatus.User_data_empty.toString();
-        }
-        if (!isValidateEmail(email)) {
-            log.warn("Wrong email address");
-            return ExecutionStatus.Wrong_email_address.toString();
-        }
+    public boolean registerUser(String username, String password, String email) {
+
         ProfileInfo profileInfo = new ProfileInfo();
         profileInfo = profileRepository.save(profileInfo);
 
@@ -46,12 +38,10 @@ public class RegistrationService {
         userRepository.save(newUser);
 
         log.info("Registration new user completed successfully!");
-        return ExecutionStatus.OK.toString();
+        return true;
     }
 
 
-    private boolean isValidateEmail(String email) {
-        return EmailValidator.getInstance().isValid(email);
-    }
+
 
 }
