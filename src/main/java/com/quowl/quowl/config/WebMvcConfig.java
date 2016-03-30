@@ -1,5 +1,7 @@
 package com.quowl.quowl.config;
 
+import com.quowl.quowl.repository.system.EmailTemplateRepository;
+import com.quowl.quowl.service.system.geteways.emailtemplates.DatabaseTemplateResolver;
 import org.apache.commons.lang3.CharEncoding;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -16,12 +18,18 @@ import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 import org.thymeleaf.templateresolver.TemplateResolver;
 
+import javax.inject.Inject;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = "com.quowl.quowl")
 public class WebMvcConfig extends WebMvcConfigurerAdapter {
+
+    @Inject private EmailTemplateRepository emailTemplateRepository;
+
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -54,14 +62,37 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
         resolver.setTemplateMode("HTML5");
         resolver.setCharacterEncoding("UTF-8");
         resolver.setCacheable(false);
+        resolver.setOrder(2);
 
         return resolver;
+    }
+
+    private DatabaseTemplateResolver emailTemplateResolver() {
+        DatabaseTemplateResolver emailTemplateResolver = new DatabaseTemplateResolver();
+        emailTemplateResolver.setRepository(emailTemplateRepository);
+
+        emailTemplateResolver.setPrefix("mails/");
+        emailTemplateResolver.setSuffix(".html");
+        emailTemplateResolver.setTemplateMode("HTML5");
+        emailTemplateResolver.setCacheTTLMs(60000L);
+
+        Set<String> patterns = new HashSet<>();
+        patterns.add("mails.*");
+        emailTemplateResolver.setResolvablePatterns(patterns);
+
+        emailTemplateResolver.setCharacterEncoding(CharEncoding.UTF_8);
+        emailTemplateResolver.setOrder(1);
+        return emailTemplateResolver;
+
     }
 
     @Bean
     public SpringTemplateEngine templateEngine() {
         SpringTemplateEngine engine = new SpringTemplateEngine();
-        engine.setTemplateResolver(templateResolver());
+        engine.addTemplateResolver(templateResolver());
+
+        TemplateResolver emailTR = emailTemplateResolver();
+        engine.addTemplateResolver(emailTR);
 
         return engine;
     }
