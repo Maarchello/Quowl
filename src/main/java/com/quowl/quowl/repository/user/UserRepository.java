@@ -14,6 +14,12 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     User findOneByNickname(String nickname);
 
+    @Query("select u.id from User u where u.nickname=?1")
+    Long findIdByNickName(String nickName);
+
+    @Query("select u.id from User u where u.email=?1")
+    Long findIdByEmail(String email);
+
     @Query("select u from User u where u.id in ?1")
     List<User> findAllById(List<Long> ids);
 

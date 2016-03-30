@@ -3,11 +3,11 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>Login</title>
-    <link rel="stylesheet" href="/resources/css/new/login-modal.css"/>
+    <link rel="stylesheet" href="/resources/css/sign/login-modal.css"/>
     <link rel='stylesheet prefetch' href='http://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900|RobotoDraft:400,100,300,500,700,900'/>
     <link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css'/>
-    <link rel="stylesheet" href="css/style.css"/>
-    <script src="/resources/js/sign/sign.js"/>
+
+    <script src="/resources/js/sign/sign.js"></script>
 </head>
 
 <body>
@@ -20,18 +20,23 @@
                 <h1 class="title" th:text="#{enter}">Login</h1>
                 <!--Login-->
                 <form>
+                    <!--Name-->
                     <div class="input-container">
                         <input type="text" id="loginUsername" onclick="this.select()" required="required"/>
                         <label for="loginUsername" th:text="#{username}">Username</label>
                         <div class="bar"></div>
                     </div>
+                    <!--Password-->
                     <div class="input-container">
                         <input type="password" id="loginPassword" onclick="this.select()" required="required"/>
                         <label for="loginPassword" th:text="#{password}">Password</label>
                         <div class="bar"></div>
                     </div>
+                    <!--Result-->
                     <div class="error-container">
-                        <span id="result_signin_error" style="color: black"></span>
+                        <span class="resultMessage login" id="logNameError" th:text="#{enterName}" style="color: black;"></span>
+                        <span class="resultMessage login" id="logPassError" th:text="#{enterPassword}" style="color: black"></span>
+                        <span class="resultMessage login" id="logServerResult" style="display: none"></span>
                     </div>
                     <div class="button-container">
                         <button type="button" onclick="signin()"><span th:text="#{login}">Log in</span></button>
@@ -49,29 +54,40 @@
                 </h1>
                 <!--Register-->
                 <form>
+                    <!--Email-->
                     <div class="input-container">
                         <input type="text" id="registerEmail" onclick="this.select()" required="required"/>
                         <label for="registerEmail" th:text="#{email}">Email</label>
                         <div class="bar"></div>
                     </div>
+                    <!--Name-->
                     <div class="input-container">
                         <input type="text" id="registerUsername" onclick="this.select()" required="required"/>
                         <label for="registerUsername" th:text="#{username}">Username</label>
                         <div class="bar"></div>
                     </div>
+                    <!--Password-->
                     <div class="input-container">
                         <input type="password" id="registerPassword" onclick="this.select()" required="required"/>
                         <label for="registerPassword" th:text="#{password}">Password</label>
                         <div class="bar"></div>
                     </div>
+                    <!--Repeat password-->
                     <div class="input-container">
-                        <input type="password" id="Repeat Password"/>
-                        <label for="Repeat Password" th:text="#{repeatPassword}">Repeat Password</label>
+                        <input type="password" id="registerRepeatPassword" onclick="this.select()" required="required"/>
+                        <label for="registerRepeatPassword" th:text="#{repeatPassword}">Repeat Password</label>
                         <div class="bar"></div>
                     </div>
+                    <!--Result messages-->
                     <div class="error-container">
-                        <span id="result_signup_message"></span>
+                        <span class="resultMessage" id="regEmailError" th:text="#{enterEmail}"></span>
+                        <span class="resultMessage" id="regNameError" th:text="#{enterName}"></span>
+                        <span class="resultMessage" id="regPassError" th:text="#{enterPassword}"></span>
+                        <span class="resultMessage" id="regRepeatError" th:text="#{repeatPassword}"></span>
+                        <span class="resultMessage" id="regPassNotMatched" th:text="#{passNotMatched}"></span>
+                        <span class="resultMessage" id="regServerResult" th:text="#{regSuccess}"></span>
                     </div>
+                    <!--Button-->
                     <div class="button-container">
                         <button type="button" onclick="signup()"><span th:text="#{register}">Next</span></button>
                     </div>
@@ -79,7 +95,7 @@
                 </form>
             </div>
         </div>
-        <script src="/resources/js/index.js"></script>
+
     </div>
 </div>
 
