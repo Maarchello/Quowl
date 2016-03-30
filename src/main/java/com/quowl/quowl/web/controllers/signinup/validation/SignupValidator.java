@@ -13,7 +13,16 @@ import javax.inject.Inject;
 import java.util.Locale;
 
 /**
+ * This class provides user registration validation.
+ * It checks if user email is unique and correct and if
+ * userName is unique. Also it returns error or success
+ * message in the needed language according to user locale.
  *
+ * @author nllsdfx
+ * @author Marchello
+ * @see #validate(String, String, Locale)
+ * @see MessageSource
+ * @see UserService
  */
 @Component
 public class SignupValidator {
@@ -24,7 +33,19 @@ public class SignupValidator {
     @Inject
     private UserService userService;
 
-
+    /**
+     * Validates user registration data.
+     *
+     * @param userName userName to check.
+     * @param email    email to check.
+     * @param locale   user's selected language
+     * @return JsonResult bean with error message or
+     * with success message if user data was correct.
+     *
+     * @see #isEmailValid(String)
+     * @see #emailExists(String)
+     * @see #userNameExists(String)
+     */
     public JsonResultBean validate(String userName, String email, Locale locale) {
         if (!isEmailValid(email)) {
             return JsonResultBean.failure(messageSource.getMessage("wrongEmail", null, locale));
@@ -40,16 +61,37 @@ public class SignupValidator {
 
     }
 
+    /**
+     * Checks whether user email is valid.
+     *
+     * @param email email to check.
+     * @return <code>true</code> if email is correct,
+     * <code>false</code> otherwise.
+     */
     private boolean isEmailValid(String email) {
 
         return EmailValidator.getInstance().isValid(email);
     }
 
+    /**
+     * Checks if user with the given userName exists.
+     *
+     * @param userName userName to check.
+     * @return <code>true</code> if user exists,
+     * <code>false</code> otherwise.
+     */
     private boolean userNameExists(String userName) {
 
         return userService.existsUserName(userName);
     }
 
+    /**
+     * Checks whether user email is unique.
+     *
+     * @param email to check.
+     * @return <code>true</code> if email exists,
+     * <code>false</code> otherwise.
+     */
     private boolean emailExists(String email) {
         return userService.existsEmail(email);
     }
