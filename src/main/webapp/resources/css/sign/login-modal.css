@@ -55,7 +55,8 @@ body {
 
 .login-container.active .card.alt .title,
 .login-container.active .card.alt .input-container,
-.login-container.active .card.alt .button-container {
+.login-container.active .card.alt .button-container,
+.login-container.active .card.alt .error-container{
     left: 0;
     opacity: 1;
     visibility: visible;
