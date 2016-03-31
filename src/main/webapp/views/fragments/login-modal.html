@@ -4,10 +4,12 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>Login</title>
     <link rel="stylesheet" href="/resources/css/sign/login-modal.css"/>
-    <link rel='stylesheet prefetch' href='http://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900|RobotoDraft:400,100,300,500,700,900'/>
+    <link rel='stylesheet prefetch'
+          href='http://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900|RobotoDraft:400,100,300,500,700,900'/>
     <link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css'/>
 
     <script src="/resources/js/sign/sign.js"></script>
+
 </head>
 
 <body>
@@ -34,47 +36,65 @@
                     </div>
                     <!--Result-->
                     <div class="error-container">
-                        <span class="resultMessage login" id="logNameError" th:text="#{enterName}" style="color: black;"></span>
-                        <span class="resultMessage login" id="logPassError" th:text="#{enterPassword}" style="color: black"></span>
+                        <span class="resultMessage login" id="logNameError" th:text="#{enterName}"
+                              style="color: black;"></span>
+                        <span class="resultMessage login" id="logPassError" th:text="#{enterPassword}"
+                              style="color: black"></span>
                         <span class="resultMessage login" id="logServerResult" style="display: none"></span>
                     </div>
                     <div class="button-container">
                         <button type="button" onclick="signin()"><span th:text="#{login}">Log in</span></button>
                     </div>
 
-                    <div class="footer"><a href="#" th:text="#{forgotPassword}">Forgot your password?</a></div>
+                    <div class="footer"><a href="#" onclick="openCloseRestoreSection()" th:text="#{forgotPassword}">Forgot your password?</a></div>
+                    <!--Restore section-->
+                    <div id="restore" style="display: none; width: 100%">
+                        <div class="input-container">
+                            <input type="text" id="restoreEmail" required="required"/>
+                            <label for="restoreEmail" id="restoreLabel" th:text="#{enterEmail}">Enter email:</label>
+                            <div class="bar" id="restoreBar"></div>
+                        </div>
+                        <div class="button-container">
+                            <button type="button" id="restoreButton" onclick="restoreButtonFunc()"><span th:text="#{restorePassword}">Восстановить пароль</span></button>
+                        </div>
+                    </div>
                 </form>
             </div>
             <!--End login-->
             <div class="card alt">
                 <div class="toggle"></div>
 
-                <h1 class="title"><div th:text="#{register}">Register</div>
+                <h1 class="title">
+                    <div th:text="#{register}">Register</div>
                     <div class="close"></div>
                 </h1>
                 <!--Register-->
                 <form>
                     <!--Email-->
                     <div class="input-container">
-                        <input class="regInput" type="text" id="registerEmail" onclick="this.select()" required="required"/>
+                        <input class="regInput" type="text" id="registerEmail" onclick="this.select()"
+                               required="required"/>
                         <label for="registerEmail" th:text="#{email}">Email</label>
                         <div class="bar"></div>
                     </div>
                     <!--Name-->
                     <div class="input-container">
-                        <input  class="regInput" type="text" id="registerUsername" onclick="this.select()" required="required"/>
+                        <input class="regInput" type="text" id="registerUsername" onclick="this.select()"
+                               required="required"/>
                         <label for="registerUsername" th:text="#{username}">Username</label>
                         <div class="bar"></div>
                     </div>
                     <!--Password-->
                     <div class="input-container">
-                        <input class="regInput" type="password" id="registerPassword" onclick="this.select()" required="required"/>
+                        <input class="regInput" type="password" id="registerPassword" onclick="this.select()"
+                               required="required"/>
                         <label for="registerPassword" th:text="#{password}">Password</label>
                         <div class="bar"></div>
                     </div>
                     <!--Repeat password-->
                     <div class="input-container">
-                        <input class="regInput" type="password" id="registerRepeatPassword" onclick="this.select()" required="required"/>
+                        <input class="regInput" type="password" id="registerRepeatPassword" onclick="this.select()"
+                               required="required"/>
                         <label for="registerRepeatPassword" th:text="#{repeatPassword}">Repeat Password</label>
                         <div class="bar"></div>
                     </div>

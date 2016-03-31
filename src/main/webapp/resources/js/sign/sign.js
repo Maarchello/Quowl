@@ -1,3 +1,47 @@
+function openCloseRestoreSection() {
+    var restoreSection = $('#restore');
+
+    if (restoreSection.is(':hidden')) {
+        restoreSection.show();
+    } else {
+
+        $(document).mouseup(function (e) {
+            if (!restoreSection.is(e.target) // if the target of the click isn't the container...
+                && restoreSection.has(e.target).length === 0) // ... nor a descendant of the container
+            {
+                restoreSection.hide();
+            }
+        });
+
+        restoreSection.hide();
+    }
+
+
+}
+
+function restoreButtonFunc() {
+    var email = $('#restoreEmail').val().trim();
+
+    if (!email) {
+        $('#restoreLabel').css('color', 'red');
+    } else {
+        $('#restoreLabel').css('color', '');
+        restorePassword(email);
+    }
+}
+
+function restorePassword(email){
+    $.ajax({
+        url: "restore",
+        type: "POST",
+        data: ({restoreEmail: email}),
+        success: function(JsonResultBean){
+            console.log(JsonResultBean);
+            $('#answer').text(JsonResultBean.data);
+        }
+    })
+}
+
 function eraseRegInputs() {
     $('.regInput').each(function () {
         $(this).val('');
@@ -5,11 +49,11 @@ function eraseRegInputs() {
 }
 
 
-function hideResultMessages(){
+function hideResultMessages() {
     var hideTimer = 30000;
 
-    setTimeout(function(){
-        $('.resultMessage').each(function(){
+    setTimeout(function () {
+        $('.resultMessage').each(function () {
             $(this).hide();
         })
     }, hideTimer)

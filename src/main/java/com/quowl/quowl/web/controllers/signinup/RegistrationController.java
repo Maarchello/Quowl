@@ -1,6 +1,7 @@
 package com.quowl.quowl.web.controllers.signinup;
 
 import com.quowl.quowl.service.signinup.RegistrationService;
+import com.quowl.quowl.service.signinup.RestorePasswordService;
 import com.quowl.quowl.utils.ExecutionStatus;
 import com.quowl.quowl.web.beans.system.JsonResultBean;
 import com.quowl.quowl.web.controllers.signinup.validation.SignupValidator;
@@ -28,6 +29,8 @@ public class RegistrationController {
     private SignupValidator validator;
     @Inject
     private MessageSource messageSource;
+    @Inject
+    private RestorePasswordService restorePasswordService;
 
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
     @ResponseBody
@@ -47,6 +50,14 @@ public class RegistrationController {
         }
 
         return resultBean;
+    }
+
+    @RequestMapping(value = "/restore", method = RequestMethod.POST)
+    @ResponseBody
+    public JsonResultBean restorePassword(@RequestParam(value = "restoreEmail", required = true) String email,
+                                          HttpServletRequest request){
+
+        return restorePasswordService.sendResetPasswordLink(email, request);
     }
 
 }

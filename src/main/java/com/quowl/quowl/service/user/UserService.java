@@ -38,15 +38,18 @@ public class UserService implements IService<User, Long> {
     @Inject private StorageService storageService;
 
 
+    public Long findIdByEmail(String email){
+      return userRepository.findIdByEmail(email);
+    }
     public boolean existsEmail(String email){
         Long id = userRepository.findIdByEmail(email);
 
-        return id == null;
+        return id != null;
     }
 
     public boolean existsUserName(String userName){
         Long id = userRepository.findIdByNickName(userName);
-        return id == null;
+        return id != null;
     }
 
     public User getByNickname(String nickname) {

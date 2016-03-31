@@ -55,7 +55,7 @@ body {
 .login-container.active .card.alt .title,
 .login-container.active .card.alt .input-container,
 .login-container.active .card.alt .button-container,
-.login-container.active .card.alt .error-container{
+.login-container.active .card.alt .error-container {
     left: 0;
     opacity: 1;
     visibility: visible;
@@ -164,16 +164,36 @@ body {
     margin-bottom: 10px;
 }
 
+/*Restore input*/
+.card .input-container #restoreEmail {
+    left: 25%;
+    width: 50%;
+    font-size: 16px;
+    height: 20px;
+    padding-top: 20px;
+}
+
 .card .input-container input:focus ~ label {
     color: #9d9d9d;
     -webkit-transform: translate(-12%, -50%) scale(0.75);
     transform: translate(-12%, -50%) scale(0.75);
 }
+/*Restore label focus*/
+.card .input-container #restoreEmail:focus ~ #restoreLabel {
+    color: #9d9d9d;
+    -webkit-transform: translate(-5%, -25%) scale(0.9);
+    transform: translate(-5%, -25%) scale(0.9);
+}
 
 .card .input-container input:focus ~ .bar:before, .card .input-container input:focus ~ .bar:after {
     width: 50%;
 }
-
+/*Restore label valid*/
+.card .input-container #restoreEmail:valid ~ #restoreLabel {
+    color: #9d9d9d;
+    -webkit-transform: translate(-5%, -25%) scale(0.9);
+    transform: translate(-5%, -25%) scale(0.9);
+}
 .card .input-container input:valid ~ label {
     color: #9d9d9d;
     -webkit-transform: translate(-12%, -50%) scale(0.75);
@@ -192,6 +212,13 @@ body {
     transition: 0.2s ease;
 }
 
+/*Restore label*/
+.card .input-container #restoreLabel {
+    left: 25%;
+    font-size: 16px;
+}
+
+
 .card .input-container .bar {
     position: absolute;
     left: 0;
@@ -199,6 +226,13 @@ body {
     background: #757575;
     width: 100%;
     height: 1px;
+}
+
+/*Restore bar*/
+
+.card .input-container #restoreBar {
+    left: 25%;
+    width: 50%;
 }
 
 .card .input-container .bar:before, .card .input-container .bar:after {
@@ -235,6 +269,24 @@ body {
     padding: 20px 0;
     font-size: 24px;
     font-weight: 600;
+    line-height: 1;
+    text-transform: uppercase;
+    overflow: hidden;
+    -webkit-transition: .3s ease;
+    transition: .3s ease;
+}
+
+.card .button-container #restoreButton {
+    outline: 0;
+    cursor: pointer;
+    position: relative;
+    display: inline-block;
+    background: 0;
+    width: 180px;
+    height: 40px;
+    border: 2px solid #e3e3e3;
+    padding: 12px 0;
+    font-size: 14px;
     line-height: 1;
     text-transform: uppercase;
     overflow: hidden;
@@ -285,7 +337,7 @@ body {
 }
 
 .card .footer {
-    margin: 40px 0 0;
+    margin: 40px 0 10px;
     color: #d3d3d3;
     font-size: 24px;
     font-weight: 300;
@@ -352,7 +404,7 @@ body {
 .card.alt .title,
 .card.alt .input-container,
 .card.alt .button-container,
-.card.alt .error-container{
+.card.alt .error-container {
     left: 100px;
     opacity: 0;
     visibility: hidden;
