@@ -460,3 +460,16 @@ function deleteComment(id) {
         }
     })
 }
+
+function subscribe(following, follower) {
+    $.ajax({
+        url: 'subscribe',
+        type: 'POST',
+        data: ({following: following, follower:follower}),
+        success: function(data) {
+            if (!data.error) {
+                $('#'+following).remove();
+            }
+        }
+    });
+}

@@ -1,0 +1,43 @@
+<section class="col-lg-4 col-md-4 col-sm-4 col-xs-4 recommend col-centered border overflow padding10" th:id="${recommend.id}">
+    <div>
+        <div class="overflow inline-block">
+            <img class="pull-left" th:src="${recommend.avaPath}" width="40" />
+            <a class="pull-left padding10" target="_blank" th:href="${recommend.nickname}" th:text="${recommend.nickname}"></a>
+        </div>
+        <div class="pull-right recommend-sub link" th:onclick="'javascript:subscribe(\'' + ${recommend.id} + '\', \''+${currentUser.id} + '\')'">
+            <span class="glyphicon glyphicon-user"></span>
+            <span th:text="#{subscribe}">Subscribe</span>
+        </div>
+    </div>
+    <hr class="hr" />
+
+    <div class="overflow">
+        <div class="col-lg-3 text-center border-right">
+            <div class="weight700 font18" th:text="${recommend.countQuotes}">53</div>
+            <div class="font16" th:text="#{quotes}">Quotes</div>
+        </div>
+
+        <div class="col-lg-3 text-center border-right">
+            <div class="weight700 font18" th:text="${recommend.countBooks}">23</div>
+            <div class="font16" th:text="#{books}">Books</div>
+        </div>
+
+        <div class="col-lg-3 text-center border-right">
+            <div class="weight700 font18" th:text="${recommend.countFollowers}">21</div>
+            <div class="font16" th:text="#{followers}">Followers</div>
+        </div>
+
+        <div class="col-lg-3 text-center">
+            <div class="weight700 font18" th:text="${recommend.countFollowings}">122</div>
+            <div class="font16" th:text="#{followings}">Followings</div>
+        </div>
+    </div>
+
+    <hr class="hr" />
+
+    <div class="col-centered text-center font16">
+        <div th:text="#{nowRead}">Now reading:</div>
+        <div class="weight700 inline-block col-centered recommend-underline" th:text="${recommend.authorName}">Chack Palani</div><br/>
+        <div class="weight700 inline-block col-centered recommend-underline" th:text="${recommend.bookName == null ? 'kek' : recommend.bookName}">Club</div>
+    </div>
+</section>

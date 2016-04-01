@@ -25,6 +25,7 @@ ul {  list-style-type: none;  }
 .font18 {font-size: 18px;}
 .font20 {font-size: 20px;}
 
+.weight700 {font-weight: 700;}
 .weight900 {font-weight: 900;}
 
 .li:hover {background: lightgrey}

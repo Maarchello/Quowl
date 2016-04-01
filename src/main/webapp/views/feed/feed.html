@@ -115,13 +115,23 @@
     </section>-->
 
 <div id="quu">
-<section th:each="quote : ${quotes}" id="quotes" class="col-lg-4 col-md-5 col-sm-7 col-xs-8 col-centered">
-    <div th:replace="fragments/post"></div>
-</section>
+    <section th:if="${#lists.size(quotes) > 0}" th:each="quote : ${quotes}" id="quotes" class="col-lg-4 col-md-5 col-sm-7 col-xs-8 col-centered">
+        <div th:replace="fragments/post"></div>
+    </section>
+
+
+    <section th:if="${quotes} == null" >
+        <div class="text-center font20 margin-bottom">Recommended list:</div>
+        <div th:each="recommend : ${recommends}">
+            <div th:replace="fragments/recommend"></div>
+        </div>
+    </section>
 </div>
-<section th:if="${#lists.size(quotes) >= 10}" class="col-lg-4 col-centered text-center" style="padding: 35px; font-size: 18px;" onclick="moreQuotes()" id="moreQuotes">
+<section th:if="${quotes}!=null and ${#lists.size(quotes) >= 10}" class="col-lg-4 col-centered text-center" style="padding: 35px; font-size: 18px;" onclick="moreQuotes()" id="moreQuotes">
     <input type="button" class="btn btn-red" value="Показать еще"/>
 </section>
+
+<a th:href="'text'">dfdfdfd</a>
 
 <div th:replace="fragments/editor"></div>
 
