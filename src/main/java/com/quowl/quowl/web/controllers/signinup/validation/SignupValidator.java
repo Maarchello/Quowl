@@ -49,10 +49,10 @@ public class SignupValidator {
     public JsonResultBean validate(String userName, String email, Locale locale) {
         if (!isEmailValid(email)) {
             return JsonResultBean.failure(messageSource.getMessage("wrongEmail", null, locale));
-        } else if (!emailExists(email)) {
+        } else if (emailExists(email)) {
             return JsonResultBean.failure(messageSource.getMessage("emailExists", null, locale));
 
-        } else if (!userNameExists(userName)) {
+        } else if (userNameExists(userName)) {
             return JsonResultBean.failure(messageSource.getMessage("nameExists", null, locale));
         } else {
             return JsonResultBean.success(messageSource.getMessage("regSuccess", null, locale));
