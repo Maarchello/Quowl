@@ -13,6 +13,14 @@ import java.util.List;
 public class SubscribeService implements IService<Subscribe, Long> {
     @Inject private SubscribeRepository subscribeRepository;
 
+    public Long countFollowers(Long userId) {
+        return subscribeRepository.countFollowers(userId);
+    }
+
+    public Long countFollowings(Long userId) {
+        return subscribeRepository.countFollowings(userId);
+    }
+
     public Subscribe findByFollowerAndFollowing(Long follower, Long following) {
         return subscribeRepository.findByFollowerAndFollowing(follower, following);
     }

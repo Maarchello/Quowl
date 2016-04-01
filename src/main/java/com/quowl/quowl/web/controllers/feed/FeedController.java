@@ -10,6 +10,7 @@ import com.quowl.quowl.web.beans.book.TopBooksBean;
 import com.quowl.quowl.web.beans.system.JsonResultBean;
 import com.quowl.quowl.web.beans.user.CurrentUserBean;
 import com.quowl.quowl.web.beans.user.QuoteBean;
+import com.quowl.quowl.web.beans.user.RecommendUserBean;
 import com.quowl.quowl.web.beans.user.UserBean;
 import com.quowl.quowl.web.controllers.base.BaseController;
 import org.springframework.data.domain.PageRequest;
@@ -41,16 +42,25 @@ public class FeedController extends BaseController {
         List<Long> following = userBean.getFollowing();
         following.add(userBean.getId());
 
-        List<Quote> quo2 = quoteRepository.findTenByFollowing(following, new PageRequest(0, 10));
 
-        List<QuoteBean> quotes = quoteService.convertQuotesToQuoteBean(quo2);
+        List<Quote> quo2 = quoteRepository.findTenByFollowing(following, new PageRequest(0, 10));
+        List<QuoteBean> quotes = null;
+
+        if (quo2.size() == 0) {
+            List<RecommendUserBean> recommends = userService.getRecommendedUsers();
+            model.addAttribute("recommends", recommends);
+
+        } else {
+             quotes = quoteService.convertQuotesToQuoteBean(quo2);
+        }
+
 
         List<TopBooksBean> authors = bookService.getTopAuthors();
         List<TopBooksBean> books = bookService.getTopBooks();
 
+        model.addAttribute("quotes", quotes);
         model.addAttribute("topAuthors", authors);
         model.addAttribute("topBooks", books);
-        model.addAttribute("quotes", quotes);
         model.addAttribute("user", userBean);
         model.addAttribute("currentUser", currentUser);
         long finish = System.currentTimeMillis();

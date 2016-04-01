@@ -58,6 +58,9 @@ public class User extends AuditingEntity implements UserDetails, Serializable {
     @Fetch(value = FetchMode.SUBSELECT)
     private List<Books> books;
 
+    @Column
+    private Boolean activated = false;
+
     @OneToMany(mappedBy = "to", fetch = FetchType.LAZY)
     private List<Notification> notifications;
 
@@ -219,5 +222,13 @@ public class User extends AuditingEntity implements UserDetails, Serializable {
 
     public void setNotifications(List<Notification> notifications) {
         this.notifications = notifications;
+    }
+
+    public Boolean getActivated() {
+        return activated;
+    }
+
+    public void setActivated(Boolean activated) {
+        this.activated = activated;
     }
 }

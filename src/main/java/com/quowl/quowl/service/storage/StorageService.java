@@ -28,6 +28,11 @@ public class StorageService {
         }
     }
 
+    public String getDefaultBucketUrl() {
+        String url = env.getRequiredProperty("s3.url");
+        return url + IMAGES_PATH;
+    }
+
     public String getDefaultAvatarUrl() {
         String url = env.getRequiredProperty("s3.url");
         StringBuilder builder = new StringBuilder();

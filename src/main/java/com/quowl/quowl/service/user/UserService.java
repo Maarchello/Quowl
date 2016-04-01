@@ -12,6 +12,7 @@ import com.quowl.quowl.utils.SecurityUtils;
 import com.quowl.quowl.web.beans.system.IService;
 import com.quowl.quowl.web.beans.user.CurrentUserBean;
 import com.quowl.quowl.web.beans.user.ProfileBean;
+import com.quowl.quowl.web.beans.user.RecommendUserBean;
 import com.quowl.quowl.web.beans.user.UserBean;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,6 +23,7 @@ import org.springframework.stereotype.Service;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -37,6 +39,31 @@ public class UserService implements IService<User, Long> {
     @Inject private TokenProvider tokenProvider;
     @Inject private StorageService storageService;
 
+
+
+    public List<RecommendUserBean> getRecommendedUsers() {
+        List<User> users = userRepository.findRecommendedUsers(0L, 10L);
+
+        return convertFromUsers(users);
+
+    }
+
+    private List<RecommendUserBean> convertFromUsers(List<User> users) {
+        List<RecommendUserBean> recommends = new ArrayList<>();
+
+        for (User user : users) {
+            RecommendUserBean bean = new RecommendUserBean(user);
+            bean.setAvaPath(storageService.getDefaultBucketUrl() + user.getNickname() + "/" + user.getFilename());
+            bean.setCountBooks(booksRepository.countAllReadBooks(user.getId()));
+            bean.setCountQuotes(quoteRepository.countAllQuotes(user.getId()));
+            bean.setCountFollowers(subscribeService.countFollowers(user.getId()));
+            bean.setCountFollowings(subscribeService.countFollowings(user.getId()));
+
+            recommends.add(bean);
+        }
+
+        return recommends;
+    }
 
     public boolean existsEmail(String email){
         Long id = userRepository.findIdByEmail(email);

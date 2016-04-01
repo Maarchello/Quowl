@@ -20,6 +20,33 @@ public class CookieUtils {
         response.addCookie(cookie);
     }
 
+    public static void setLocaleCookie(HttpServletResponse response, String locale) {
+        Cookie cookie = new Cookie("locale", locale);
+        cookie.setHttpOnly(false);
+        cookie.setPath("/");
+        response.addCookie(cookie);
+    }
+
+    public static boolean existCookie(HttpServletRequest request) {
+        boolean result = false;
+        Cookie[] cookie = request.getCookies();
+
+        if (cookie == null){
+            return false;
+        }
+
+        for (Cookie aCookie : cookie) {
+            String name = aCookie.getName();
+            if (name.equals("locale")) {
+                result = true;
+                break;
+            }
+        }
+
+        return result;
+
+    }
+
     public static void removeAuthCookie(HttpServletResponse response) {
         Cookie cookie = new Cookie(XAuthTokenFilter.XAUTH_TOKEN_COOKIE_NAME, "");
         cookie.setHttpOnly(true);
