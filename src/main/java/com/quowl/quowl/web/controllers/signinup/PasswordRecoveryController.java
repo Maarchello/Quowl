@@ -3,6 +3,7 @@ package com.quowl.quowl.web.controllers.signinup;
 import com.quowl.quowl.service.signinup.RecoveryPasswordService;
 import com.quowl.quowl.web.beans.system.JsonResultBean;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,9 +30,22 @@ public class PasswordRecoveryController {
     }
 
     @RequestMapping(value = "/precovery")
-    public String setNewPassword(@RequestParam("r") String recoveryLink){
+    public String checkExpiredLink(@RequestParam("r") String recoveryLink,
+                                   HttpServletRequest request,
+                                   Model model){
 
+        JsonResultBean resultBean = recoveryPasswordService.tryToResetPassword(recoveryLink, request);
+        model.addAttribute("JsonResultBean", resultBean);
         return "security/passwordRecovery";
+    }
+
+    @RequestMapping(value = "/precovery", method = RequestMethod.POST)
+    @ResponseBody
+    public JsonResultBean method(@RequestParam(value = "password", required = true) String password,
+                                 @RequestParam(value = "recoveryLink", required = true) String recoveryLink,
+                                 HttpServletRequest request){
+
+        return recoveryPasswordService.setNewPassword(password, recoveryLink, request);
     }
 
 }

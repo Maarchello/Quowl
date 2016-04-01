@@ -37,7 +37,11 @@ function restorePassword(email){
         data: ({restoreEmail: email}),
         success: function(JsonResultBean){
             console.log(JsonResultBean);
-            $('#answer').text(JsonResultBean.data);
+            if (JsonResultBean.data){
+                alert(JsonResultBean.data);
+            } else {
+                alert(JsonResultBean.error);
+            }
         }
     })
 }

@@ -1,5 +1,6 @@
 package com.quowl.quowl.service.signinup;
 
+import com.quowl.quowl.domain.logic.user.User;
 import com.quowl.quowl.domain.system.PasswordRecovery;
 import com.quowl.quowl.repository.system.PasswordRecoveryRepository;
 import com.quowl.quowl.service.system.MailService;
@@ -9,6 +10,7 @@ import com.quowl.quowl.web.beans.system.IService;
 import com.quowl.quowl.web.beans.system.JsonResultBean;
 import org.apache.commons.validator.routines.EmailValidator;
 import org.springframework.context.MessageSource;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.LocaleResolver;
 import org.thymeleaf.context.Context;
@@ -33,6 +35,8 @@ public class RecoveryPasswordService implements IService<PasswordRecovery, Long>
     private LocaleResolver localeResolver;
     @Inject
     private PasswordRecoveryRepository recoveryRepository;
+    @Inject
+    private PasswordEncoder passwordEncoder;
 
     private static String passwordRecoveryUrl = "http://localhost:8080/precovery?r=";
 
@@ -47,7 +51,7 @@ public class RecoveryPasswordService implements IService<PasswordRecovery, Long>
             return JsonResultBean.failure(messageSource.getMessage("linkExpired", null, locale));
 
         } else {
-            return JsonResultBean.success();
+            return JsonResultBean.success(recoveryLink);
         }
     }
 
@@ -61,10 +65,19 @@ public class RecoveryPasswordService implements IService<PasswordRecovery, Long>
     }
 
 
-    private JsonResultBean setNewPassword(String password) {
+    public JsonResultBean setNewPassword(String password, String recoveryLink, HttpServletRequest request) {
 
+        PasswordRecovery passwordRecovery = findByRecoveryLink(recoveryLink);
+        Long hash = HashUtils.decodeUserID(recoveryLink);
+        Long userId = hash - passwordRecovery.getCreationTime();
+        User user = userService.findOne(userId);
 
-        return new JsonResultBean();
+        user.setPassword(passwordEncoder.encode(password));
+        userService.save(user);
+
+        Locale locale = localeResolver.resolveLocale(request);
+
+        return JsonResultBean.success(messageSource.getMessage("passwordChanged", null, locale));
     }
 
     public JsonResultBean sendResetPasswordLink(String email, HttpServletRequest request) {
