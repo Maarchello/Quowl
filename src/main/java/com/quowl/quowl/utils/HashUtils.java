@@ -30,7 +30,6 @@ public class HashUtils {
      * @return the encrypt string.
      */
     public static String encodeUserID(Long id) {
-
         return userIdHas.encode(id);
     }
 
