@@ -17,7 +17,8 @@ a{text-decoration: none;}
 .name {text-align: center; font-family: Copperplate; font-size:16pt; font-weight: 600;}
 .avatar {display: block; border-radius: 50%; min-height:150px; max-height: 200px;}
 .settings {display: inline-block;  border: solid 1px lightgrey; padding: 5px; border-radius:10px;}
-.subscribe {display: inline-block;  border: solid 1px limegreen; padding: 5px; border-radius:10px; background: limegreen; color:white;}
+.subscribe {display: inline-block;  border: solid 2px limegreen; padding: 5px; border-radius:10px; background: whitesmoke; color:limegreen;}
+.subscribe:hover {border: solid 1px limegreen; }
 .unsubscribe {display: inline-block;  border: solid 1px lightgrey; padding: 5px; border-radius:10px; background: lightgrey; color:black;}
 
 .set {color:#1c5380}

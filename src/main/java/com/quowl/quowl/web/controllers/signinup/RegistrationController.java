@@ -1,6 +1,9 @@
 package com.quowl.quowl.web.controllers.signinup;
 
+import com.quowl.quowl.domain.logic.user.User;
 import com.quowl.quowl.service.signinup.RegistrationService;
+import com.quowl.quowl.service.user.UserService;
+import com.quowl.quowl.utils.HashUtils;
 import com.quowl.quowl.web.beans.system.JsonResultBean;
 import com.quowl.quowl.web.controllers.signinup.validation.SignupValidator;
 import org.slf4j.Logger;
@@ -26,6 +29,8 @@ public class RegistrationController {
     private SignupValidator validator;
     @Inject
     private MessageSource messageSource;
+    @Inject
+    private UserService userService;
 
 
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
@@ -39,13 +44,22 @@ public class RegistrationController {
         JsonResultBean resultBean = validator.validate(username, email, locale);
 
         if (resultBean.getResult()){
-            boolean result = registrationService.registerUser(username, password, email);
+            boolean result = registrationService.registerUser(username, password, email, request);
             if (!result) {
                 return JsonResultBean.failure(messageSource.getMessage("", null, locale));
             }
         }
 
         return resultBean;
+    }
+
+    @RequestMapping(value = "/access/user/activating", method = RequestMethod.GET)
+    public String activate(@RequestParam(value = "r", required = true) String hash) {
+        Long userId = HashUtils.decodeUserID(hash);
+        User user = userService.findOne(userId);
+        user.setActivated(true);
+        userService.save(user);
+        return "redirect:/";
     }
 
 
